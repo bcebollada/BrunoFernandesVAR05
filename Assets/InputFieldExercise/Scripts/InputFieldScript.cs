@@ -24,7 +24,7 @@ public class InputFieldScript : MonoBehaviour
 
     public void Submit()
     {
-        Debug.Log("Hello" + name.text + ", you are " + age.text + " years old");
+        Debug.Log("Hello " + name.text + ", you are " + age.text + " years old");
     }
 
 }
