@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 //using UnityEngine.UIElements;
 
 public class GuessingGameScript : MonoBehaviour
 {
-    [SerializeField] private InputField input;
-    [SerializeField] private Text text;
+    [SerializeField] private TMP_InputField input;
+    [SerializeField] private TMP_Text text;
 
     private int randomNum;
 

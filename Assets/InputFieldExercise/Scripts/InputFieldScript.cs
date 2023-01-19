@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 //using UnityEngine.UIElements;
 
 public class InputFieldScript : MonoBehaviour
 {
-    [SerializeField] private InputField name, age;
+    [SerializeField] private TMP_InputField name, age;
     //[SerializeField] private Text text;
 
 
