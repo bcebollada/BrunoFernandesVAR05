@@ -8,14 +8,15 @@ public class GuessingGameScript : MonoBehaviour
 {
     [SerializeField] private TMP_InputField input;
     [SerializeField] private TMP_Text text;
+    [SerializeField] private GameObject button;
 
     private int randomNum;
+    private int buttonPressTimes;
 
     // Start is called before the first frame update
     void Start()
     {
-        var RndB = new System.Random();
-        randomNum = RndB.Next(0, 10);
+        
     }
 
     // Update is called once per frame
@@ -26,22 +27,36 @@ public class GuessingGameScript : MonoBehaviour
 
     public void GuessSubmit()
     {
-        int guess = int.Parse(input.text);
-        if (guess > randomNum)
-        {
-            text.text = "too high, guess again";
-        }
+        buttonPressTimes += 1;
 
-        else if (guess < randomNum)
+        if(buttonPressTimes == 1)
         {
-            text.text = "too low, guess again";
+            int submitNum = int.Parse(input.text);
+            randomNum = Random.Range(1, submitNum + 1);
+            text.text = $"Guess a number between 1 and {submitNum}";
         }
 
         else
         {
-            text.text = "got it";
-            this.SendMessage("CloseGame", 3f);
+            int guess = int.Parse(input.text);
+            if (guess > randomNum)
+            {
+                text.text = guess + " is too high, guess again";
+            }
+
+            else if (guess < randomNum)
+            {
+                text.text = guess + " is too low, guess again";
+            }
+
+            else
+            {
+                text.text = "got it";
+                button.SetActive(false);
+                this.SendMessage("CloseGame", 3f);
+            }
         }
+    
     }
 
     private void CloseGame()
