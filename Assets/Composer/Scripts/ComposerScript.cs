@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ComposerScript : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class ComposerScript : MonoBehaviour
         foreach (AudioClip note in noteList)
         {
             audio.PlayOneShot(note);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -58,7 +59,7 @@ public class ComposerScript : MonoBehaviour
             var newNote = Instantiate(noteSelectedPrefab, timeLineStart.position, Quaternion.identity);
             newNote.transform.SetParent(canvas.transform, false);
             newNote.transform.position = timeLineStart.position;
-            newNote.GetComponentInChildren<Text>().text = note.name;
+            newNote.transform.GetChild(2).GetComponent<TMP_Text>().text = note.name;
             timeLineStart.position = new Vector3(timeLineStart.position.x + 20, timeLineStart.position.y, timeLineStart.position.z);
             noteBoxList.Add(newNote);
 
@@ -69,9 +70,8 @@ public class ComposerScript : MonoBehaviour
     {
         StopCoroutine("PlayMusic");
 
-        var noteName = gameObject.GetComponentInChildren<Text>().text;
+        var noteName = gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text;
         StartCoroutine("RemoveNoteFromList", noteName);
-        print("indo");
         noteBoxList.Remove(gameObject);
         Destroy(gameObject);
 
