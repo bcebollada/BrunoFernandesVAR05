@@ -54,6 +54,7 @@ public class ComposerScript : MonoBehaviour
             Destroy(gameObject);
         }
 
+        noteBoxList.Clear();
         foreach (AudioClip note in noteList)
         {
             var newNote = Instantiate(noteSelectedPrefab, timeLineStart.position, Quaternion.identity);
@@ -71,24 +72,12 @@ public class ComposerScript : MonoBehaviour
         StopCoroutine("PlayMusic");
 
         var noteName = gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text;
-        StartCoroutine("RemoveNoteFromList", noteName);
+        noteList.RemoveAt(noteBoxList.IndexOf(gameObject));
         noteBoxList.Remove(gameObject);
         Destroy(gameObject);
+        UpdateTimeline();
 
 
     }
 
-    IEnumerator RemoveNoteFromList(string noteName)
-    {
-        foreach (AudioClip note in noteList)
-        {
-            if (note.name == noteName)
-            {
-                noteList.Remove(note);
-                StopAllCoroutines();
-                UpdateTimeline();
-            }
-            yield return null;
-        }
-    }
 }
