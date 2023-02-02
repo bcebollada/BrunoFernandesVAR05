@@ -23,7 +23,6 @@ public class CardObjectScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nameText.text = cardName;
         CheckCardValueAndType();
         print("calc");
     }
@@ -31,6 +30,7 @@ public class CardObjectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        nameText.text = cardName;
 
     }
 

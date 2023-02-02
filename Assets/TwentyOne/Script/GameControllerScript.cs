@@ -12,6 +12,7 @@ public class GameControllerScript : MonoBehaviour
     public List<GameObject> dealerCardsGameObjects;
     public GameObject cardPrefab;
     public GameObject canvas;
+    public GameObject replayButton;
 
     public int previousDeckCardsNum;
 
@@ -26,6 +27,7 @@ public class GameControllerScript : MonoBehaviour
     public TMP_Text gameOverText;
 
     private bool isDealerTurn;
+    private bool isDealerCourutineRunning;
 
     private void Awake()
     {
@@ -41,7 +43,7 @@ public class GameControllerScript : MonoBehaviour
     void Start()
     {
         GiveStartHand();
-
+        replayButton.SetActive(false);
 
     }
 
@@ -55,7 +57,7 @@ public class GameControllerScript : MonoBehaviour
 
         if (isDealerTurn)
         {
-            GiveDealerCards();
+            if(!isDealerCourutineRunning) StartCoroutine(GiveDealerCards());
             dealerHandValueText.text = "dealer hand: " +dealerHandValue.ToString();
 
         }
@@ -103,7 +105,7 @@ public class GameControllerScript : MonoBehaviour
         for(int i = 0; i<2; i++)
         {
             //gets random card, giver to player and removes from deck
-            var playerCard1 = cardsDeck[Random.RandomRange(1, cardsDeck.Count + 1)];
+            var playerCard1 = cardsDeck[Random.Range(0, cardsDeck.Count)];
             cardsDeck.Remove(playerCard1);
             playerCards.Add(playerCard1);
         }
@@ -111,7 +113,7 @@ public class GameControllerScript : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             //gets random card, giver to player and removes from deck
-            var dealerCard1 = cardsDeck[Random.RandomRange(1, cardsDeck.Count + 1)];
+            var dealerCard1 = cardsDeck[Random.Range(0, cardsDeck.Count)];
             cardsDeck.Remove(dealerCard1);
             dealerCards.Add(dealerCard1);
         }
@@ -134,24 +136,34 @@ public class GameControllerScript : MonoBehaviour
         dealerCardsGameObjects.Clear();
         playerCardsGameObjects.Clear();
 
-        foreach (string card in playerCards)
+        foreach (string card in playerCards) //displays players cards
         {
             var cardObj = Instantiate(cardPrefab, handTransform.position, Quaternion.identity);
             print("esse" + card);
             cardObj.GetComponent<CardObjectScript>().cardName = card;
-            cardObj.transform.SetParent(canvas.transform, false);
+            cardObj.transform.SetParent(handTransform, true);
+            cardObj.transform.localScale = new Vector3(1, 1, 1);
+            cardObj.transform.position = handTransform.position;
+
             playerCardsGameObjects.Add(cardObj);
-            handTransform.position = new Vector3(handTransform.position.x + 90, handTransform.position.y, handTransform.position.z);
+            cardObj.transform.position = new Vector3(handTransform.position.x + (25 * playerCardsGameObjects.Count), handTransform.position.y, handTransform.position.z);
+
+            //handTransform.position = new Vector3(handTransform.position.x + 200, handTransform.position.y, handTransform.position.z);
         }
         handTransform.position = handTransformBasePosition;
 
-        foreach (string card in dealerCards)
+        foreach (string card in dealerCards)  //displays dealer cards
         {
-            var cardObj = Instantiate(cardPrefab, new Vector3(handTransform.position.x, handTransform.position.y + 250, handTransform.position.z), Quaternion.identity);
+            var cardObj = Instantiate(cardPrefab, new Vector3(handTransform.position.x, handTransform.position.y + 50, handTransform.position.z), Quaternion.identity);
             cardObj.GetComponent<CardObjectScript>().cardName = card;
-            cardObj.transform.SetParent(canvas.transform, false);
+            cardObj.transform.SetParent(handTransform, true);
+            cardObj.transform.localScale = new Vector3(1, 1, 1);
             dealerCardsGameObjects.Add(cardObj);
-            handTransform.position = new Vector3(handTransform.position.x + 90, handTransform.position.y, handTransform.position.z);
+            if(dealerCardsGameObjects[0] == cardObj) cardObj.GetComponent<CardObjectScript>().cardName = "?";
+
+            cardObj.transform.position = new Vector3(handTransform.position.x + (25 * dealerCardsGameObjects.Count), handTransform.position.y + 50, handTransform.position.z);
+
+            //handTransform.position = new Vector3(handTransform.position.x + 200, handTransform.position.y, handTransform.position.z);
         }
         handTransform.position = handTransformBasePosition;
         CheckHandValues();
@@ -159,21 +171,22 @@ public class GameControllerScript : MonoBehaviour
 
     private void CheckHandValues()
     {
-        print("xx" + playerCardsGameObjects.Count);
         playerHandValue = 0;
         dealerHandValue = 0;
         foreach(GameObject card in playerCardsGameObjects)
         {
             card.GetComponent<CardObjectScript>().CheckCardValueAndType();
             var CardValue = card.GetComponent<CardObjectScript>().value;
-            print("value" + card.GetComponent<CardObjectScript>().value);
-            print("card" + CardValue);
             playerHandValue += CardValue;
         }
         handValueText.text = "your hand: " + playerHandValue.ToString();
-        if (playerHandValue > 21) DealerWins();
+        if (playerHandValue > 21)
+        {
+            DealerWins();
+            dealerCardsGameObjects[0].GetComponent<CardObjectScript>().cardName = dealerCards[0];
+        }
 
-        foreach (GameObject card in dealerCardsGameObjects)
+            foreach (GameObject card in dealerCardsGameObjects)
         {
             card.GetComponent<CardObjectScript>().CheckCardValueAndType();
 
@@ -196,36 +209,47 @@ public class GameControllerScript : MonoBehaviour
         isDealerTurn = true;
     }
 
-    private void GiveDealerCards()
+    IEnumerator GiveDealerCards()
     {
-        if (dealerHandValue < 17)
+        isDealerCourutineRunning = true;
+        while (isDealerTurn)
         {
-            var dealerCard = cardsDeck[Random.Range(0, cardsDeck.Count)];
-            cardsDeck.Remove(dealerCard);
-            dealerCards.Add(dealerCard);
-            CheckHandValues();
-            CompareHandValues();
-        }
-        else if ((dealerHandValue > 17) && (dealerHandValue < 21))
-        {
-            CheckHandValues();
-            CompareHandValues();
-        }
-        else if (dealerHandValue > 21)
-        {
-            CheckHandValues();
-            //burst
-        }
-        else
-        {
-            CheckHandValues();
+            dealerCardsGameObjects[0].GetComponent<CardObjectScript>().cardName = dealerCards[0];
 
-            DealerWins();
+            if (dealerHandValue < 17)
+            {
+                Debug.Log("aqui" + Random.Range(0, cardsDeck.Count));
+                var dealerCard = cardsDeck[Random.Range(0, cardsDeck.Count)];
+                cardsDeck.Remove(dealerCard);
+                dealerCards.Add(dealerCard);
+                CheckHandValues();
+                if (dealerHandValue > playerHandValue) DealerWins();
+            }
+            else if ((dealerHandValue >= 17) && (dealerHandValue < 21))
+            {
+                CheckHandValues();
+                CompareHandValues();
+            }
+            else if (dealerHandValue > 21)
+            {
+                CheckHandValues();
+                PlayerWins();
+                //burst
+            }
+            else
+            {
+                CheckHandValues();
+
+                DealerWins();
+            }
+
+            yield return new WaitForSeconds(3);
         }
     }
 
     private void CompareHandValues()
     {
+        StopAllCoroutines();
         if (playerHandValue > dealerHandValue)
         {
             PlayerWins();
@@ -235,12 +259,23 @@ public class GameControllerScript : MonoBehaviour
 
     private void DealerWins()
     {
+        StopAllCoroutines();
+        replayButton.SetActive(true);
+
         gameOverText.text = "Dealer Wins";
     }
 
     private void PlayerWins()
     {
+        StopAllCoroutines();
+        replayButton.SetActive(true);
+
         gameOverText.text = "Player Wins";
 
+    }
+
+    public void Replay()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
