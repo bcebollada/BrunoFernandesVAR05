@@ -13,6 +13,8 @@ public class GameControllerScript : MonoBehaviour
     public GameObject cardPrefab;
     public GameObject canvas;
     public GameObject replayButton;
+    public GameObject standButton;
+    public GameObject hitButton;
 
     public int previousDeckCardsNum;
 
@@ -139,7 +141,6 @@ public class GameControllerScript : MonoBehaviour
         foreach (string card in playerCards) //displays players cards
         {
             var cardObj = Instantiate(cardPrefab, handTransform.position, Quaternion.identity);
-            print("esse" + card);
             cardObj.GetComponent<CardObjectScript>().cardName = card;
             cardObj.transform.SetParent(handTransform, true);
             cardObj.transform.localScale = new Vector3(1, 1, 1);
@@ -147,8 +148,6 @@ public class GameControllerScript : MonoBehaviour
 
             playerCardsGameObjects.Add(cardObj);
             cardObj.transform.position = new Vector3(handTransform.position.x + (25 * playerCardsGameObjects.Count), handTransform.position.y, handTransform.position.z);
-
-            //handTransform.position = new Vector3(handTransform.position.x + 200, handTransform.position.y, handTransform.position.z);
         }
         handTransform.position = handTransformBasePosition;
 
@@ -159,17 +158,19 @@ public class GameControllerScript : MonoBehaviour
             cardObj.transform.SetParent(handTransform, true);
             cardObj.transform.localScale = new Vector3(1, 1, 1);
             dealerCardsGameObjects.Add(cardObj);
-            if(dealerCardsGameObjects[0] == cardObj) cardObj.GetComponent<CardObjectScript>().cardName = "?";
+            if ((!isDealerTurn) && (!isDealerCourutineRunning))
+            {
+                if (dealerCardsGameObjects[0] == cardObj) cardObj.GetComponent<CardObjectScript>().cardName = "?";
+            }
+
 
             cardObj.transform.position = new Vector3(handTransform.position.x + (25 * dealerCardsGameObjects.Count), handTransform.position.y + 50, handTransform.position.z);
-
-            //handTransform.position = new Vector3(handTransform.position.x + 200, handTransform.position.y, handTransform.position.z);
         }
         handTransform.position = handTransformBasePosition;
         CheckHandValues();
     }
 
-    private void CheckHandValues()
+    private void CheckHandValues() //updates the value of the player and dealer`s hands
     {
         playerHandValue = 0;
         dealerHandValue = 0;
@@ -186,14 +187,17 @@ public class GameControllerScript : MonoBehaviour
             dealerCardsGameObjects[0].GetComponent<CardObjectScript>().cardName = dealerCards[0];
         }
 
-            foreach (GameObject card in dealerCardsGameObjects)
+        foreach (GameObject card in dealerCardsGameObjects)
         {
             card.GetComponent<CardObjectScript>().CheckCardValueAndType();
 
             var CardValue = card.GetComponent<CardObjectScript>().value;
             dealerHandValue += CardValue;
         }
-        dealerHandValueText.text = "dealer hand: ?";
+        if ((!isDealerTurn) && (!isDealerCourutineRunning))
+        {
+            dealerHandValueText.text = "dealer hand: ?";
+        }
 
     }
 
@@ -212,44 +216,50 @@ public class GameControllerScript : MonoBehaviour
     IEnumerator GiveDealerCards()
     {
         isDealerCourutineRunning = true;
+
         while (isDealerTurn)
         {
             dealerCardsGameObjects[0].GetComponent<CardObjectScript>().cardName = dealerCards[0];
+            CheckHandValues();
+            yield return new WaitForSeconds(1);
 
-            if (dealerHandValue < 17)
+            print("num" + dealerCardsGameObjects.Count);
+            print("card" + dealerHandValue);
+            if ((dealerHandValue > playerHandValue) && (dealerHandValue < 17)) DealerWins();
+
+            else if (dealerHandValue < 17)
             {
-                Debug.Log("aqui" + Random.Range(0, cardsDeck.Count));
+                print("1");
                 var dealerCard = cardsDeck[Random.Range(0, cardsDeck.Count)];
                 cardsDeck.Remove(dealerCard);
                 dealerCards.Add(dealerCard);
-                CheckHandValues();
                 if (dealerHandValue > playerHandValue) DealerWins();
             }
             else if ((dealerHandValue >= 17) && (dealerHandValue < 21))
             {
-                CheckHandValues();
+                print("2");
                 CompareHandValues();
             }
             else if (dealerHandValue > 21)
             {
-                CheckHandValues();
+                print("3");
                 PlayerWins();
                 //burst
             }
             else
             {
-                CheckHandValues();
-
+                print("4");
                 DealerWins();
             }
-
-            yield return new WaitForSeconds(3);
+            UpdateCardsOnHands();
+            CheckHandValues();
+            yield return new WaitForSeconds(1);
         }
     }
 
     private void CompareHandValues()
     {
-        StopAllCoroutines();
+        isDealerTurn = false;   
         if (playerHandValue > dealerHandValue)
         {
             PlayerWins();
@@ -259,7 +269,10 @@ public class GameControllerScript : MonoBehaviour
 
     private void DealerWins()
     {
-        StopAllCoroutines();
+        hitButton.SetActive(false);
+        standButton.SetActive(false);
+        isDealerTurn = false;
+
         replayButton.SetActive(true);
 
         gameOverText.text = "Dealer Wins";
@@ -267,7 +280,9 @@ public class GameControllerScript : MonoBehaviour
 
     private void PlayerWins()
     {
-        StopAllCoroutines();
+        hitButton.SetActive(false);
+        standButton.SetActive(false);
+        isDealerTurn = false;
         replayButton.SetActive(true);
 
         gameOverText.text = "Player Wins";

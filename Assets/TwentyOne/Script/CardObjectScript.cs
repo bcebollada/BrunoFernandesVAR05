@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CardObjectScript : MonoBehaviour
@@ -13,6 +14,12 @@ public class CardObjectScript : MonoBehaviour
     private List<string> cardTypes = new List<string> { "diamond", "club", "heart", "spade" };
     private List<string> cardLetter = new List<string> { "A", "J", "Q", "K" };
 
+    public Sprite heartSprite;
+    public Sprite clubSprite;
+    public Sprite diamondSprite;
+    public Sprite spadeSprite;
+    public Image typeSpriteHolder;
+
     private void Awake()
     {
         //checks value and type of card
@@ -24,14 +31,12 @@ public class CardObjectScript : MonoBehaviour
     void Start()
     {
         CheckCardValueAndType();
-        print("calc");
     }
 
-    // Update is called once per frame
+    // Update is called once per frame  
     void Update()
     {
         nameText.text = cardName;
-
     }
 
     public void CheckCardValueAndType()
@@ -79,5 +84,9 @@ public class CardObjectScript : MonoBehaviour
                 }
             }
         }
+        if (type == "diamond") typeSpriteHolder.sprite = diamondSprite;
+        if (type == "club") typeSpriteHolder.sprite = clubSprite;
+        if (type == "heart") typeSpriteHolder.sprite = heartSprite;
+        if (type == "spade") typeSpriteHolder.sprite = spadeSprite;
     }
 }

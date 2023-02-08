@@ -697,7 +697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9, y: 0}
+  m_AnchoredPosition: {x: -12.0130005, y: 25}
   m_SizeDelta: {x: 442.026, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &327072832
@@ -1507,6 +1507,8 @@ MonoBehaviour:
   cardPrefab: {fileID: 3922150065556363584, guid: cce5b6dfb6245a149aaf9a1de35d1c0d, type: 3}
   canvas: {fileID: 285441354}
   replayButton: {fileID: 1997917544}
+  standButton: {fileID: 1019962782}
+  hitButton: {fileID: 892772318}
   previousDeckCardsNum: 0
   handTransform: {fileID: 1399049082}
   playerHandValue: 0
@@ -1597,7 +1599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 412, y: -215}
+  m_AnchoredPosition: {x: 25.5, y: -215}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1997917546
