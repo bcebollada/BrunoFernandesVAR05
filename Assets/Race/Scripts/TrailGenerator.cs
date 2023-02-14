@@ -30,6 +30,8 @@ public class TrailGenerator : MonoBehaviour
 
     public Material playerMaterial;
 
+    private string pawnSelected;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,7 +66,7 @@ public class TrailGenerator : MonoBehaviour
                     if (hit.transform.gameObject == pawnIA)
                     {
                         Debug.Log("ray pawn");
-
+                        pawnSelected = "pawnIA";
                         pawnIA.GetComponent<MeshRenderer>().material = playerMaterial;
                         gameStarted = true;
                         StartCoroutine(MovePawns());
@@ -73,6 +75,7 @@ public class TrailGenerator : MonoBehaviour
                     else if (hit.transform.gameObject == pawnPlayer)
                     {
                         Debug.Log("ray pawn 2");
+                        pawnSelected = "pawnPlayer";
 
                         pawnPlayer.GetComponent<MeshRenderer>().material = playerMaterial;
                         gameStarted = true;
@@ -117,17 +120,27 @@ public class TrailGenerator : MonoBehaviour
                 var chance = Random.Range(0, 5);
                 if (chance == 0) pawnPlayer.transform.position = new Vector3(pawnPlayer.transform.position.x, pawnPlayer.transform.position.y, pawnPlayer.transform.position.z + spaceBetweenTiles);
             }
-            if ((pawnIA.GetComponent<PawnScript>().isOnLastTerrain) || (pawnPlayer.GetComponent<PawnScript>().isOnLastTerrain)) FinishGame();
+            if (pawnIA.GetComponent<PawnScript>().isOnLastTerrain) FinishGame(pawnIA);
+            if (pawnPlayer.GetComponent<PawnScript>().isOnLastTerrain) FinishGame(pawnPlayer);
 
             yield return new WaitForSeconds(timeBetweenRounds);
-        }
+        }   
 
     }
 
-    public void FinishGame()
+    public void FinishGame(GameObject winner)
     {
+        if(winner = pawnIA)
+        {
+            if(pawnSelected == "pawnIA") roundCounterText.text = "You win!";
+            else roundCounterText.text = "You lose :(";
+        }
+        else
+        {
+            if (pawnSelected == "pawnPlayer") roundCounterText.text = "You win!";
+            else roundCounterText.text = "You lose :(";
+        }
         isGameOver = true;
-        roundCounterText.text = "Game ended";
     }
 
     public void UpdateCamera()
