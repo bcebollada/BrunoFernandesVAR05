@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject[,] positions = new GameObject[8,8]; //2d array, first horizontal, second vertical
+    public GameObject[,] positions = new GameObject[8, 8]; //2d array, first horizontal, second vertical
 
     public GameObject whiteChecker;
     public GameObject redChecker;
@@ -13,6 +14,9 @@ public class GameController : MonoBehaviour
     public Transform redCheckerSpawn;
     public float horizontalOffset;
     public float verticalOffset;
+
+    public int whiteDestroyed;
+    public int redDestroyed;
 
     //bools to control is there are chekcers in relative positions
     public bool canMoveTopRight;
@@ -24,6 +28,9 @@ public class GameController : MonoBehaviour
     public bool canJumpDownRight;
     public bool canJumpDownLeft;
 
+    public bool isRedCheckerTurn;
+    public TMP_Text turnText;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,14 +41,18 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isRedCheckerTurn) turnText.text = "is Red turn";
+        else turnText.text = "is White turn";
+
+        if (whiteDestroyed == 16) turnText.text = "Red wins!";
+        else if (redDestroyed == 16) turnText.text = "White wins!";
     }
 
     public void CreateWhiteCheckers()
     {
         for (int i = 0; i < 16; i++)
         {
-            if(i < 8)
+            if (i < 8)
             {
                 var position = new Vector3(whiteCheckerSpawn.position.x + (i * horizontalOffset), whiteCheckerSpawn.position.y, whiteCheckerSpawn.position.z);
                 var checker = Instantiate(whiteChecker, position, Quaternion.identity);
@@ -55,13 +66,13 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + ((i-8) * horizontalOffset), whiteCheckerSpawn.position.y + verticalOffset, whiteCheckerSpawn.position.z);
+                var position = new Vector3(whiteCheckerSpawn.position.x + ((i - 8) * horizontalOffset), whiteCheckerSpawn.position.y + verticalOffset, whiteCheckerSpawn.position.z);
                 var checker = Instantiate(whiteChecker, position, Quaternion.identity);
-                positions[(i-8), 1] = checker;
+                positions[(i - 8), 1] = checker;
                 checker.transform.SetParent(whiteCheckerSpawn, false);
                 checker.transform.position = position;
 
-                checker.GetComponent<CheckerScript>().hPosition = i-8; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().hPosition = i - 8; //saves array horizontal position
                 checker.GetComponent<CheckerScript>().vPosition = 1; //saves array vertical position
             }
         }
@@ -98,27 +109,284 @@ public class GameController : MonoBehaviour
 
     public void CheckSpaces(GameObject gameObj)
     {
+        canMoveTopRight = false;
+        canMoveTopLeft = false;
+        canMoveDownRight = false;
+        canMoveDownLeft = false;
+        canJumpTopRight = false;
+        canJumpTopLeft = false;
+        canJumpDownRight = false;
+        canJumpDownLeft = false;
+
         var hPosition = gameObj.GetComponent<CheckerScript>().hPosition;
         var vPosition = gameObj.GetComponent<CheckerScript>().vPosition;
         var position = positions[hPosition, vPosition];
 
-        if(positions[hPosition+1,vPosition+1] = null)
+        print("h " + hPosition + " v " + vPosition);
+
+        //checks if checker can move to diagonal adjacent spaces
+        if(hPosition == 0 && vPosition == 0)
         {
-            canMoveTopRight = true;
+            if (positions[hPosition + 1, vPosition + 1] == null)
+            {
+                canMoveTopRight = true;
+            }
         }
-        if (positions[hPosition - 1, vPosition + 1] = null)
+
+        else if (hPosition == 0 && vPosition == 7)
         {
-            canMoveTopLeft = true;
+            if (positions[hPosition + 1, vPosition - 1] == null)
+            {
+                canMoveDownRight = true;
+            }
         }
-        if (positions[hPosition + 1, vPosition - 1] = null)
+
+        else if(hPosition == 0 && vPosition > 0 && vPosition < 7)
         {
-            canMoveDownRight = true;
+            if (positions[hPosition + 1, vPosition + 1] == null)
+            {
+                canMoveTopRight = true;
+            }
+            if (positions[hPosition + 1, vPosition - 1] == null)
+            {
+                print(positions[hPosition - 1, vPosition - 1]);
+
+                canMoveDownRight = true;
+            }
         }
-        if (positions[hPosition - 1, vPosition - 1] = null)
+
+        else if(hPosition == 7 && vPosition == 0)
         {
-            canMoveDownLeft = true;
+            if (positions[hPosition - 1, vPosition + 1] == null)
+            {
+                canMoveTopLeft = true;
+            }
+        }
+
+        else if(hPosition == 7 && vPosition == 7)
+        {
+            if (positions[hPosition + 1, vPosition - 1] == null)
+            {
+                canMoveDownRight = true;
+            }
+        }
+
+        else if (hPosition == 7 && vPosition > 0 && vPosition < 7)
+        {
+            if (positions[hPosition - 1, vPosition + 1] == null)
+            {
+                canMoveTopLeft = true;
+            }
+
+            if (positions[hPosition - 1, vPosition - 1] == null)
+            {
+                canMoveDownLeft = true;
+            }
+        }
+
+        else if (vPosition == 7 && hPosition > 0 && hPosition < 7)
+        {
+            if (positions[hPosition + 1, vPosition - 1] == null)
+            {
+                canMoveDownRight = true;
+            }
+            if (positions[hPosition - 1, vPosition - 1] == null)
+            {
+                canMoveDownLeft = true;
+            }
+        }
+
+        else if (vPosition == 0 && hPosition > 0 && hPosition < 7)
+        {
+            if (positions[hPosition + 1, vPosition + 1] == null)
+            {
+                canMoveTopRight = true;
+            }
+            if (positions[hPosition - 1, vPosition + 1] == null)
+            {
+                canMoveTopLeft = true;
+            }
+        }
+
+        else
+        {
+
+            if (hPosition < 7 && vPosition < 7 && positions[hPosition + 1, vPosition + 1] == null)
+            {
+                canMoveTopRight = true;
+            }
+            if (hPosition > 0 && vPosition < 7 && positions[hPosition - 1, vPosition + 1] == null)
+            {
+                canMoveTopLeft = true;
+            }
+            if (hPosition < 7 && vPosition > 0 && positions[hPosition + 1, vPosition - 1] == null)
+            {
+                print(positions[hPosition - 1, vPosition - 1]);
+
+                canMoveDownRight = true;
+            }
+            if (hPosition > 0 && vPosition > 0 && positions[hPosition - 1, vPosition - 1] == null)
+            {
+                print(positions[hPosition - 1, vPosition - 1]);
+                canMoveDownLeft = true;
+            }
+        }
+
+
+        //checks if checker can jump to diagonal spaces
+        if (hPosition < 2 && vPosition < 2)
+        {
+           if(positions[hPosition+1, vPosition+1] != null)
+            {
+                if (positions[hPosition + 2, vPosition + 2] == null)
+                {
+                    canJumpTopRight = true;
+                }
+            }
+        }
+
+        else if (hPosition < 2 && vPosition > 5)
+        {
+            if (positions[hPosition + 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition - 2] == null)
+                {
+                    canJumpDownRight = true;
+                }
+            }
+        }
+
+        else if (hPosition < 2 && vPosition > 2 && vPosition < 5)
+        {
+            if (positions[hPosition + 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition + 2] == null)
+                {
+                    canJumpTopRight = true;
+                }
+            }
+
+            if (positions[hPosition + 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition - 2] == null)
+                {
+                    canJumpDownRight = true;
+                }
+            }
+        }
+
+        else if (hPosition > 5 && vPosition < 2)
+        {
+            if (positions[hPosition - 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition + 2] == null)
+                {
+                    canJumpTopLeft = true;
+                }
+            }
+        }
+
+        else if (hPosition > 5 && vPosition > 5)
+        {
+            if (positions[hPosition - 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition - 2] == null)
+                {
+                    canJumpDownLeft = true;
+                }
+            }
+        }
+
+        else if (hPosition > 5 && vPosition > 2 && vPosition < 5)
+        {
+            if (positions[hPosition - 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition - 2] == null)
+                {
+                    canJumpDownLeft = true;
+                }
+            }
+
+            if (positions[hPosition - 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition + 2] == null)
+                {
+                    canJumpTopLeft = true;
+                }
+            }
+        }
+
+        else if (vPosition > 5 && hPosition > 2 && hPosition < 5)
+        {
+            if (positions[hPosition - 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition - 2] == null)
+                {
+                    canJumpDownLeft = true;
+                }
+            }
+
+            if (positions[hPosition + 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition - 2] == null)
+                {
+                    canJumpDownRight = true;
+                }
+            }
+        }
+
+        else if (vPosition < 2 && hPosition > 2 && hPosition < 5)
+        {
+            if (positions[hPosition - 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition + 2] == null)
+                {
+                    canJumpTopLeft = true;
+                }
+            }
+
+            if (positions[hPosition + 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition + 2] == null)
+                {
+                    canJumpTopRight = true;
+                }
+            }
+
+        }
+
+        else
+        {
+            if (positions[hPosition + 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition + 2] == null)
+                {
+                    canJumpTopRight = true;
+                }
+            }
+            if (positions[hPosition - 1, vPosition + 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition + 2] == null)
+                {
+                    canJumpTopLeft = true;
+                }
+            }
+            if (positions[hPosition + 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition + 2, vPosition - 2] == null)
+                {
+                    canJumpDownRight = true;
+                }
+            }
+            if (positions[hPosition - 1, vPosition - 1] != null)
+            {
+                if (positions[hPosition - 2, vPosition - 2] == null)
+                {
+                    canJumpDownLeft = true;
+                }
+            }
+
         }
 
     }
-
 }

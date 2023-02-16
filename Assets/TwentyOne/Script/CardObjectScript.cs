@@ -19,6 +19,7 @@ public class CardObjectScript : MonoBehaviour
     public Sprite diamondSprite;
     public Sprite spadeSprite;
     public Image typeSpriteHolder;
+    public Image backCard;
 
     private void Awake()
     {
@@ -37,6 +38,11 @@ public class CardObjectScript : MonoBehaviour
     void Update()
     {
         nameText.text = cardName;
+        if(cardName == "?")
+        {
+            backCard.enabled = true;
+        }
+        else backCard.enabled = false;
     }
 
     public void CheckCardValueAndType()
