@@ -96,6 +96,7 @@ public class CheckerScript : MonoBehaviour
 
     public void Selected()
     {
+        print(hPosition+ "v" + vPosition);
         GameObject[] checkers = GameObject.FindGameObjectsWithTag("checker");
         List<GameObject> checkerList = new List<GameObject>(checkers);
         foreach (GameObject checker in checkerList)

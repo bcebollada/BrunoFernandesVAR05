@@ -48,64 +48,94 @@ public class GameController : MonoBehaviour
         else if (redDestroyed == 16) turnText.text = "White wins!";
     }
 
+
+
     public void CreateWhiteCheckers()
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 13; i++)
         {
-            if (i < 8)
+            print(i);
+            if (i <= 3)
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + (i * horizontalOffset), whiteCheckerSpawn.position.y, whiteCheckerSpawn.position.z);
+                var position = new Vector3(whiteCheckerSpawn.position.x + (i * horizontalOffset * 2), whiteCheckerSpawn.position.y, whiteCheckerSpawn.position.z);
                 var checker = Instantiate(whiteChecker, position, Quaternion.identity);
-                positions[i, 0] = checker;
+                positions[i*2, 0] = checker;
                 checker.transform.SetParent(whiteCheckerSpawn, false);
                 checker.transform.position = position;
 
-                checker.GetComponent<CheckerScript>().hPosition = i; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().hPosition = i*2; //saves array horizontal position
                 checker.GetComponent<CheckerScript>().vPosition = 0; //saves array vertical position
 
             }
-            else
+            else if (i <= 7)
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + ((i - 8) * horizontalOffset), whiteCheckerSpawn.position.y + verticalOffset, whiteCheckerSpawn.position.z);
+                var position = new Vector3(whiteCheckerSpawn.position.x + ((i -4 ) * horizontalOffset * 2 + horizontalOffset), whiteCheckerSpawn.position.y + verticalOffset, whiteCheckerSpawn.position.z);
                 var checker = Instantiate(whiteChecker, position, Quaternion.identity);
-                positions[(i - 8), 1] = checker;
+                positions[(i - 4)*2+1, 1] = checker;
+                print("position" + (i - 4));
                 checker.transform.SetParent(whiteCheckerSpawn, false);
                 checker.transform.position = position;
 
-                checker.GetComponent<CheckerScript>().hPosition = i - 8; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().hPosition = (i - 4)*2+1; //saves array horizontal position
                 checker.GetComponent<CheckerScript>().vPosition = 1; //saves array vertical position
             }
+
+            else if (i <= 11)
+            {
+                var position = new Vector3(whiteCheckerSpawn.position.x + ((i - 8) * horizontalOffset * 2), whiteCheckerSpawn.position.y + verticalOffset*2, whiteCheckerSpawn.position.z);
+                var checker = Instantiate(whiteChecker, position, Quaternion.identity);
+                positions[(i - 8)*2, 2] = checker;
+                checker.transform.SetParent(whiteCheckerSpawn, false);
+                checker.transform.position = position;
+
+                checker.GetComponent<CheckerScript>().hPosition = (i - 8)*2; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().vPosition = 2; //saves array vertical position
+            }
+            //yield return new WaitForSeconds(1);
         }
     }
 
+
     public void CreateRedCheckers()
     {
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < 13; i++)
         {
-            if (i < 8)
+            if (i <= 3)
             {
-                var position = new Vector3(redCheckerSpawn.position.x + (i * horizontalOffset), redCheckerSpawn.position.y, redCheckerSpawn.position.z);
+                var position = new Vector3(redCheckerSpawn.position.x + (i * horizontalOffset * 2) + horizontalOffset, redCheckerSpawn.position.y, redCheckerSpawn.position.z);
                 var checker = Instantiate(redChecker, position, Quaternion.identity);
-                positions[i, 6] = checker;
+                positions[i*2+1, 5] = checker;
                 checker.transform.SetParent(redCheckerSpawn, false);
                 checker.transform.position = position;
 
-                checker.GetComponent<CheckerScript>().hPosition = i; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().hPosition = i*2+1; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().vPosition = 5; //saves array vertical position
+            }
+            else if(i<=7)
+            {
+                var position = new Vector3(redCheckerSpawn.position.x + ((i - 4) * horizontalOffset*2), redCheckerSpawn.position.y + verticalOffset, redCheckerSpawn.position.z);
+                var checker = Instantiate(redChecker, position, Quaternion.identity);
+                positions[(i - 4)*2, 6] = checker;
+                checker.transform.SetParent(redCheckerSpawn, false);
+                checker.transform.position = position;
+
+                checker.GetComponent<CheckerScript>().hPosition = (i - 4)*2; //saves array horizontal position
                 checker.GetComponent<CheckerScript>().vPosition = 6; //saves array vertical position
             }
-            else
+            else if (i <=11)
             {
-                var position = new Vector3(redCheckerSpawn.position.x + ((i - 8) * horizontalOffset), redCheckerSpawn.position.y + verticalOffset, redCheckerSpawn.position.z);
+                var position = new Vector3(redCheckerSpawn.position.x + ((i - 8) * horizontalOffset * 2 + horizontalOffset), redCheckerSpawn.position.y + verticalOffset*2, redCheckerSpawn.position.z);
                 var checker = Instantiate(redChecker, position, Quaternion.identity);
-                positions[(i - 8), 7] = checker;
+                positions[(i - 8) * 2+1, 7] = checker;
                 checker.transform.SetParent(redCheckerSpawn, false);
                 checker.transform.position = position;
 
-                checker.GetComponent<CheckerScript>().hPosition = i - 8; //saves array horizontal position
+                checker.GetComponent<CheckerScript>().hPosition = (i - 8)*2+1; //saves array horizontal position
                 checker.GetComponent<CheckerScript>().vPosition = 7; //saves array vertical position
             }
         }
     }
+
 
     public void CheckSpaces(GameObject gameObj)
     {
@@ -122,7 +152,6 @@ public class GameController : MonoBehaviour
         var vPosition = gameObj.GetComponent<CheckerScript>().vPosition;
         var position = positions[hPosition, vPosition];
 
-        print("h " + hPosition + " v " + vPosition);
 
         //checks if checker can move to diagonal adjacent spaces
         if(hPosition == 0 && vPosition == 0)
@@ -149,7 +178,6 @@ public class GameController : MonoBehaviour
             }
             if (positions[hPosition + 1, vPosition - 1] == null)
             {
-                print(positions[hPosition - 1, vPosition - 1]);
 
                 canMoveDownRight = true;
             }
@@ -221,13 +249,11 @@ public class GameController : MonoBehaviour
             }
             if (hPosition < 7 && vPosition > 0 && positions[hPosition + 1, vPosition - 1] == null)
             {
-                print(positions[hPosition - 1, vPosition - 1]);
 
                 canMoveDownRight = true;
             }
             if (hPosition > 0 && vPosition > 0 && positions[hPosition - 1, vPosition - 1] == null)
             {
-                print(positions[hPosition - 1, vPosition - 1]);
                 canMoveDownLeft = true;
             }
         }
@@ -256,7 +282,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        else if (hPosition < 2 && vPosition > 2 && vPosition < 5)
+        else if (hPosition < 2 && vPosition >= 2 && vPosition <= 5)
         {
             if (positions[hPosition + 1, vPosition + 1] != null)
             {
@@ -297,7 +323,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        else if (hPosition > 5 && vPosition > 2 && vPosition < 5)
+        else if (hPosition > 5 && vPosition >= 2 && vPosition <= 5)
         {
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
@@ -316,8 +342,9 @@ public class GameController : MonoBehaviour
             }
         }
 
-        else if (vPosition > 5 && hPosition > 2 && hPosition < 5)
+        else if (vPosition > 5 && hPosition >= 2 && hPosition <= 5)
         {
+            print("here");
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
                 if (positions[hPosition - 2, vPosition - 2] == null)
@@ -335,7 +362,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        else if (vPosition < 2 && hPosition > 2 && hPosition < 5)
+        else if (vPosition < 2 && hPosition >= 2 && hPosition <= 5)
         {
             if (positions[hPosition - 1, vPosition + 1] != null)
             {
