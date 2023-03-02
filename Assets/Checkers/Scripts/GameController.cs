@@ -7,15 +7,15 @@ public class GameController : MonoBehaviour
 {
     public GameObject[,] positions = new GameObject[8, 8]; //2d array, first horizontal, second vertical
 
-    public GameObject whiteChecker;
+    public GameObject blackChecker;
     public GameObject redChecker;
 
-    public Transform whiteCheckerSpawn;
+    public Transform blackCheckerSpawn;
     public Transform redCheckerSpawn;
     public float horizontalOffset;
     public float verticalOffset;
 
-    public int whiteDestroyed;
+    public int blackDestroyed;
     public int redDestroyed;
 
     //bools to control is there are chekcers in relative positions
@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     public bool isRedCheckerTurn;
     public TMP_Text turnText;
 
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -42,10 +43,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (isRedCheckerTurn) turnText.text = "is Red turn";
-        else turnText.text = "is White turn";
+        else turnText.text = "is Black turn";
 
-        if (whiteDestroyed == 16) turnText.text = "Red wins!";
-        else if (redDestroyed == 16) turnText.text = "White wins!";
+        if (blackDestroyed == 16) turnText.text = "Red wins!";
+        else if (redDestroyed == 16) turnText.text = "Black wins!";
     }
 
 
@@ -57,10 +58,10 @@ public class GameController : MonoBehaviour
             print(i);
             if (i <= 3)
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + (i * horizontalOffset * 2), whiteCheckerSpawn.position.y, whiteCheckerSpawn.position.z);
-                var checker = Instantiate(whiteChecker, position, Quaternion.identity);
+                var position = new Vector3(blackCheckerSpawn.position.x + (i * horizontalOffset * 2), blackCheckerSpawn.position.y, blackCheckerSpawn.position.z);
+                var checker = Instantiate(blackChecker, position, Quaternion.identity);
                 positions[i*2, 0] = checker;
-                checker.transform.SetParent(whiteCheckerSpawn, false);
+                checker.transform.SetParent(blackCheckerSpawn, false);
                 checker.transform.position = position;
 
                 checker.GetComponent<CheckerScript>().hPosition = i*2; //saves array horizontal position
@@ -69,11 +70,11 @@ public class GameController : MonoBehaviour
             }
             else if (i <= 7)
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + ((i -4 ) * horizontalOffset * 2 + horizontalOffset), whiteCheckerSpawn.position.y + verticalOffset, whiteCheckerSpawn.position.z);
-                var checker = Instantiate(whiteChecker, position, Quaternion.identity);
+                var position = new Vector3(blackCheckerSpawn.position.x + ((i -4 ) * horizontalOffset * 2 + horizontalOffset), blackCheckerSpawn.position.y + verticalOffset, blackCheckerSpawn.position.z);
+                var checker = Instantiate(blackChecker, position, Quaternion.identity);
                 positions[(i - 4)*2+1, 1] = checker;
                 print("position" + (i - 4));
-                checker.transform.SetParent(whiteCheckerSpawn, false);
+                checker.transform.SetParent(blackCheckerSpawn, false);
                 checker.transform.position = position;
 
                 checker.GetComponent<CheckerScript>().hPosition = (i - 4)*2+1; //saves array horizontal position
@@ -82,10 +83,10 @@ public class GameController : MonoBehaviour
 
             else if (i <= 11)
             {
-                var position = new Vector3(whiteCheckerSpawn.position.x + ((i - 8) * horizontalOffset * 2), whiteCheckerSpawn.position.y + verticalOffset*2, whiteCheckerSpawn.position.z);
-                var checker = Instantiate(whiteChecker, position, Quaternion.identity);
+                var position = new Vector3(blackCheckerSpawn.position.x + ((i - 8) * horizontalOffset * 2), blackCheckerSpawn.position.y + verticalOffset*2, blackCheckerSpawn.position.z);
+                var checker = Instantiate(blackChecker, position, Quaternion.identity);
                 positions[(i - 8)*2, 2] = checker;
-                checker.transform.SetParent(whiteCheckerSpawn, false);
+                checker.transform.SetParent(blackCheckerSpawn, false);
                 checker.transform.position = position;
 
                 checker.GetComponent<CheckerScript>().hPosition = (i - 8)*2; //saves array horizontal position
@@ -193,9 +194,9 @@ public class GameController : MonoBehaviour
 
         else if(hPosition == 7 && vPosition == 7)
         {
-            if (positions[hPosition + 1, vPosition - 1] == null)
+            if (positions[hPosition - 1, vPosition - 1] == null)
             {
-                canMoveDownRight = true;
+                canMoveDownLeft = true;
             }
         }
 

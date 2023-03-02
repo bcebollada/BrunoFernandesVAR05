@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30914503}
   m_Layer: 5
-  m_Name: WhiteCheckers Spawn
+  m_Name: BlackCheckers Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,13 +391,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b697d0fab29e7b249a3a8aa1ce09d8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteChecker: {fileID: 1173699982324160470, guid: d87852b34a4ecab489cd8d3e7fb9927c, type: 3}
+  blackChecker: {fileID: 1173699982324160470, guid: d87852b34a4ecab489cd8d3e7fb9927c, type: 3}
   redChecker: {fileID: 3058053503903294196, guid: ecad50bc7c68e404db9e17f04b0c0e25, type: 3}
-  whiteCheckerSpawn: {fileID: 30914503}
+  blackCheckerSpawn: {fileID: 30914503}
   redCheckerSpawn: {fileID: 20441989}
   horizontalOffset: 14.3
   verticalOffset: 14.3
-  whiteDestroyed: 0
+  blackDestroyed: 0
   redDestroyed: 0
   canMoveTopRight: 0
   canMoveTopLeft: 0

@@ -26,6 +26,7 @@ public class CheckerScript : MonoBehaviour
     public int vPosition;
 
     public bool isRedTurn;
+    public GameObject upgradeSprite;
 
 
 
@@ -177,7 +178,7 @@ public class CheckerScript : MonoBehaviour
         if (isRedChecker)
         {
             gameController.isRedCheckerTurn = false;
-            gameController.whiteDestroyed += 1;
+            gameController.blackDestroyed += 1;
         }
         else
         {
@@ -201,7 +202,7 @@ public class CheckerScript : MonoBehaviour
         if (isRedChecker)
         {
             gameController.isRedCheckerTurn = false;
-            gameController.whiteDestroyed += 1;
+            gameController.blackDestroyed += 1;
         }
         else
         {
@@ -225,7 +226,7 @@ public class CheckerScript : MonoBehaviour
         if (isRedChecker)
         {
             gameController.isRedCheckerTurn = false;
-            gameController.whiteDestroyed += 1;
+            gameController.blackDestroyed += 1;
         }
         else
         {
@@ -249,7 +250,7 @@ public class CheckerScript : MonoBehaviour
         if (isRedChecker)
         {
             gameController.isRedCheckerTurn = false;
-            gameController.whiteDestroyed += 1;
+            gameController.blackDestroyed += 1;
         }
         else
         {
@@ -263,11 +264,23 @@ public class CheckerScript : MonoBehaviour
     {
         if(isRedChecker)
         {
-            if (vPosition == 0) upgraded = true;
+            if (vPosition == 0)
+            {
+                upgraded = true;
+                upgradeSprite.SetActive(true);
+
+            }
         }
         else
         {
-            if (vPosition == 7) upgraded = true;
+            if (vPosition == 7)
+            {
+                upgraded = true;
+                upgradeSprite.SetActive(true);
+
+            }
+
+
         }
     }
 }
