@@ -151,6 +151,7 @@ public class GameController : MonoBehaviour
 
         var hPosition = gameObj.GetComponent<CheckerScript>().hPosition;
         var vPosition = gameObj.GetComponent<CheckerScript>().vPosition;
+        var isRed = gameObj.GetComponent<CheckerScript>().isRedChecker;
         var position = positions[hPosition, vPosition];
 
 
@@ -265,6 +266,7 @@ public class GameController : MonoBehaviour
         {
            if(positions[hPosition+1, vPosition+1] != null)
             {
+                if (positions[hPosition + 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
                 if (positions[hPosition + 2, vPosition + 2] == null)
                 {
                     canJumpTopRight = true;
@@ -276,6 +278,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition + 1, vPosition - 1] != null)
             {
+                if (positions[hPosition + 1, vPosition -1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition - 2] == null)
                 {
                     canJumpDownRight = true;
@@ -287,6 +291,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition + 1, vPosition + 1] != null)
             {
+                if (positions[hPosition + 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition + 2] == null)
                 {
                     canJumpTopRight = true;
@@ -295,6 +301,8 @@ public class GameController : MonoBehaviour
 
             if (positions[hPosition + 1, vPosition - 1] != null)
             {
+                if (positions[hPosition + 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition - 2] == null)
                 {
                     canJumpDownRight = true;
@@ -306,6 +314,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition - 1, vPosition + 1] != null)
             {
+                if (positions[hPosition - 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition + 2] == null)
                 {
                     canJumpTopLeft = true;
@@ -317,6 +327,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
+                if (positions[hPosition - 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition - 2] == null)
                 {
                     canJumpDownLeft = true;
@@ -328,6 +340,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
+                if (positions[hPosition - 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition - 2] == null)
                 {
                     canJumpDownLeft = true;
@@ -336,6 +350,8 @@ public class GameController : MonoBehaviour
 
             if (positions[hPosition - 1, vPosition + 1] != null)
             {
+                if (positions[hPosition - 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition + 2] == null)
                 {
                     canJumpTopLeft = true;
@@ -348,6 +364,8 @@ public class GameController : MonoBehaviour
             print("here");
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
+                if (positions[hPosition - 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition - 2] == null)
                 {
                     canJumpDownLeft = true;
@@ -356,6 +374,8 @@ public class GameController : MonoBehaviour
 
             if (positions[hPosition + 1, vPosition - 1] != null)
             {
+                if (positions[hPosition + 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition - 2] == null)
                 {
                     canJumpDownRight = true;
@@ -367,6 +387,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition - 1, vPosition + 1] != null)
             {
+                if (positions[hPosition - 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition + 2] == null)
                 {
                     canJumpTopLeft = true;
@@ -375,6 +397,8 @@ public class GameController : MonoBehaviour
 
             if (positions[hPosition + 1, vPosition + 1] != null)
             {
+                if (positions[hPosition + 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition + 2] == null)
                 {
                     canJumpTopRight = true;
@@ -387,6 +411,8 @@ public class GameController : MonoBehaviour
         {
             if (positions[hPosition + 1, vPosition + 1] != null)
             {
+                if (positions[hPosition + 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition + 2] == null)
                 {
                     canJumpTopRight = true;
@@ -394,6 +420,8 @@ public class GameController : MonoBehaviour
             }
             if (positions[hPosition - 1, vPosition + 1] != null)
             {
+                if (positions[hPosition - 1, vPosition + 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition + 2] == null)
                 {
                     canJumpTopLeft = true;
@@ -401,6 +429,8 @@ public class GameController : MonoBehaviour
             }
             if (positions[hPosition + 1, vPosition - 1] != null)
             {
+                if (positions[hPosition + 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition + 2, vPosition - 2] == null)
                 {
                     canJumpDownRight = true;
@@ -408,6 +438,8 @@ public class GameController : MonoBehaviour
             }
             if (positions[hPosition - 1, vPosition - 1] != null)
             {
+                if (positions[hPosition - 1, vPosition - 1].GetComponent<CheckerScript>().isRedChecker == isRed) return;
+
                 if (positions[hPosition - 2, vPosition - 2] == null)
                 {
                     canJumpDownLeft = true;
