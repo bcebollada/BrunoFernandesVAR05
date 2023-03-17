@@ -1,0 +1,45 @@
+{
+    "name": "VRInputActions",
+    "maps": [
+        {
+            "name": "Default",
+            "id": "9d139722-ba31-4c4b-b98e-25898c46307a",
+            "actions": [
+                {
+                    "name": "Primary",
+                    "type": "Button",
+                    "id": "4b96578c-1323-4c88-a630-4b054cca3f8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5ab519a3-805d-4c3f-91f3-267892b8dd01",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6405e578-4803-4a37-85dd-954d4c404d75",
+                    "path": "<OculusTouchController>/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
