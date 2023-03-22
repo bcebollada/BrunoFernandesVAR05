@@ -17,12 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Bolf/Track2_Scene.unity
     guid: f4d6e32a661a33640805bd65026cf48e
+  - enabled: 1
+    path: Assets/VR/VR_Scene.unity
+    guid: a463b66f65af4e14ebd9dbffdfd63d6e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 173386d98aa422848b98b65277486161, type: 2}
-<<<<<<< HEAD
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d7d4096d996d3364eb6b98b91b84edf5, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 701f11d9e9ade4943a858af0e0ca673c, type: 2}
-=======
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 100ea1290a20aa84b8a424a4f6013414, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a24db4bccc27e3840ae918094f855b6b, type: 2}
->>>>>>> 4db88baf82e73db14e1a5676400d4407d9257060

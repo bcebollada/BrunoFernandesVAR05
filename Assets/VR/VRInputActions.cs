@@ -35,6 +35,24 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grip"",
+                    ""type"": ""Button"",
+                    ""id"": ""f23381e9-3288-4dc7-993a-dce207e16bb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Joystick"",
+                    ""type"": ""Value"",
+                    ""id"": ""c521ceb9-d23e-4bd4-b6ed-6f6640a0e110"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -51,12 +69,34 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6405e578-4803-4a37-85dd-954d4c404d75"",
-                    ""path"": ""<OculusTouchController>/primaryButton"",
+                    ""id"": ""0636a07d-a33a-496f-a59d-3acd22da03cd"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/thumbstick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Primary"",
+                    ""action"": ""Joystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30e8480b-cc72-48d1-aec8-fc27be86a15f"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/gripPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38499dd5-46af-45a6-9b0d-b75541d34dc9"",
+                    ""path"": ""<OculusTouchController>/gripPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -68,6 +108,8 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Primary = m_Default.FindAction("Primary", throwIfNotFound: true);
+        m_Default_Grip = m_Default.FindAction("Grip", throwIfNotFound: true);
+        m_Default_Joystick = m_Default.FindAction("Joystick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -128,11 +170,15 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Default;
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Primary;
+    private readonly InputAction m_Default_Grip;
+    private readonly InputAction m_Default_Joystick;
     public struct DefaultActions
     {
         private @VRInputActions m_Wrapper;
         public DefaultActions(@VRInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Primary => m_Wrapper.m_Default_Primary;
+        public InputAction @Grip => m_Wrapper.m_Default_Grip;
+        public InputAction @Joystick => m_Wrapper.m_Default_Joystick;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -145,6 +191,12 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 @Primary.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
                 @Primary.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
                 @Primary.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
+                @Grip.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
+                @Grip.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
+                @Grip.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
+                @Joystick.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
+                @Joystick.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
+                @Joystick.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -152,6 +204,12 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 @Primary.started += instance.OnPrimary;
                 @Primary.performed += instance.OnPrimary;
                 @Primary.canceled += instance.OnPrimary;
+                @Grip.started += instance.OnGrip;
+                @Grip.performed += instance.OnGrip;
+                @Grip.canceled += instance.OnGrip;
+                @Joystick.started += instance.OnJoystick;
+                @Joystick.performed += instance.OnJoystick;
+                @Joystick.canceled += instance.OnJoystick;
             }
         }
     }
@@ -159,5 +217,7 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
     public interface IDefaultActions
     {
         void OnPrimary(InputAction.CallbackContext context);
+        void OnGrip(InputAction.CallbackContext context);
+        void OnJoystick(InputAction.CallbackContext context);
     }
 }

@@ -1,24 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class VRRIg : MonoBehaviour
+public class VRRig : MonoBehaviour
 {
-    public Transform leftHand;
-    public Transform rightHand;
-    public Transform head;
+    public Transform head, left, right;
 
-    void Update()
+    public Vector3 lastPosition;
+    private static VRRig instance;
+
+    private void Awake()
     {
-        // Update left and right hand transforms to XR controller positions
-        leftHand.position = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 leftPosition) ? leftPosition : Vector3.zero;
-        leftHand.rotation = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand).TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion leftRotation) ? leftRotation : Quaternion.identity;
-        rightHand.position = InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 rightPosition) ? rightPosition : Vector3.zero;
-        rightHand.rotation = InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion rightRotation) ? rightRotation : Quaternion.identity;
+        DontDestroyOnLoad(this.gameObject);
+        transform.position = lastPosition;
 
-        // Update head transform to XR headset position
-        head.position = InputDevices.GetDeviceAtXRNode(XRNode.Head).TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 headPosition) ? headPosition : Vector3.zero;
-        head.rotation = InputDevices.GetDeviceAtXRNode(XRNode.Head).TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion headRotation) ? headRotation : Quaternion.identity;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        lastPosition = transform.position;
+
+
+        if (XRController.leftHand != null)
+        {
+            // Update the transforms of the components of our VR rig,
+            // i.e., the head and hands
+            // "i.e." just means "in other words"
+            Vector3 leftPosition = transform.position + XRController.leftHand.devicePosition.ReadValue();
+            Quaternion leftRotation = XRController.leftHand.deviceRotation.ReadValue();
+
+            left.SetPositionAndRotation(leftPosition, leftRotation);
+        }
+
+        if (XRController.rightHand != null)
+        {
+            Vector3 rightPosition = transform.position + XRController.rightHand.devicePosition.ReadValue();
+            Quaternion rightRotation = XRController.rightHand.deviceRotation.ReadValue();
+
+            right.SetPositionAndRotation(rightPosition, rightRotation);
+        }
+
+        XRHMD hmd = InputSystem.GetDevice<XRHMD>();
+
+        if (hmd != null)
+        {
+            Vector3 headPosition = transform.position + hmd.devicePosition.ReadValue();
+            Quaternion headRotation = hmd.deviceRotation.ReadValue();
+
+            head.SetPositionAndRotation(headPosition, headRotation);
+        }
     }
 }

@@ -13,6 +13,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Grip",
+                    "type": "Button",
+                    "id": "f23381e9-3288-4dc7-993a-dce207e16bb2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Joystick",
+                    "type": "Value",
+                    "id": "c521ceb9-d23e-4bd4-b6ed-6f6640a0e110",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -29,12 +47,34 @@
                 },
                 {
                     "name": "",
-                    "id": "6405e578-4803-4a37-85dd-954d4c404d75",
-                    "path": "<OculusTouchController>/primaryButton",
+                    "id": "0636a07d-a33a-496f-a59d-3acd22da03cd",
+                    "path": "<OculusTouchController>{LeftHand}/thumbstick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Primary",
+                    "action": "Joystick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30e8480b-cc72-48d1-aec8-fc27be86a15f",
+                    "path": "<OculusTouchController>{LeftHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38499dd5-46af-45a6-9b0d-b75541d34dc9",
+                    "path": "<OculusTouchController>/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

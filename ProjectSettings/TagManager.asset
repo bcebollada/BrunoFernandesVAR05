@@ -6,6 +6,9 @@ TagManager:
   tags:
   - checker
   - Ball
+  - Hand
+  - VRRig
+  - Prop
   layers:
   - Default
   - TransparentFX

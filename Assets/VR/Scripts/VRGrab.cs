@@ -22,7 +22,7 @@ public class VRGrab : MonoBehaviour
     {
         if (grabbedObject != null)
         {
-            if (vrInputActions.Default.Primary.WasReleasedThisFrame())
+            if (vrInputActions.Default.Grip.WasReleasedThisFrame())
             {
                 //does something when pressed
                 grabbedObject.transform.parent = null;
@@ -41,11 +41,9 @@ public class VRGrab : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("trigger");
 
-        if (vrInputActions.Default.Primary.WasPerformedThisFrame())
+        if (vrInputActions.Default.Grip.WasPerformedThisFrame())
         {
-            Debug.Log("grabbed");
             //does something when pressed
             other.transform.parent = transform;
             grabbedObject = other.gameObject;
