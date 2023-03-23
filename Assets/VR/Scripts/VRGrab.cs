@@ -12,6 +12,15 @@ public class VRGrab : MonoBehaviour
     private Vector3 previousPosition;
     private Vector3 handVelocity;
 
+
+    public bool hasObjectGrabbed;
+    public bool isLeftHand;
+
+    public bool hasGripped;
+    public bool hasRealesed;
+    public bool debuggingMode;
+
+
     private void Awake()
     {
         vrInputActions = new VRInputActions();
@@ -20,15 +29,43 @@ public class VRGrab : MonoBehaviour
 
     private void Update()
     {
+        if(!debuggingMode)
+        {
+            if (isLeftHand)
+            {
+                if (vrInputActions.Default.GripLeft.WasPerformedThisFrame())
+                {
+                    hasGripped = true;
+                    Debug.Log("grip");
+                }
+                else hasGripped = false;
+
+                if (vrInputActions.Default.GripLeft.WasReleasedThisFrame()) hasRealesed = true;
+                else hasRealesed = false;
+
+            }
+            else
+            {
+                if (vrInputActions.Default.GripRight.WasPerformedThisFrame()) hasGripped = true;
+                else hasGripped = false;
+
+                if (vrInputActions.Default.GripRight.WasReleasedThisFrame()) hasRealesed = true;
+                else hasRealesed = false;
+            }
+        }
+
         if (grabbedObject != null)
         {
-            if (vrInputActions.Default.Grip.WasReleasedThisFrame())
+            if (hasRealesed)
             {
                 //does something when pressed
                 grabbedObject.transform.parent = null;
                 grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedObject.GetComponent<Rigidbody>().velocity = handVelocity;
                 grabbedObject = null;
+
+                hasObjectGrabbed = false;
+
             }
         }
     }
@@ -41,13 +78,16 @@ public class VRGrab : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
-        if (vrInputActions.Default.Grip.WasPerformedThisFrame())
+        if (other.gameObject.GetComponent<GrabbableObject>() != null && !hasObjectGrabbed)
         {
-            //does something when pressed
-            other.transform.parent = transform;
-            grabbedObject = other.gameObject;
-            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            other.gameObject.GetComponent<GrabbableObject>().isHovered = true;
+            if (hasGripped)
+            {
+                other.transform.parent = transform;
+                grabbedObject = other.gameObject;
+                other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                hasObjectGrabbed = true;
+            }            
         }
     }
 }

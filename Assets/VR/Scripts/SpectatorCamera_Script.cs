@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class SpectatorCamera_Script : MonoBehaviour
 {
-    public Transform head;
+    private Transform head;
 
     public float translateSpeed = 4, rotateSpeed = 4;
+
+    private void Start()
+    {
+        head = GameObject.Find("Head").transform;
+    }
 
     private void LateUpdate()
     {

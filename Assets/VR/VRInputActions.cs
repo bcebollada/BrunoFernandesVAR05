@@ -37,9 +37,18 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Grip"",
+                    ""name"": ""Grip Right"",
                     ""type"": ""Button"",
                     ""id"": ""f23381e9-3288-4dc7-993a-dce207e16bb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grip Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""c01e4452-253e-43cf-af84-0790b7a6a652"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -80,23 +89,23 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""30e8480b-cc72-48d1-aec8-fc27be86a15f"",
-                    ""path"": ""<OculusTouchController>{LeftHand}/gripPressed"",
+                    ""id"": ""13e643da-2a52-4661-8211-d4f5e13cdd09"",
+                    ""path"": ""<OculusTouchController>{RightHand}/gripPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grip"",
+                    ""action"": ""Grip Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""38499dd5-46af-45a6-9b0d-b75541d34dc9"",
-                    ""path"": ""<OculusTouchController>/gripPressed"",
+                    ""id"": ""06ebc6e4-85e8-4900-9d4b-403c6282c2f0"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/gripPressed"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grip"",
+                    ""action"": ""Grip Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -108,7 +117,8 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Primary = m_Default.FindAction("Primary", throwIfNotFound: true);
-        m_Default_Grip = m_Default.FindAction("Grip", throwIfNotFound: true);
+        m_Default_GripRight = m_Default.FindAction("Grip Right", throwIfNotFound: true);
+        m_Default_GripLeft = m_Default.FindAction("Grip Left", throwIfNotFound: true);
         m_Default_Joystick = m_Default.FindAction("Joystick", throwIfNotFound: true);
     }
 
@@ -170,14 +180,16 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Default;
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Primary;
-    private readonly InputAction m_Default_Grip;
+    private readonly InputAction m_Default_GripRight;
+    private readonly InputAction m_Default_GripLeft;
     private readonly InputAction m_Default_Joystick;
     public struct DefaultActions
     {
         private @VRInputActions m_Wrapper;
         public DefaultActions(@VRInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Primary => m_Wrapper.m_Default_Primary;
-        public InputAction @Grip => m_Wrapper.m_Default_Grip;
+        public InputAction @GripRight => m_Wrapper.m_Default_GripRight;
+        public InputAction @GripLeft => m_Wrapper.m_Default_GripLeft;
         public InputAction @Joystick => m_Wrapper.m_Default_Joystick;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
@@ -191,9 +203,12 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 @Primary.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
                 @Primary.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
                 @Primary.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnPrimary;
-                @Grip.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
-                @Grip.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
-                @Grip.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGrip;
+                @GripRight.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripRight;
+                @GripRight.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripRight;
+                @GripRight.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripRight;
+                @GripLeft.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripLeft;
+                @GripLeft.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripLeft;
+                @GripLeft.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnGripLeft;
                 @Joystick.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
                 @Joystick.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
                 @Joystick.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnJoystick;
@@ -204,9 +219,12 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
                 @Primary.started += instance.OnPrimary;
                 @Primary.performed += instance.OnPrimary;
                 @Primary.canceled += instance.OnPrimary;
-                @Grip.started += instance.OnGrip;
-                @Grip.performed += instance.OnGrip;
-                @Grip.canceled += instance.OnGrip;
+                @GripRight.started += instance.OnGripRight;
+                @GripRight.performed += instance.OnGripRight;
+                @GripRight.canceled += instance.OnGripRight;
+                @GripLeft.started += instance.OnGripLeft;
+                @GripLeft.performed += instance.OnGripLeft;
+                @GripLeft.canceled += instance.OnGripLeft;
                 @Joystick.started += instance.OnJoystick;
                 @Joystick.performed += instance.OnJoystick;
                 @Joystick.canceled += instance.OnJoystick;
@@ -217,7 +235,8 @@ public partial class @VRInputActions : IInputActionCollection2, IDisposable
     public interface IDefaultActions
     {
         void OnPrimary(InputAction.CallbackContext context);
-        void OnGrip(InputAction.CallbackContext context);
+        void OnGripRight(InputAction.CallbackContext context);
+        void OnGripLeft(InputAction.CallbackContext context);
         void OnJoystick(InputAction.CallbackContext context);
     }
 }
