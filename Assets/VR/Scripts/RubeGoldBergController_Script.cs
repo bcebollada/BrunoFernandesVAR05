@@ -9,12 +9,30 @@ public class RubeGoldBergController_Script : MonoBehaviour
     private PausePhysics pausePhysics;
     public Material transparentMat;
     public Material defaultMat;
+    public List<Material> materials;
+    private Material[] mats;
+    public bool isDebugMenu;
 
-    private bool propsTransparent;
 
     private void Awake()
     {
         pausePhysics = GameObject.Find("VRRig").GetComponent<PausePhysics>();
+
+        GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
+        mats = new Material[props.Length];
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            if (props[i].GetComponent<Renderer>() != null)
+            {
+                mats[i] = props[i].GetComponent<Renderer>().material;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        if(!isDebugMenu)GameObject.Find("VRRig").GetComponent<MenuMain_Script>().menu = this.gameObject;
     }
 
     // Update is called once per frame
@@ -24,7 +42,12 @@ public class RubeGoldBergController_Script : MonoBehaviour
     }
 
     public void RestartScene()
-    {
+    { 
+        GrabbableObject[] grabbables = FindObjectsOfType<GrabbableObject>();
+        foreach(GrabbableObject grabbable in grabbables)
+        {
+            Destroy(grabbable.gameObject);
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log("restarting scene");
     }
@@ -41,16 +64,29 @@ public class RubeGoldBergController_Script : MonoBehaviour
 
     public void ChangeMat()
     {
-        propsTransparent = true;
         GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
-        foreach (GameObject prop in props)
+
+        for (int i = 0; i < props.Length; i++)
         {
-            if (prop.GetComponent<Renderer>() != null)
+            if (props[i].GetComponent<Renderer>() != null)
             {
-                print("yyy");
-                Renderer renderer = prop.GetComponent<Renderer>(); // Get the renderer component of the object
-                if(renderer.sharedMaterial.name == defaultMat.name) renderer.material = transparentMat;
-                else renderer.material = defaultMat;
+                Renderer renderer = props[i].GetComponent<Renderer>(); // Get the renderer component of the object
+                if (renderer.material == mats[i]) renderer.material = transparentMat;
+                else renderer.material = mats[i];
+            }
+        }
+    }
+
+    public void GetMats()
+    {
+        GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
+        mats = new Material[props.Length];
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            if (props[i].GetComponent<Renderer>() != null)
+            {
+                mats[i] = props[i].GetComponent<Renderer>().material;
             }
         }
     }

@@ -19,14 +19,24 @@ public class GrabbableObject : MonoBehaviour
 
     private void Update()
     {
-        if(isHovered)
+        if (isHovered)
         {
-            GetComponent<Renderer>().material = highLightMat;
-            timeOutOfHover = 0;
+            if (GetComponent<Renderer>().sharedMaterial.name == defaultMaterial.name)
+            {
+                GetComponent<Renderer>().material = highLightMat;
+                highLightMat = GetComponent<Renderer>().material;
+                timeOutOfHover = 0;
+            }
+
         }
-        else if(timeOutOfHover > 0.1f) GetComponent<Renderer>().material = defaultMaterial;
+        else if (timeOutOfHover > 0.2f)
+        {
+            if(GetComponent<Renderer>().sharedMaterial.name == highLightMat.name) GetComponent<Renderer>().material = defaultMaterial;
+        }
 
         timeOutOfHover += Time.deltaTime;
         isHovered = false;
+
+        
     }
 }

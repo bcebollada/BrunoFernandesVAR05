@@ -9,8 +9,7 @@ public class MenuMain_Script : MonoBehaviour
     private VRInputController input;
     private VRInputActions actions;
 
-    public GameObject menuPrefab;
-    private GameObject activeMenu;
+    public GameObject menu;
     public Transform menuSpawner;
 
     private bool isMenuActive;
@@ -22,12 +21,15 @@ public class MenuMain_Script : MonoBehaviour
         actions.Enable();
     }
 
+ 
+
     // Update is called once per frame
     void Update()
     {
         if(actions.Default.Primary.WasPressedThisFrame())
         {
-            activeMenu = Instantiate(menuPrefab, menuSpawner.position, menuSpawner.rotation);
+            menu.SetActive(true);
+            menu.GetComponent<RubeGoldBergController_Script>().GetMats();
             isMenuActive = true;
         }
 
@@ -35,15 +37,15 @@ public class MenuMain_Script : MonoBehaviour
         {
             if (isMenuActive)
             {
-                Destroy(activeMenu);
+                menu.SetActive(false);
                 isMenuActive = false;
             }
         }
 
         if(isMenuActive)
         {
-            activeMenu.transform.position = menuSpawner.position;
-            activeMenu.transform.rotation = menuSpawner.rotation;
+            menu.transform.position = menuSpawner.position;
+            menu.transform.rotation = menuSpawner.rotation;
         }
     }
 }
