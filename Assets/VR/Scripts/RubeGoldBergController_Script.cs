@@ -13,12 +13,16 @@ public class RubeGoldBergController_Script : MonoBehaviour
     private Material[] mats;
     public bool isDebugMenu;
 
+    private bool isTransparent;
+
+    public GameObject[] props;
+
 
     private void Awake()
     {
         pausePhysics = GameObject.Find("VRRig").GetComponent<PausePhysics>();
 
-        GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
+        props = GameObject.FindGameObjectsWithTag("Prop");
         mats = new Material[props.Length];
 
         for (int i = 0; i < props.Length; i++)
@@ -64,30 +68,46 @@ public class RubeGoldBergController_Script : MonoBehaviour
 
     public void ChangeMat()
     {
-        GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
+        props = GameObject.FindGameObjectsWithTag("Prop");
 
         for (int i = 0; i < props.Length; i++)
         {
             if (props[i].GetComponent<Renderer>() != null)
             {
                 Renderer renderer = props[i].GetComponent<Renderer>(); // Get the renderer component of the object
-                if (renderer.material == mats[i]) renderer.material = transparentMat;
-                else renderer.material = mats[i];
+                if (renderer.material == mats[i])
+                {
+                    renderer.material = transparentMat;
+                    isTransparent = true;
+                }
+                else
+                {
+                    renderer.material = mats[i];
+                    isTransparent = false;
+                }
             }
         }
     }
 
     public void GetMats()
     {
-        GameObject[] props = GameObject.FindGameObjectsWithTag("Prop");
-        mats = new Material[props.Length];
-
-        for (int i = 0; i < props.Length; i++)
+        if(!isTransparent)
         {
-            if (props[i].GetComponent<Renderer>() != null)
+            var propsNew = GameObject.FindGameObjectsWithTag("Prop");
+            if(propsNew != props)
             {
-                mats[i] = props[i].GetComponent<Renderer>().material;
+                props = propsNew;
+                mats = new Material[props.Length];
+
+                for (int i = 0; i < props.Length; i++)
+                {
+                    if (props[i].GetComponent<Renderer>() != null)
+                    {
+                        mats[i] = props[i].GetComponent<Renderer>().material;
+                    }
+                }
             }
+
         }
     }
 }
