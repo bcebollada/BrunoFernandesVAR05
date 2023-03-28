@@ -2514,8 +2514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d055e10cf2b3db468775b829a25da9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translateSpeed: 4
-  rotateSpeed: 4
+  translateSpeed: 10
+  rotateSpeed: 10
 --- !u!81 &985485433
 AudioListener:
   m_ObjectHideFlags: 0
