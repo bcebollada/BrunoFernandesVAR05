@@ -492,9 +492,9 @@ GameObject:
   - component: {fileID: 48507197}
   - component: {fileID: 48507200}
   - component: {fileID: 48507199}
-  - component: {fileID: 48507201}
   - component: {fileID: 48507202}
   - component: {fileID: 48507203}
+  - component: {fileID: 48507204}
   m_Layer: 0
   m_Name: VRRig
   m_TagString: VRRig
@@ -547,22 +547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugging: 0
   Joystick: {x: 0, y: 0}
---- !u!114 &48507201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 48507196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e938479e4601b94f9c8f5c34f6a9d47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  head: {fileID: 2004282391}
-  left: {fileID: 1116918324}
-  right: {fileID: 313513213}
-  lastPosition: {x: -0.095, y: 0, z: -3.57}
 --- !u!114 &48507202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +577,22 @@ MonoBehaviour:
   rigidbodies: []
   velocities: []
   angularVelocities: []
+--- !u!114 &48507204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48507196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbe0afd8e29786e4d85e702d5a0f44da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 2004282391}
+  left: {fileID: 1116918324}
+  right: {fileID: 313513213}
+  lastPosition: {x: -0.095, y: 0, z: -3.57}
 --- !u!1 &107271164
 GameObject:
   m_ObjectHideFlags: 0

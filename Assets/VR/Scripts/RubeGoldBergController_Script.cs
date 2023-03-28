@@ -88,7 +88,7 @@ public class RubeGoldBergController_Script : MonoBehaviour
             }
         }
     }
-
+        
     public void GetMats()
     {
         if(!isTransparent)
