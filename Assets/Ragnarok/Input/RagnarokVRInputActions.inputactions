@@ -1,0 +1,74 @@
+{
+    "name": "RagnarokVRInputActions",
+    "maps": [
+        {
+            "name": "Default1",
+            "id": "2535e272-61c8-4627-acba-56a454780cdb",
+            "actions": [
+                {
+                    "name": "Grip Left",
+                    "type": "Button",
+                    "id": "df0234aa-893d-4371-8fe7-f2609f30c567",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grip Right",
+                    "type": "Button",
+                    "id": "a9bf1997-f0d9-4e35-a930-be438d5d85a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "56e5e8b5-cbd9-45d9-8c42-2351ebecb3f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7036b34-0434-44fb-ac71-543b648d1684",
+                    "path": "<OculusTouchController>{LeftHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37572f0d-0a07-404a-af40-6d17e0e88e0a",
+                    "path": "<OculusTouchController>{RightHand}/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad227f01-07a9-4552-9d17-8e4e3e0dfed2",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

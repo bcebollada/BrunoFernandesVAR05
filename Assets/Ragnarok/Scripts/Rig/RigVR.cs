@@ -3,33 +3,19 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class VRRig : MonoBehaviour
+
+public class RigVR : MonoBehaviour
 {
     public Transform head, left, right;
 
-    public Vector3 lastPosition;
-    private static VRRig instance;
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
-        transform.position = lastPosition;
 
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void Update()
     {
-        lastPosition = transform.position;
-
 
         if (XRController.leftHand != null)
         {
