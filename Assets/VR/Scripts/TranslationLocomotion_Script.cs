@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class TranslationLocomotion_Script : MonoBehaviour
 {
-    private VRInputController input;
+    private RagnarokVRInputController input;
     public Transform head;
 
 
     private void Awake()
     {
-        input = GetComponent<VRInputController>();
+        input = GetComponent<RagnarokVRInputController>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 moveInput = input.Joystick;
+        Vector2 moveInput = input.JoystickLeft;
 
         //Convert moveDirection from local to world space
 

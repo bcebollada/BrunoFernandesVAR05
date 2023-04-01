@@ -11,6 +11,8 @@ public class GrabVR : MonoBehaviour
 
     private Vector3 previousPosition;
     private Vector3 handVelocity;
+    private Quaternion previousRotation;
+    private Vector3 angularVelocity;
 
 
     public bool hasObjectGrabbed;
@@ -61,6 +63,8 @@ public class GrabVR : MonoBehaviour
                 grabbedObject.transform.parent = null;
                 grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedObject.GetComponent<Rigidbody>().velocity = handVelocity;
+                grabbedObject.GetComponent<Rigidbody>().angularVelocity = angularVelocity;
+                print(angularVelocity);
                 grabbedObject = null;
 
                 hasObjectGrabbed = false;
@@ -73,6 +77,22 @@ public class GrabVR : MonoBehaviour
     {
         handVelocity = (transform.position - previousPosition) / Time.deltaTime; //gets velocity per second
         previousPosition = transform.position;
+
+        if(grabbedObject)
+        {
+            //calculate angular velocity so object has it when released
+            // "Subtract" the current rotation from the previous rotation.
+            Quaternion delta = grabbedObject.transform.rotation * Quaternion.Inverse(previousRotation);
+
+            // Convert it to an "angle axis", basically a direction and how rotated it is around that direction.
+            delta.ToAngleAxis(out float angle, out Vector3 axis);
+
+            // Lastly, convert it into radians per second.
+            angularVelocity = (Mathf.Deg2Rad * angle / Time.fixedDeltaTime) * axis.normalized;
+
+            previousRotation = grabbedObject.transform.rotation;
+        }
+        
     }
 
     private void OnTriggerStay(Collider other)

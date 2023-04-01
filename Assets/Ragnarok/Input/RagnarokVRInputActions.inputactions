@@ -2,7 +2,7 @@
     "name": "RagnarokVRInputActions",
     "maps": [
         {
-            "name": "Default1",
+            "name": "Default",
             "id": "2535e272-61c8-4627-acba-56a454780cdb",
             "actions": [
                 {
@@ -24,9 +24,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "New action",
-                    "type": "Button",
+                    "name": "JoystickLeft",
+                    "type": "Value",
                     "id": "56e5e8b5-cbd9-45d9-8c42-2351ebecb3f2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "JoystickRight",
+                    "type": "Value",
+                    "id": "4b650980-58f7-49fe-b660-861f71170257",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ThumbPressLeft",
+                    "type": "Button",
+                    "id": "3b57dbfe-1449-4aca-b0d4-d2545bdb59de",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -59,11 +77,33 @@
                 {
                     "name": "",
                     "id": "ad227f01-07a9-4552-9d17-8e4e3e0dfed2",
-                    "path": "",
+                    "path": "<OculusTouchController>{LeftHand}/thumbstick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "JoystickLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "312b958d-a68c-49e1-98d4-288c3be8982b",
+                    "path": "<OculusTouchController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JoystickRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ccb4d886-4d00-489e-a20b-2b4a9628cf4a",
+                    "path": "<OculusTouchController>{LeftHand}/thumbstickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThumbPressLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

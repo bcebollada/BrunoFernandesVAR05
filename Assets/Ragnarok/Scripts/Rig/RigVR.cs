@@ -22,28 +22,31 @@ public class RigVR : MonoBehaviour
             // Update the transforms of the components of our VR rig,
             // i.e., the head and hands
             // "i.e." just means "in other words"
-            Vector3 leftPosition = transform.position + XRController.leftHand.devicePosition.ReadValue();
+            Vector3 leftPosition = XRController.leftHand.devicePosition.ReadValue();
             Quaternion leftRotation = XRController.leftHand.deviceRotation.ReadValue();
 
-            left.SetPositionAndRotation(leftPosition, leftRotation);
+            left.localPosition = leftPosition;
+            left.localRotation = leftRotation;
         }
 
         if (XRController.rightHand != null)
         {
-            Vector3 rightPosition = transform.position + XRController.rightHand.devicePosition.ReadValue();
+            Vector3 rightPosition = XRController.rightHand.devicePosition.ReadValue();
             Quaternion rightRotation = XRController.rightHand.deviceRotation.ReadValue();
 
-            right.SetPositionAndRotation(rightPosition, rightRotation);
+            right.localPosition = rightPosition;
+            right.localRotation = rightRotation;
         }
 
         XRHMD hmd = InputSystem.GetDevice<XRHMD>();
 
         if (hmd != null)
         {
-            Vector3 headPosition = transform.position + hmd.devicePosition.ReadValue();
+            Vector3 headPosition = hmd.devicePosition.ReadValue();
             Quaternion headRotation = hmd.deviceRotation.ReadValue();
 
-            head.SetPositionAndRotation(headPosition, headRotation);
+            head.localPosition = headPosition;
+            head.localRotation = headRotation;
         }
     }
 }

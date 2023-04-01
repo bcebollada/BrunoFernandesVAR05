@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasObjectGrabbed: 0
-  isLeftHand: 0
+  isLeftHand: 1
   hasGripped: 0
   hasRealesed: 0
   debuggingMode: 0
@@ -485,7 +485,9 @@ GameObject:
   - component: {fileID: 8478793527809171336}
   - component: {fileID: 7193112260778331280}
   - component: {fileID: 7626750993369001192}
-  - component: {fileID: 1563801030151143098}
+  - component: {fileID: 6654556178970611346}
+  - component: {fileID: 2594400189221572733}
+  - component: {fileID: 7407952386183224812}
   m_Layer: 0
   m_Name: VRRig
   m_TagString: VRRig
@@ -539,7 +541,7 @@ MonoBehaviour:
   head: {fileID: 5733479328385585741}
   left: {fileID: 2946317255648755853}
   right: {fileID: 7791905972287809773}
---- !u!114 &1563801030151143098
+--- !u!114 &6654556178970611346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -548,8 +550,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 7885727701014425779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9af36cb7bf0cce489edfcadbe85dd28, type: 3}
+  m_Script: {fileID: 11500000, guid: a6ead9f6b6ae936478cf73515b6c4d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debugging: 0
-  Joystick: {x: 0, y: 0}
+  JoystickLeft: {x: 0, y: 0}
+  JoystickRight: {x: 0, y: 0}
+  ThumbPressedLeft: 0
+--- !u!114 &2594400189221572733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885727701014425779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfb795b89cf6714aa1fd7f3e64b4437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  rotate: 0
+  debugging: 0
+  direction: 0
+--- !u!114 &7407952386183224812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885727701014425779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463d6d9da95cddd43b7225dd2cb77eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 5733479328385585741}
+  hand: {fileID: 2946317255648755853}
+  teleportTargetMarkPrefab: {fileID: 6949686521093299384, guid: cef7e0454ceb3514a9937fc73b93abc1, type: 3}
+  Teleport: 0
+  TeleportTarget: {x: 0, y: 0, z: 0}
