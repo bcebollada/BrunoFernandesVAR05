@@ -9,6 +9,8 @@ TagManager:
   - Hand
   - VRRig
   - Prop
+  - Target
+  - Weapon
   layers:
   - Default
   - TransparentFX
