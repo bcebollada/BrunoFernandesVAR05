@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class VRGrabbable : MonoBehaviour
 {
+    public Transform grabPoint;
+    
+    public bool hasSpecificRotationOnGrab;
+    public Quaternion specificRotation;
+
+
+    private void Awake()
+    {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

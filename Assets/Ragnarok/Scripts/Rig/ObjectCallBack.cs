@@ -53,19 +53,15 @@ public class ObjectCallBack : MonoBehaviour
                         if(hitCollider.gameObject == recallObject)
                         {
                             //creates same grab event as the in the GrabVR script
-                            recallObject.transform.parent = transform;
-                            grabVR.grabbedObject = recallObject.gameObject;
-                            recallObject.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                            grabVR.hasObjectGrabbed = true;
-
-
                             shouldRecall = false;
+                            GetComponent<GrabVR>().GrabObject(recallObject);
+
                             recallObject = null; //clears pulled object
                             break;
                         }
                     }
 
-                    recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
+                    if(recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
                 }
             }
         }
@@ -150,20 +146,6 @@ public class ObjectCallBack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        /*if(other.gameObject == recallObject) //checks if object is the pulled one
-        {
-            //creates same grab event as the in the GrabVR script
-            other.transform.parent = transform;
-            grabVR.grabbedObject = other.gameObject;
-            other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            grabVR.hasObjectGrabbed = true;
 
-
-            shouldRecall = false;
-            recallObject = null; //clears pulled object
-        }*/
-    }
 }
 

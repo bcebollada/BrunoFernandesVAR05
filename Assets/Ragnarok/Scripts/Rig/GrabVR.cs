@@ -101,11 +101,37 @@ public class GrabVR : MonoBehaviour
         {
             if (hasGripped)
             {
-                other.transform.parent = transform;
-                grabbedObject = other.gameObject;
-                other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                hasObjectGrabbed = true;
+                GrabObject(other.gameObject);
             }
         }
-    }   
+    }
+    
+    public void GrabObject(GameObject grabbable)
+    {
+        var vrGrabbable = grabbable.GetComponent<VRGrabbable>();
+        grabbable.transform.parent = transform;
+        grabbedObject = grabbable.gameObject;
+        grabbable.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        hasObjectGrabbed = true;
+
+        if (vrGrabbable.hasSpecificRotationOnGrab)
+        {
+            grabbable.transform.localRotation = vrGrabbable.specificRotation;
+        }
+
+        if (vrGrabbable.grabPoint != null)
+        {
+            // Calculate the offset between the grab point position and the controller position
+            //grabbable.transform.position = transform.position;
+            Vector3 offset = vrGrabbable.grabPoint.position - grabbable.transform.position;
+
+            // Set the position of the grabbed object relative to the offset
+            grabbable.transform.position = transform.position - offset;
+            Debug.DrawLine(vrGrabbable.grabPoint.position, vrGrabbable.grabPoint.position + offset, Color.red, 100f);
+            Debug.Log("Grab offset is" + offset);
+           
+        }
+
+
+    }
 }
