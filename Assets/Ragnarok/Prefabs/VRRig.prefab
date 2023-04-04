@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3583396799055321579}
   - component: {fileID: 4627420814027200258}
   - component: {fileID: 6052779998139392239}
+  - component: {fileID: 881106594807959614}
   m_Layer: 0
   m_Name: Right
   m_TagString: Hand
@@ -225,11 +226,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f16e5a09b2149408d839cadb86d649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbedObject: {fileID: 0}
   hasObjectGrabbed: 0
   isLeftHand: 0
   hasGripped: 0
   hasRealesed: 0
   debuggingMode: 0
+--- !u!114 &881106594807959614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689408785142233925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCastRadius: 0.14
+  recallDistance: 5
+  recallSpeed: 10
+  shouldRecall: 0
 --- !u!1 &5692645775719258798
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +263,7 @@ GameObject:
   - component: {fileID: 2333858618050464970}
   - component: {fileID: 1889399497955725045}
   - component: {fileID: 69493425798852563}
+  - component: {fileID: 331457547267606511}
   m_Layer: 0
   m_Name: Left
   m_TagString: Hand
@@ -371,11 +390,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f16e5a09b2149408d839cadb86d649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabbedObject: {fileID: 0}
   hasObjectGrabbed: 0
   isLeftHand: 1
   hasGripped: 0
   hasRealesed: 0
   debuggingMode: 0
+--- !u!114 &331457547267606511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692645775719258798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCastRadius: 0.14
+  recallDistance: 5
+  recallSpeed: 10
+  shouldRecall: 0
 --- !u!1 &6520877492639500676
 GameObject:
   m_ObjectHideFlags: 0

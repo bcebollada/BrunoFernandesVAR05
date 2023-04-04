@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.XR;
 public class GrabVR : MonoBehaviour
 {
     VRInputActions vrInputActions;
-    private GameObject grabbedObject;
+    public GameObject grabbedObject;
 
     private Vector3 previousPosition;
     private Vector3 handVelocity;
