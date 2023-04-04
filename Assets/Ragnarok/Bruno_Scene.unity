@@ -574,6 +574,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &1069554957 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5733479328385585741, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+  m_PrefabInstance: {fileID: 1135429528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1135429528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -581,6 +586,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 331457547267606511, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: sphereRadius
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 881106594807959614, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: sphereRadius
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594400189221572733, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 1069554957}
+    - target: {fileID: 4627420814027200258, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688577272903481197, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7885727701014425779, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
       propertyPath: m_Name
       value: VRRig
