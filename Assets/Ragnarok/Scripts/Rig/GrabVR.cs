@@ -97,9 +97,8 @@ public class GrabVR : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<GrabbableObject>() != null && !hasObjectGrabbed)
+        if (other.gameObject.GetComponent<VRGrabbable>() != null && !hasObjectGrabbed)
         {
-            other.gameObject.GetComponent<GrabbableObject>().isHovered = true;
             if (hasGripped)
             {
                 other.transform.parent = transform;

@@ -14,6 +14,7 @@ public class RagnarokVRInputController : MonoBehaviour
     public Vector2 JoystickRight;
     public bool ThumbPressedLeft;
 
+
     private void OnValidate()
     {
         JoystickLeft = Vector3.ClampMagnitude(JoystickLeft, 1);

@@ -8,18 +8,27 @@ public class ObjectCallBack : MonoBehaviour
     private GrabVR grabVR;
 
     public float capsuleCastRadius, recallDistance, recallSpeed; //values to define capsule cast
+    public float sphereRadius;
     public bool shouldRecall;
 
-    private RagnarokVRInputController input;
+    public Transform callBackPoint;
+
+    private RagnarokVRInputActions actions;
 
     private GameObject recallObject;
+    private bool isLeft; //to know which hand is
 
     private void Awake()
     {
         grabVR = GetComponent<GrabVR>();
-        input = GetComponent<RagnarokVRInputController>();
+        actions = new RagnarokVRInputActions();
+        actions.Enable();
     }
 
+    private void Start()
+    {
+        if (GetComponent<GrabVR>().isLeftHand) isLeft = true;
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,7 +38,7 @@ public class ObjectCallBack : MonoBehaviour
         {
             Debug.Log(hitLeft.collider.gameObject.name);
 
-            if (hitLeft.collider.gameObject.GetComponent<GrabbableObject>() != null)
+            if (hitLeft.collider.gameObject.GetComponent<VRGrabbable>() != null)
             {
                 Debug.Log("CapsuleCast hit grabbable object");
 
@@ -37,7 +46,26 @@ public class ObjectCallBack : MonoBehaviour
                 {
                     recallObject = hitLeft.collider.gameObject;
                     recallObject.GetComponent<Rigidbody>().isKinematic = true;
-                    recallObject.transform.position = Vector3.MoveTowards(recallObject.transform.position, transform.position, recallSpeed * Time.deltaTime);
+
+                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereRadius);
+                    foreach (var hitCollider in hitColliders)
+                    {
+                        if(hitCollider.gameObject == recallObject)
+                        {
+                            //creates same grab event as the in the GrabVR script
+                            recallObject.transform.parent = transform;
+                            grabVR.grabbedObject = recallObject.gameObject;
+                            recallObject.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                            grabVR.hasObjectGrabbed = true;
+
+
+                            shouldRecall = false;
+                            recallObject = null; //clears pulled object
+                            break;
+                        }
+                    }
+
+                    recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
                 }
             }
         }
@@ -47,6 +75,32 @@ public class ObjectCallBack : MonoBehaviour
             recallObject.GetComponent<Rigidbody>().isKinematic = false;
 
         }
+
+        if(isLeft)
+        {
+            if (actions.Default.GripLeft.WasPerformedThisFrame() && recallObject == null)
+            {
+                shouldRecall = true;
+            }
+            else if (actions.Default.GripLeft.WasReleasedThisFrame())
+            {
+                recallObject = null;
+                shouldRecall = false;
+            }
+        }
+        else
+        {
+            if (actions.Default.GripRight.WasPerformedThisFrame() && recallObject == null)
+            {
+                shouldRecall = true;
+            }
+            else if (actions.Default.GripRight.WasReleasedThisFrame())
+            {
+                recallObject = null;
+                shouldRecall = false;
+            }
+        }
+
 
     }
 
@@ -93,11 +147,12 @@ public class ObjectCallBack : MonoBehaviour
     private void OnDrawGizmos()
     {
         DrawWireCapsule(transform.position, transform.position + (-transform.up * recallDistance), capsuleCastRadius);
+        Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == recallObject) //checks if object is the pulled one
+        /*if(other.gameObject == recallObject) //checks if object is the pulled one
         {
             //creates same grab event as the in the GrabVR script
             other.transform.parent = transform;
@@ -108,7 +163,7 @@ public class ObjectCallBack : MonoBehaviour
 
             shouldRecall = false;
             recallObject = null; //clears pulled object
-        }
+        }*/
     }
 }
 
