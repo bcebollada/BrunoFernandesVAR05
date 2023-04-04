@@ -38,7 +38,7 @@ public class ObjectCallBack : MonoBehaviour
         {
             Debug.Log(hitLeft.collider.gameObject.name);
 
-            if (hitLeft.collider.gameObject.GetComponent<GrabbableObject>() != null)
+            if (hitLeft.collider.gameObject.GetComponent<VRGrabbable>() != null)
             {
                 Debug.Log("CapsuleCast hit grabbable object");
 
