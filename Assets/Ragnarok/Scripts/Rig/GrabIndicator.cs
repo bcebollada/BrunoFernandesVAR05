@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class GrabIndicator : MonoBehaviour
 {
@@ -14,11 +13,11 @@ public class GrabIndicator : MonoBehaviour
     {
         if(objectToFollow == null)
         {
-            GetComponent<Canvas>().enabled = false;
+            GetComponent<Image>().enabled = false;
         }
         else
         {
-            GetComponent<Canvas>().enabled = true;
+            GetComponent<Image>().enabled = true;
             transform.position = Camera.main.WorldToScreenPoint(objectToFollow.position);
         }
     }

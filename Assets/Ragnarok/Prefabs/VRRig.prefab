@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capsuleCastRadius: 0.2
+  capsuleCastRadius: 0.15
   recallDistance: 10
   recallSpeed: 10
   sphereRadius: 0.07
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capsuleCastRadius: 0.2
+  capsuleCastRadius: 0.15
   recallDistance: 10
   recallSpeed: 10
   sphereRadius: 0.07
