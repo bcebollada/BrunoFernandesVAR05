@@ -18,7 +18,6 @@ public class ObjectCallBack : MonoBehaviour
     private GameObject recallObject;
     private bool isLeft; //to know which hand is
 
-    private GrabIndicator grabIndicator; //sprite that indicates grab
 
     private void Awake()
     {
@@ -26,7 +25,6 @@ public class ObjectCallBack : MonoBehaviour
         actions = new RagnarokVRInputActions();
         actions.Enable();
 
-        grabIndicator = GetComponentInChildren<GrabIndicator>();
     }
 
     private void Start()
@@ -46,9 +44,6 @@ public class ObjectCallBack : MonoBehaviour
             {
                 Debug.Log("CapsuleCast hit grabbable object");
 
-                //creates or updates grab indicator object
-                if(hitLeft.collider.gameObject.GetComponent<VRGrabbable>().grabPoint != null) grabIndicator.objectToFollow = hitLeft.collider.gameObject.GetComponent<VRGrabbable>().grabPoint;
-                else grabIndicator.objectToFollow = hitLeft.collider.gameObject.transform;
 
                 if (shouldRecall)
                 {
@@ -72,11 +67,6 @@ public class ObjectCallBack : MonoBehaviour
                     if(recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
                 }
             }
-        }
-        else
-        {
-            grabIndicator.objectToFollow = null;
-
         }
 
         if (recallObject != null && !shouldRecall) //if we are pulling object but dont want to, removes kinematic

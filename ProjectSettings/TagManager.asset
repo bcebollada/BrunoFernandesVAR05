@@ -49,3 +49,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GrabIndicator
+    uniqueID: 2320191397
+    locked: 0
