@@ -18,14 +18,15 @@ public class ObjectCallBack : MonoBehaviour
     private GameObject recallObject;
     private bool isLeft; //to know which hand is
 
-    public GameObject grabIdentifierPrefab;
-    private GameObject grabIdentifier;
+    private GrabIndicator grabIndicator; //sprite that indicates grab
 
     private void Awake()
     {
         grabVR = GetComponent<GrabVR>();
         actions = new RagnarokVRInputActions();
         actions.Enable();
+
+        grabIndicator = GetComponentInChildren<GrabIndicator>();
     }
 
     private void Start()
@@ -46,14 +47,8 @@ public class ObjectCallBack : MonoBehaviour
                 Debug.Log("CapsuleCast hit grabbable object");
 
                 //creates or updates grab indicator object
-                if (grabIdentifier == null)
-                {
-                    grabIdentifier = Instantiate(grabIdentifierPrefab, hitLeft.point, Quaternion.identity);
-                }
-                else
-                {
-                    grabIdentifier.transform.position = hitLeft.point;
-                }
+                if(hitLeft.collider.gameObject.GetComponent<VRGrabbable>().grabPoint != null) grabIndicator.objectToFollow = hitLeft.collider.gameObject.GetComponent<VRGrabbable>().grabPoint;
+                else grabIndicator.objectToFollow = hitLeft.collider.gameObject.transform;
 
                 if (shouldRecall)
                 {
@@ -66,7 +61,7 @@ public class ObjectCallBack : MonoBehaviour
                         if(hitCollider.gameObject == recallObject)
                         {
                             //creates same grab event as the in the GrabVR script
-                            shouldRecall = false;
+                            shouldRecall = false;   
                             GetComponent<GrabVR>().GrabObject(recallObject);
 
                             recallObject = null; //clears pulled object
@@ -80,10 +75,11 @@ public class ObjectCallBack : MonoBehaviour
         }
         else
         {
-            if (grabIdentifier != null) Destroy(grabIdentifier);
+            grabIndicator.objectToFollow = null;
+
         }
 
-        if(recallObject != null && !shouldRecall) //if we are pulling object but dont want to, removes kinematic
+        if (recallObject != null && !shouldRecall) //if we are pulling object but dont want to, removes kinematic
         {
             recallObject.GetComponent<Rigidbody>().isKinematic = false;
 
