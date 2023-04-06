@@ -16,7 +16,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Hands
   - Water
   - UI
   - 
@@ -46,9 +46,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: GrabIndicator
     uniqueID: 2320191397
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0

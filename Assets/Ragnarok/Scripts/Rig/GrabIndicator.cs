@@ -5,20 +5,38 @@ using UnityEngine.UI;
 
 public class GrabIndicator : MonoBehaviour
 {
+    private Transform vrCamera;
+    private float hoverTimer;
+    public bool isHovered;
 
-    public Transform objectToFollow;
 
+    private void Awake()
+    {
+        vrCamera = GameObject.Find("Main Camera").transform;
+    }
 
     void Update()
     {
-        if(objectToFollow == null)
+        if(!isHovered)
         {
-            GetComponent<Image>().enabled = false;
+            hoverTimer += Time.deltaTime;
+
         }
         else
         {
-            GetComponent<Image>().enabled = true;
-            transform.position = Camera.main.WorldToScreenPoint(objectToFollow.position);
+            hoverTimer = 0;  
         }
+
+        if(hoverTimer < 0.1f)
+        {
+            GetComponentInChildren<Image>().enabled = true;
+            transform.LookAt(vrCamera);
+        }
+        else
+        {
+            GetComponentInChildren<Image>().enabled = false;
+        }
+
+        isHovered = false;
     }
 }

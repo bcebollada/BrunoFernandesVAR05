@@ -12,6 +12,7 @@ public class ObjectCallBack : MonoBehaviour
     public bool shouldRecall;
 
     public Transform callBackPoint;
+    public Transform vrCamera;
 
     private RagnarokVRInputActions actions;
 
@@ -32,11 +33,32 @@ public class ObjectCallBack : MonoBehaviour
         if (GetComponent<GrabVR>().isLeftHand) isLeft = true;
     }
 
+    private void MoveObjectTowardsHand()
+    {
+        recallObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject == recallObject)
+            {
+                //creates same grab event as the in the GrabVR script
+                shouldRecall = false;
+                GetComponent<GrabVR>().GrabObject(recallObject);
+
+                recallObject = null; //clears pulled object
+                break;
+            }
+        }
+
+        if (recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
+    }
+
     // Update is called once per frame
     void Update()
     {
         RaycastHit hitLeft;
-        if (Physics.SphereCast(transform.position, capsuleCastRadius, -transform.up, out hitLeft, recallDistance))
+        if (Physics.SphereCast(vrCamera.transform.position, capsuleCastRadius, vrCamera.forward, out hitLeft, recallDistance) && recallObject == null)
         {
             Debug.Log(hitLeft.collider.gameObject.name);
 
@@ -44,34 +66,29 @@ public class ObjectCallBack : MonoBehaviour
             {
                 Debug.Log("CapsuleCast hit grabbable object");
 
+                if(hitLeft.collider.gameObject.GetComponent<VRGrabbable>().grabPoint !=null)
+                {
+                    hitLeft.collider.gameObject.GetComponentInChildren<GrabIndicator>().isHovered = true;
+                }
+
 
                 if (shouldRecall)
                 {
                     recallObject = hitLeft.collider.gameObject;
-                    recallObject.GetComponent<Rigidbody>().isKinematic = true;
-
-                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, sphereRadius);
-                    foreach (var hitCollider in hitColliders)
-                    {
-                        if(hitCollider.gameObject == recallObject)
-                        {
-                            //creates same grab event as the in the GrabVR script
-                            shouldRecall = false;   
-                            GetComponent<GrabVR>().GrabObject(recallObject);
-
-                            recallObject = null; //clears pulled object
-                            break;
-                        }
-                    }
-
-                    if(recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
+                    MoveObjectTowardsHand();
                 }
             }
+        }
+
+        if (shouldRecall)
+        {
+            MoveObjectTowardsHand();
         }
 
         if (recallObject != null && !shouldRecall) //if we are pulling object but dont want to, removes kinematic
         {
             recallObject.GetComponent<Rigidbody>().isKinematic = false;
+            recallObject = null;
 
         }
 
@@ -95,7 +112,7 @@ public class ObjectCallBack : MonoBehaviour
             }
             else if (actions.Default.GripRight.WasReleasedThisFrame())
             {
-                recallObject = null;
+                //recallObject = null;
                 shouldRecall = false;
             }
         }
@@ -145,7 +162,7 @@ public class ObjectCallBack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        DrawWireCapsule(transform.position, transform.position + (-transform.up * recallDistance), capsuleCastRadius);
+        DrawWireCapsule(vrCamera.transform.position, vrCamera.transform.position + (vrCamera.forward * recallDistance), capsuleCastRadius);
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 
