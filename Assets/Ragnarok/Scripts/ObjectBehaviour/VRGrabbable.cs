@@ -9,10 +9,12 @@ public class VRGrabbable : MonoBehaviour
     public bool hasSpecificRotationOnGrab;
     public Quaternion specificRotation;
 
+    public float throwForceMultiplier; 
+
 
     private void Awake()
     {
-
+        if (throwForceMultiplier == 0) throwForceMultiplier = 1;
     }
 
     // Start is called before the first frame update

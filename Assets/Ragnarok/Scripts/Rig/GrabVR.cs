@@ -64,6 +64,8 @@ public class GrabVR : MonoBehaviour
                 grabbedObject.GetComponent<Rigidbody>().isKinematic = false;
                 grabbedObject.GetComponent<Rigidbody>().velocity = handVelocity;
                 grabbedObject.GetComponent<Rigidbody>().angularVelocity = angularVelocity;
+                grabbedObject.GetComponent<Rigidbody>().velocity = handVelocity * grabbedObject.GetComponent<VRGrabbable>().throwForceMultiplier;
+                grabbedObject.GetComponent<Rigidbody>().angularVelocity = angularVelocity * grabbedObject.GetComponent<VRGrabbable>().throwForceMultiplier;
                 print(angularVelocity);
                 grabbedObject = null;
 
@@ -118,7 +120,7 @@ public class GrabVR : MonoBehaviour
         {
             grabbable.transform.localRotation = vrGrabbable.specificRotation;
         }
-
+            
         if (vrGrabbable.grabPoint != null)
         {
             // Calculate the offset between the grab point position and the controller position
@@ -126,7 +128,7 @@ public class GrabVR : MonoBehaviour
             Vector3 offset = vrGrabbable.grabPoint.position - grabbable.transform.position;
 
             // Set the position of the grabbed object relative to the offset
-            grabbable.transform.position = transform.position - offset;
+            grabbable.transform.position = GetComponent<ObjectCallBack>().callBackPoint.position - offset;
             Debug.DrawLine(vrGrabbable.grabPoint.position, vrGrabbable.grabPoint.position + offset, Color.red, 100f);
             Debug.Log("Grab offset is" + offset);
            

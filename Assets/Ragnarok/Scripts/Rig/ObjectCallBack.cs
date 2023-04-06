@@ -18,6 +18,9 @@ public class ObjectCallBack : MonoBehaviour
     private GameObject recallObject;
     private bool isLeft; //to know which hand is
 
+    public GameObject grabIdentifierPrefab;
+    private GameObject grabIdentifier;
+
     private void Awake()
     {
         grabVR = GetComponent<GrabVR>();
@@ -42,6 +45,16 @@ public class ObjectCallBack : MonoBehaviour
             {
                 Debug.Log("CapsuleCast hit grabbable object");
 
+                //creates or updates grab indicator object
+                if (grabIdentifier == null)
+                {
+                    grabIdentifier = Instantiate(grabIdentifierPrefab, hitLeft.point, Quaternion.identity);
+                }
+                else
+                {
+                    grabIdentifier.transform.position = hitLeft.point;
+                }
+
                 if (shouldRecall)
                 {
                     recallObject = hitLeft.collider.gameObject;
@@ -64,6 +77,10 @@ public class ObjectCallBack : MonoBehaviour
                     if(recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
                 }
             }
+        }
+        else
+        {
+            if (grabIdentifier != null) Destroy(grabIdentifier);
         }
 
         if(recallObject != null && !shouldRecall) //if we are pulling object but dont want to, removes kinematic
