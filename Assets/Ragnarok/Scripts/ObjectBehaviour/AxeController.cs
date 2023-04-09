@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class AxeController : MonoBehaviour
 {
-    private Rigidbody rb;
+    public Rigidbody rigidBody;
+    public Collider bladeCollider;
+    public Collider handleCollider;
 
-
+    public bool isStuck = false;
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
-    void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Axe hit object)");
-            rb.isKinematic = true;
-            //transform.SetParent(other.transform);
-            //transform.localRotation = Quaternion.LookRotation(other.contacts[0].normal);
-            // add particle effects or sound effects here
-        
+        if (isStuck) return;
+
+        ContactPoint contact = collision.contacts[0];
+
+        if (contact.thisCollider == bladeCollider && contact.otherCollider.CompareTag("Target"))
+        {
+            Debug.Log("Blade was hit");
+            rigidBody.isKinematic = true;
+            isStuck = true;
+        }
+        else if (contact.thisCollider == handleCollider && contact.otherCollider.CompareTag("Target"))
+        {
+            Debug.Log("Handle was hit");
+            //rigidBody.AddForce(contact.normal * 500f);
+        }
     }
 }

@@ -12,6 +12,8 @@ TagManager:
   - Target
   - Weapon
   - GameManager
+  - AxeBlade
+  - recallObject
   layers:
   - Default
   - TransparentFX
