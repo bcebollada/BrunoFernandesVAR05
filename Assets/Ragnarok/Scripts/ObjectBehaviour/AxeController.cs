@@ -16,7 +16,7 @@ public class AxeController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (isStuck) return;
+        //if (isStuck) return;
 
         ContactPoint contact = collision.contacts[0];
 
@@ -24,7 +24,7 @@ public class AxeController : MonoBehaviour
         {
             Debug.Log("Blade was hit");
             rigidBody.isKinematic = true;
-            isStuck = true;
+            //isStuck = true;
         }
         else if (contact.thisCollider == handleCollider && contact.otherCollider.CompareTag("Target"))
         {
