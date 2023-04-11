@@ -251,6 +251,10 @@ MonoBehaviour:
   sphereRadius: 0.07
   shouldRecall: 0
   callBackPoint: {fileID: 2637208722100693887}
+  vrCamera: {fileID: 0}
+  grabIndicator: {fileID: 0}
+  layerMask: 0
+  callBackSound: {fileID: 8300000, guid: d1ec455c1daaf3441bf25b6607e5591e, type: 3}
 --- !u!1 &5692645775719258798
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +422,10 @@ MonoBehaviour:
   sphereRadius: 0.07
   shouldRecall: 0
   callBackPoint: {fileID: 1485194017357407587}
+  vrCamera: {fileID: 0}
+  grabIndicator: {fileID: 0}
+  layerMask: 0
+  callBackSound: {fileID: 8300000, guid: d1ec455c1daaf3441bf25b6607e5591e, type: 3}
 --- !u!1 &6520877492639500676
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +569,7 @@ GameObject:
   - component: {fileID: 6654556178970611346}
   - component: {fileID: 2594400189221572733}
   - component: {fileID: 7407952386183224812}
+  - component: {fileID: 8185633290458325148}
   m_Layer: 0
   m_Name: VRRig
   m_TagString: VRRig
@@ -599,6 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 5733479328385585741}
+  walkingSound: {fileID: 8300000, guid: 5fcd1708b13287c4bbd2d8b4349cc76f, type: 3}
 --- !u!114 &7626750993369001192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +673,102 @@ MonoBehaviour:
   teleportTargetMarkPrefab: {fileID: 6949686521093299384, guid: cef7e0454ceb3514a9937fc73b93abc1, type: 3}
   Teleport: 0
   TeleportTarget: {x: 0, y: 0, z: 0}
+--- !u!82 &8185633290458325148
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885727701014425779}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7902754577989443148
 GameObject:
   m_ObjectHideFlags: 0

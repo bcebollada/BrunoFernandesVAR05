@@ -7,10 +7,18 @@ public class TranslationLocomotion_Script : MonoBehaviour
     private RagnarokVRInputController input;
     public Transform head;
 
+    private bool isReproducingWalingSound;
+
+    private AudioSource audioSource;
+    public AudioClip walkingSound;
+
 
     private void Awake()
     {
         input = GetComponent<RagnarokVRInputController>();
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.loop = true;
     }
 
 
@@ -32,5 +40,28 @@ public class TranslationLocomotion_Script : MonoBehaviour
         Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
 
         transform.position += moveDirection * Time.deltaTime;
+
+        PlayWalkingSound(moveInput.magnitude);
+    }
+
+    private void PlayWalkingSound(float moveInputMag)
+    {
+        if (moveInputMag > 0.1f)
+        {
+            if (isReproducingWalingSound) return;
+            Debug.Log("ReproducingWalkingSound");
+
+            isReproducingWalingSound = true;
+            audioSource.clip = walkingSound;
+            audioSource.Play();
+        }
+        else
+        {
+            isReproducingWalingSound = false ;
+            audioSource.Stop();
+        }
+
+
+
     }
 }

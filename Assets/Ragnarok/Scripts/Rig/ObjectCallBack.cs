@@ -26,6 +26,11 @@ public class ObjectCallBack : MonoBehaviour
     public int layerMask;
 
 
+    //for playing callback sound
+    private AudioSource audioSource;
+    public AudioClip callBackSound;
+
+
     private void Awake()
     {
         grabVR = GetComponent<GrabVR>();
@@ -66,6 +71,16 @@ public class ObjectCallBack : MonoBehaviour
         }
 
         if (recallObject != null) recallObject.transform.position = Vector3.Lerp(recallObject.transform.position, callBackPoint.position, recallSpeed * Time.deltaTime);
+
+        if (recallObject.GetComponent<AudioSource>() != null) //if recallObj has audioSource, will play sound
+        {
+            if (audioSource == recallObject.GetComponent<AudioSource>()) return; //return ir sound was already played
+
+            audioSource = recallObject.GetComponent<AudioSource>();
+            audioSource.clip = callBackSound;
+            audioSource.Play();
+        }
+        else Debug.Log("Recalled Obj does not have audio source, if you want to play sound, add it");
     }
 
     // Update is called once per frame
@@ -137,7 +152,9 @@ public class ObjectCallBack : MonoBehaviour
             {
                 //recallObject = null;
                 Debug.Log("Left grip released");
+
                 shouldRecall = false;
+                audioSource = null;
             }
         }
         else
@@ -160,6 +177,8 @@ public class ObjectCallBack : MonoBehaviour
                 Debug.Log("Right grip released");
 
                 shouldRecall = false;
+                audioSource = null;
+
             }
         }
 

@@ -22,7 +22,7 @@ public class VRTeleportation : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(hand.position, -hand.up, out RaycastHit hit))
+        if (Physics.Raycast(hand.position, -hand.up, out RaycastHit hit)) //raycast for teleportation
         {
             Debug.DrawLine(hand.position, hit.point, Color.green);
             TeleportTarget = hit.point;
