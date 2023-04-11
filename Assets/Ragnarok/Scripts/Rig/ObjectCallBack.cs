@@ -9,17 +9,21 @@ public class ObjectCallBack : MonoBehaviour
 
     public float capsuleCastRadius, recallDistance, recallSpeed; //values to define capsule cast
     public float sphereRadius;
+    private bool objectHit;
     public bool shouldRecall;
 
     public Transform callBackPoint;
     public Transform vrCamera;
 
-    public GameObject grabIndicatorGO; // added reference to grabIndicator game object
+    public GrabIndicator grabIndicator; // added reference to grabIndicator game object
 
     private RagnarokVRInputActions actions;
 
     private GameObject recallObject;
     private bool isLeft; //to know which hand is
+
+    // Create a layer mask that includes only layer X
+    public int layerMask;
 
 
     private void Awake()
@@ -27,6 +31,8 @@ public class ObjectCallBack : MonoBehaviour
         grabVR = GetComponent<GrabVR>();
         actions = new RagnarokVRInputActions();
         actions.Enable();
+
+        layerMask   = 1 << LayerMask.NameToLayer("Grabbable");
 
     }
 
@@ -66,18 +72,21 @@ public class ObjectCallBack : MonoBehaviour
     void Update()
     {
         RaycastHit hitLeft;
-        if (Physics.SphereCast(vrCamera.transform.position, capsuleCastRadius, vrCamera.forward, out hitLeft, recallDistance) && recallObject == null)
+        if (Physics.SphereCast(vrCamera.transform.position, capsuleCastRadius, vrCamera.forward, out hitLeft, recallDistance, layerMask) && recallObject == null)
         {
-           //Debug.Log(hitLeft.collider.gameObject.name);
+            //Debug.Log(hitLeft.collider.gameObject.name);
 
             if (hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>() != null)
             {
+                objectHit = true; //raycast detected object with vrgrabbable
+
                 Debug.Log("CapsuleCast hit grabbable object"); // check for if the capsule is hitting grabbable object ND
 
-                if(hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>().grabPoint !=null)
+                if (hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>().grabPoint != null)
                 {
                     //hitLeft.collider.gameObject.GetComponent<GrabIndicator>().isHovered = true; - this was throwing an error, changed how it checks for grab indicator by using direct reference ND
-                    grabIndicatorGO.GetComponent<GrabIndicator>().isHovered = true;
+                    grabIndicator = hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>().grabPoint.gameObject.GetComponent<GrabIndicator>();
+                    grabIndicator.isHovered = true;
 
                 }
 
@@ -95,6 +104,8 @@ public class ObjectCallBack : MonoBehaviour
                 }
             }
         }
+        else objectHit = false;
+
 
         if (shouldRecall)
         {
@@ -115,15 +126,17 @@ public class ObjectCallBack : MonoBehaviour
                 Debug.Log("Left Grip was pressed in the CallBack Script without looking at Grabbable Object");
 
                 // Check that stops it from entering error loop if trying to recall while looking at any other objects
-                if (hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>() != null)
+                if (objectHit)
                 {
                     Debug.Log("Grip was pressed and an object should be recalled");
                     shouldRecall = true;
                 }
             }
+
             else if (actions.Default.GripLeft.WasReleasedThisFrame())
             {
                 //recallObject = null;
+                Debug.Log("Left grip released");
                 shouldRecall = false;
             }
         }
@@ -134,7 +147,7 @@ public class ObjectCallBack : MonoBehaviour
                 Debug.Log("Right Grip was pressed in the CallBack Script without looking at Grabbable Object");
                 
                 // Check that stops it from entering error loop if trying to recall while looking at any other objects
-                if(hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>() != null)
+                if(objectHit)
                 {
                     Debug.Log("Grip was pressed and an object should be recalled");
                     shouldRecall = true;
@@ -144,6 +157,8 @@ public class ObjectCallBack : MonoBehaviour
             else if (actions.Default.GripRight.WasReleasedThisFrame())
             {
                 //recallObject = null;
+                Debug.Log("Right grip released");
+
                 shouldRecall = false;
             }
         }

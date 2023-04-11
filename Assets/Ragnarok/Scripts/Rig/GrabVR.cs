@@ -103,7 +103,8 @@ public class GrabVR : MonoBehaviour
         {
             if (hasGripped)
             {
-                GrabObject(other.gameObject.transform.parent.gameObject);
+                if (other.transform.parent != null) GrabObject(other.gameObject.transform.parent.gameObject);
+                else GrabObject(other.gameObject);
             }
         }
     }
