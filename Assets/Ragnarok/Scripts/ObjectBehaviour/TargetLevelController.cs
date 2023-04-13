@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TargetLevelController : MonoBehaviour
 
@@ -11,13 +12,36 @@ public class TargetLevelController : MonoBehaviour
 
     public bool levelOneComplete = false;
 
+    public bool timeHasRunOut = false;
+
+    public float totalTime = 60.0f;
+    private float timeLeft;
+    public TMP_Text countdownText;
+
     private void Start()
     {
         ActivateTarget(currentTargetIndex); // Activate the first target
+        timeLeft = totalTime;
+        countdownText.text = timeLeft.ToString();
     }
 
     private void Update()
     {
+        timeLeft -= Time.deltaTime;
+        countdownText.text = "Time Remaining: " + Mathf.RoundToInt(timeLeft).ToString();
+
+        if (timeLeft <= 0 && timeHasRunOut == false)
+        {
+            // Do something when the countdown timer reaches 0
+            Debug.Log("Countdown timer has ended!");
+            timeHasRunOut = true;
+        }
+
+        if(timeHasRunOut == true)
+        {
+            countdownText.text = "Game Over";
+        }
+
         if (currentTargetIndex < targets.Length && targets[currentTargetIndex].GetComponentInChildren<TargetController>().hasBeenHit == true 
             && targets[currentTargetIndex].GetComponentInChildren<TargetController>().axeHasBeenRecalled == true)
         {
