@@ -539,28 +539,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 331457547267606511, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: vrCamera
-      value: 
-      objectReference: {fileID: 1222223749}
-    - target: {fileID: 331457547267606511, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: grabIndicatorGO
-      value: 
-      objectReference: {fileID: 5504941118539236790}
-    - target: {fileID: 881106594807959614, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: vrCamera
-      value: 
-      objectReference: {fileID: 1222223749}
-    - target: {fileID: 881106594807959614, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: sphereRadius
-      value: 0.16
+    - target: {fileID: 920096054178264076, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.4
       objectReference: {fileID: 0}
-    - target: {fileID: 881106594807959614, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: grabIndicatorGO
-      value: 
-      objectReference: {fileID: 5504941118539236790}
-    - target: {fileID: 2594400189221572733, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-      propertyPath: head
+    - target: {fileID: 920096054178264077, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+      propertyPath: target
       value: 
       objectReference: {fileID: 1455399661}
     - target: {fileID: 7885727701014425779, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
@@ -1086,11 +1070,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1222223749 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7687727207199420869, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
-  m_PrefabInstance: {fileID: 745861396}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1222223751 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4548575607190114795, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
@@ -2415,11 +2394,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3483331168029779974}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &5504941118539236790 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6978791708905048837, guid: dd2f8930990e2eb4e8886ddf1e48ee28, type: 3}
-  m_PrefabInstance: {fileID: 3223694229490568883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &5587110133143649753
 MeshRenderer:
   m_ObjectHideFlags: 0

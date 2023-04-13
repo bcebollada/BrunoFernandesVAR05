@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SpectatorCamera : MonoBehaviour
 {
+
     public Transform target;
     public float translateSpeed = 6f;
     public float rotateSpeed = 8f;
