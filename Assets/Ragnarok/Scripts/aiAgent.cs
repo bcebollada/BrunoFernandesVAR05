@@ -14,11 +14,9 @@ public class aiAgent : MonoBehaviour
     public enum State { MoveToPointOne, TravellingToPointTwo, HangAround };
     public State currentState = State.MoveToPointOne;
 
-
     public Transform pointOne;
     public BoxCollider fieldCollider;
     
-
     //navemesh component goes on the A.I bot
     //navmesh must also be created
     private NavMeshAgent agent;
@@ -50,6 +48,10 @@ public class aiAgent : MonoBehaviour
         if (currentState == State.MoveToPointOne)
         {
             isWalking = true;
+
+            anim.SetBool("Walking", true);
+            anim.SetBool("Idle", false);
+
             if (Vector3.Distance(transform.position, pointOne.position) < 1)
             {
                 currentState = State.TravellingToPointTwo;
@@ -62,6 +64,10 @@ public class aiAgent : MonoBehaviour
         if (currentState == State.TravellingToPointTwo)
         {
             isWalking = true;
+
+            anim.SetBool("Walking", true);
+            anim.SetBool("Idle", false);
+
             if (!agent.pathPending)
             {
                 //Is the remaining distance very small, implying we've arrived? **Keeping these comments for future reference**
@@ -70,7 +76,10 @@ public class aiAgent : MonoBehaviour
                     // Check that we have come to a halt or no longer have a path.
                     if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                     {
+                        anim.SetBool("Walking", false);
+                        anim.SetBool("Idle", true);
                         currentState = State.HangAround;
+                        
                     }
                 }
             }
@@ -79,22 +88,34 @@ public class aiAgent : MonoBehaviour
         if (currentState == State.HangAround && canHangAround == true)
         {
             isWalking = false;
+
             StartCoroutine(RelaxingInPlace());
-
         }
-
-        //anim.SetBool("Walking", isWalking);
-        //SETUP ANIMATION LATER
-       
     }
 
     IEnumerator RelaxingInPlace()
     {
         yield return new WaitForSeconds(waitTime);
 
+        anim.SetBool("Walking", true);
+        anim.SetBool("Idle", false);
+
+        StartCoroutine(EnsureAnimatorEngages());
+
+        //currentState = State.MoveToPointOne;
+        //agent.SetDestination(pointOne.position);
+    }
+
+    IEnumerator EnsureAnimatorEngages()
+    {
+        yield return new WaitForSeconds(.5f);
+
+
         currentState = State.MoveToPointOne;
         agent.SetDestination(pointOne.position);
+
     }
+
 
 
 
