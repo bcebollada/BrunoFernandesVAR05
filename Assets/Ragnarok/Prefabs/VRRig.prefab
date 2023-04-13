@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 5733479328385585741}
-  walkingSound: {fileID: 8300000, guid: 5fcd1708b13287c4bbd2d8b4349cc76f, type: 3}
+  walkingSound: {fileID: 8300000, guid: 2772b9d3942e74f4cb21df09afea9b41, type: 3}
 --- !u!114 &7626750993369001192
 MonoBehaviour:
   m_ObjectHideFlags: 0
