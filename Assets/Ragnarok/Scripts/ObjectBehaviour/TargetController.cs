@@ -9,9 +9,18 @@ public class TargetController : MonoBehaviour
     public bool axeHasBeenRecalled = false;
     public Animator targetSinks; // Reference to the Animator component
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         hasBeenHit = true;
+        if(other.gameObject.CompareTag("AxeBlade")) audioSource.Play();
+        
     }
     private void OnTriggerExit(Collider collision)
     {

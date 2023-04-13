@@ -12,6 +12,8 @@ public class VRGrabbable : MonoBehaviour
     public float throwForceMultiplier; 
 
 
+
+
     private void Awake()
     {
         if (throwForceMultiplier == 0) throwForceMultiplier = 1;
