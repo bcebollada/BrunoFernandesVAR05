@@ -15,6 +15,7 @@ TagManager:
   - AxeBlade
   - recallObject
   - Chicken
+  - RespawnTrigger
   layers:
   - Default
   - TransparentFX

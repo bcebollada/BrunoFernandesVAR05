@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 294577328}
   m_Layer: 6
   m_Name: AxePhysicObject_WithGrabPoint_Modified
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,6 +501,8 @@ MonoBehaviour:
   bladeCollider: {fileID: 257901140}
   handleCollider: {fileID: 2107656152}
   isStuck: 0
+  originalPos: {x: 0, y: 0, z: 0}
+  originalRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &294577325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1994,3 +1996,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b6364b51eab8ff4ba580f918118d3b2, type: 3}
+--- !u!1001 &9051411033284336465
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9051411033144726616, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_Name
+      value: TriggerForAxeRespawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9051411033144726618, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c092fe4865588a6429ed5b0f4c86ae20, type: 3}

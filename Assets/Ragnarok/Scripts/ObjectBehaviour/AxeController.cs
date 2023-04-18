@@ -9,9 +9,17 @@ public class AxeController : MonoBehaviour
     public Collider handleCollider;
 
     public bool isStuck = false;
+
+    public Vector3 originalPos;
+    public Quaternion originalRot;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+
+        //saves original transform 
+        originalPos = transform.position;
+        originalRot = transform.rotation;
     }
 
     private void OnCollisionEnter(Collision collision)
