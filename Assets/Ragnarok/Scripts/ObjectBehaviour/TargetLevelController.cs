@@ -7,7 +7,8 @@ public class TargetLevelController : MonoBehaviour
 
 {
     public GameObject[] targets; // Array of target objects
-    
+    public AmbienceSound ambienceSound;
+
     public int currentTargetIndex = 0; // Index of the current target
 
     public bool gameStart = false;
@@ -44,6 +45,7 @@ public class TargetLevelController : MonoBehaviour
 
         if (gameStart == true && timerStart == true && currentTargetIndex < 3)
         {
+            ambienceSound.playEpicSound = true;
             timeLeft -= Time.deltaTime;
             countdownText.text = "Time Remaining: " + Mathf.RoundToInt(timeLeft).ToString();
             if (timeLeft <= 0 && timeHasRunOut == false)
