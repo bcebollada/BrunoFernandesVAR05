@@ -1486,6 +1486,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5733479328385585741, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
   m_PrefabInstance: {fileID: 745861396}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1455399662 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7535375091079906510, guid: a3c6e5689c3612348a2d886d8b9e7f6e, type: 3}
+  m_PrefabInstance: {fileID: 745861396}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1464546593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1571,8 @@ MonoBehaviour:
   - {fileID: 1638492908}
   - {fileID: 1790770772}
   currentTargetIndex: 0
+  gameStart: 0
+  timerStart: 0
   levelOneComplete: 0
   timeHasRunOut: 0
   totalTime: 60
@@ -10493,6 +10500,71 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &5809454796062973928
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -120.485
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 44.997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500801, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500813, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: m_Name
+      value: BeerMug
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809454795217500814, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: headCollider
+      value: 
+      objectReference: {fileID: 1455399662}
+    - target: {fileID: 5809454795217500814, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
+      propertyPath: targetLevelController
+      value: 
+      objectReference: {fileID: 1492422331}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e5c41bc17a9ad8438df34b31f4efc66, type: 3}
 --- !u!23 &5852187087252472226
 MeshRenderer:
   m_ObjectHideFlags: 0

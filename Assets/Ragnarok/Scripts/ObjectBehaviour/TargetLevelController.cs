@@ -10,6 +10,10 @@ public class TargetLevelController : MonoBehaviour
     
     public int currentTargetIndex = 0; // Index of the current target
 
+    public bool gameStart = false;
+    public bool timerStart = false;
+
+
     public bool levelOneComplete = false;
 
     public bool timeHasRunOut = false;
@@ -20,6 +24,11 @@ public class TargetLevelController : MonoBehaviour
 
     private void Start()
     {
+        
+    }
+
+    private void startGame()
+    {
         ActivateTarget(currentTargetIndex); // Activate the first target
         timeLeft = totalTime;
         countdownText.text = timeLeft.ToString();
@@ -27,17 +36,32 @@ public class TargetLevelController : MonoBehaviour
 
     private void Update()
     {
-        timeLeft -= Time.deltaTime;
-        countdownText.text = "Time Remaining: " + Mathf.RoundToInt(timeLeft).ToString();
-
-        if (timeLeft <= 0 && timeHasRunOut == false)
+        if(gameStart == true && timerStart == false)
         {
-            // Do something when the countdown timer reaches 0
-            Debug.Log("Countdown timer has ended!");
-            timeHasRunOut = true;
+            startGame();
+            timerStart = true;
         }
 
-        if(timeHasRunOut == true)
+        if (gameStart == true && timerStart == true && currentTargetIndex < 3)
+        {
+            timeLeft -= Time.deltaTime;
+            countdownText.text = "Time Remaining: " + Mathf.RoundToInt(timeLeft).ToString();
+            if (timeLeft <= 0 && timeHasRunOut == false)
+            {
+                // Do something when the countdown timer reaches 0
+                Debug.Log("Countdown timer has ended!");
+                timeHasRunOut = true;
+            }
+        }
+
+        //if (timeLeft <= 0 && timeHasRunOut == false)
+        //{
+        //    // Do something when the countdown timer reaches 0
+        //    Debug.Log("Countdown timer has ended!");
+        //    timeHasRunOut = true;
+        //}
+
+        if (timeHasRunOut == true)
         {
             countdownText.text = "Game Over";
         }
@@ -52,6 +76,8 @@ public class TargetLevelController : MonoBehaviour
         {
 
             Debug.Log("You hit all the targets!"); // Display a message when all targets are hit
+
+            countdownText.text = "Mission Complete!";
             levelOneComplete = true;
         }
 
