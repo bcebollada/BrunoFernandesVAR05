@@ -58,7 +58,7 @@ public class ObjectCallBack : MonoBehaviour
             Debug.Log(hitCollider.gameObject.name); // prints name of all overlapped collider by hand sphere ND
 
 
-            if (hitCollider.gameObject.transform.parent.gameObject.tag == "recallObject") // check for the recallObject tag on parent ND
+            if (hitCollider.gameObject.transform.tag == "recallObject") 
             {
                 //creates same grab event as the in the GrabVR script
                 Debug.Log("Axe Has Hit hand and should be grabbed");
@@ -67,6 +67,20 @@ public class ObjectCallBack : MonoBehaviour
 
                 recallObject = null; //clears pulled object
                 break;
+            }
+
+            else if(hitCollider.gameObject.transform.parent != null) // check for the recallObject tag on parent ND
+            {
+                if(hitCollider.gameObject.transform.parent.gameObject.tag == "recallObject")
+                {
+                    //creates same grab event as the in the GrabVR script
+                    Debug.Log("Axe Has Hit hand and should be grabbed");
+                    shouldRecall = false;
+                    GetComponent<GrabVR>().GrabObject(recallObject);
+
+                    recallObject = null; //clears pulled object
+                    break;
+                }
             }
         }
 
@@ -112,8 +126,14 @@ public class ObjectCallBack : MonoBehaviour
 
                 if (shouldRecall)
                 {
-                    // sets the "recallObject" to the parent object of the colliders ND
-                    recallObject = hitLeft.collider.gameObject.transform.parent.gameObject;
+                    if (hitLeft.collider.gameObject.transform.parent != null)
+                    {
+                        // sets the "recallObject" to the parent object of the colliders ND
+                        recallObject = hitLeft.collider.gameObject.transform.parent.gameObject;
+                    }
+                    else recallObject = hitLeft.collider.gameObject;
+
+
 
                     Debug.Log("Parent object 'The object to be recalled' name: " + recallObject.name);
 
