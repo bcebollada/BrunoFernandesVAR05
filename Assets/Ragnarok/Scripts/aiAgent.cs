@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,23 @@ public class aiAgent : MonoBehaviour
 
     [SerializeField]
     private int waitTime = 4;
+
+    [SerializeField]
+    private Collider vrRigRightHand; 
+    [SerializeField]
+
+    private Collider vrRigLeftHand;
+
+    [SerializeField]
+    private Collider bladeCollider;
+
+    [SerializeField]
+    private TMP_Text farmerText;
+
+    [SerializeField]
+    private Transform farmerTextTransform;
+
+
 
     public enum State { MoveToPointOne, TravellingToPointTwo, HangAround };
     public State currentState = State.MoveToPointOne;
@@ -24,10 +42,29 @@ public class aiAgent : MonoBehaviour
     bool isWalking = false;
     bool canHangAround;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other == vrRigRightHand || other == vrRigLeftHand)
+        {
+            Debug.Log("DON'T TOUCH THE FARMER!");
+            farmerText.gameObject.SetActive(true);
+            farmerText.text = "Don't Touch Me!";
+            StartCoroutine(TextWaitTime());
+        }
+        else if (other == bladeCollider) 
+        {
+            Debug.Log("That's RUDE!");
+            farmerText.gameObject.SetActive(true);
+            farmerText.text = "Slashing me is rude!";
+            StartCoroutine(TextWaitTime());
+        }
+    }
+
+
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();   
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -40,7 +77,9 @@ public class aiAgent : MonoBehaviour
 
     void Update()
     {
-        AiLogic();
+        farmerText.transform.rotation = Camera.current.transform.rotation;
+
+         AiLogic();
     }
 
     private void AiLogic()
@@ -90,6 +129,7 @@ public class aiAgent : MonoBehaviour
             isWalking = false;
 
             StartCoroutine(RelaxingInPlace());
+
         }
     }
 
@@ -116,7 +156,13 @@ public class aiAgent : MonoBehaviour
 
     }
 
+    IEnumerator TextWaitTime()
+    {
+        yield return new WaitForSeconds(3f);
+        farmerText.gameObject.SetActive(false);
 
+
+    }
 
 
     Vector3 RandomPointInBounds(Bounds bounds)
