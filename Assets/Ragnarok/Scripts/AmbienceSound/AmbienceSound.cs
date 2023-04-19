@@ -8,7 +8,7 @@ public class AmbienceSound : MonoBehaviour
     public AudioSource audioSourceAmbience, audioSourceEpic;
 
     public bool playEpicSound;
-    private bool isPlayingEpicSound;
+    public bool isPlayingEpicSound;
 
     private void Awake()
     {
@@ -31,6 +31,7 @@ public class AmbienceSound : MonoBehaviour
         else if (!playEpicSound)
         {
             audioSourceEpic.Stop();
+            isPlayingEpicSound = false;
         }
     }
 

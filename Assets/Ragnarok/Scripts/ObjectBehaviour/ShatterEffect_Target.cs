@@ -27,7 +27,9 @@ public class ShatterEffect_Target : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Weapon"))
         {
+            BreakTheThing();
             health--;
+
         }
     }
 
@@ -43,13 +45,13 @@ public class ShatterEffect_Target : MonoBehaviour
         isQuitting = true;
     }
 
-    private void OnDestroy()
-    {
-        if (!isQuitting)
-        {
-            BreakTheThing();
-        }
-    }
+    //private void OnDestroy()
+    //{
+    //    if (!isQuitting)
+    //    {
+    //        BreakTheThing();
+    //    }
+    //}
 
     private void BreakTheThing()
     {

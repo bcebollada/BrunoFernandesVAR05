@@ -7,25 +7,32 @@ public class TargetLevelController : MonoBehaviour
 
 {
     public GameObject[] targets; // Array of target objects
+    public GameObject[] pumpkinHeads; // Array of pumpkinHead objects
     public AmbienceSound ambienceSound;
 
     public int currentTargetIndex = 0; // Index of the current target
 
+    public int currentPumpkinIndex = 0;
+
     public bool gameStart = false;
+    public bool levelTwoStart = false;
     public bool timerStart = false;
 
 
     public bool levelOneComplete = false;
+    public bool levelTwoComplete = false;
 
     public bool timeHasRunOut = false;
 
     public float totalTime = 60.0f;
     private float timeLeft;
     public TMP_Text countdownText;
+    public TMP_Text messageText;
+    public GameObject messageTextGO;
 
     private void Start()
     {
-        
+        messageText.text = "Welcome to Ragnarok! \nTake a drink from the mug \nto start the game!";
     }
 
     private void startGame()
@@ -33,17 +40,25 @@ public class TargetLevelController : MonoBehaviour
         ActivateTarget(currentTargetIndex); // Activate the first target
         timeLeft = totalTime;
         countdownText.text = timeLeft.ToString();
+        messageTextGO.SetActive(false);
+    }
+    private void startLevelTwo()
+    {
+        ActivateScareCrowTarget(currentPumpkinIndex);
+        timeLeft = 60.0f;
+        countdownText.text = timeLeft.ToString();
+        messageTextGO.SetActive(false);
     }
 
     private void Update()
     {
-        if(gameStart == true && timerStart == false)
+        if(gameStart == true && timerStart == false && levelOneComplete == false)
         {
             startGame();
             timerStart = true;
         }
 
-        if (gameStart == true && timerStart == true && currentTargetIndex < 3)
+        if (gameStart == true && timerStart == true && currentTargetIndex < 3 && levelOneComplete == false)
         {
             ambienceSound.playEpicSound = true;
             timeLeft -= Time.deltaTime;
@@ -56,18 +71,32 @@ public class TargetLevelController : MonoBehaviour
             }
         }
 
-        //if (timeLeft <= 0 && timeHasRunOut == false)
-        //{
-        //    // Do something when the countdown timer reaches 0
-        //    Debug.Log("Countdown timer has ended!");
-        //    timeHasRunOut = true;
-        //}
+        if(levelTwoStart == true && timerStart == false && levelTwoComplete == false)
+        {
+            startLevelTwo();
+            timerStart = true;
+        }
+
+        if(levelTwoStart == true && timerStart == true && currentPumpkinIndex < 3)
+        {
+            ambienceSound.playEpicSound = true;
+            timeLeft -= Time.deltaTime;
+            countdownText.text = "Time Remaining: " + Mathf.RoundToInt(timeLeft).ToString();
+            if (timeLeft <= 0 && timeHasRunOut == false)
+            {
+                // Do something when the countdown timer reaches 0
+                Debug.Log("Countdown timer has ended!");
+                timeHasRunOut = true;
+            }
+        }
 
         if (timeHasRunOut == true)
         {
-            countdownText.text = "Game Over";
+            messageText.text = "Game Over";
         }
 
+        //// Level One Logic ////
+         
         if (currentTargetIndex < targets.Length && targets[currentTargetIndex].GetComponentInChildren<TargetController>().hasBeenHit == true 
             && targets[currentTargetIndex].GetComponentInChildren<TargetController>().axeHasBeenRecalled == true)
         {
@@ -78,12 +107,44 @@ public class TargetLevelController : MonoBehaviour
         {
 
             Debug.Log("You hit all the targets!"); // Display a message when all targets are hit
-
-            countdownText.text = "Mission Complete!";
+            messageTextGO.SetActive(true);
+            messageText.text = "Round 1 Complete! \nTake a drink from the mug \nto start round two!";
             levelOneComplete = true;
+            timerStart = false;
+            ambienceSound.playEpicSound = false;
         }
 
+        //// Level Two Logic ////
 
+        if (currentPumpkinIndex < pumpkinHeads.Length && pumpkinHeads[currentPumpkinIndex].GetComponentInChildren<PumpkinController>().hasBeenHit == true)
+        {
+            HitPumpkin();
+        }
+        else if(currentPumpkinIndex == 3 && levelTwoComplete == false)
+        {
+            Debug.Log("You hit all the targets!"); // Display a message when all targets are hit
+            messageTextGO.SetActive(true);
+            messageText.text = "Round 2 Complete! \nTake a drink from the mug \nto start round two!";
+            levelTwoComplete = true;
+            timerStart = false;
+            ambienceSound.playEpicSound = false;
+        }
+    }
+
+    private void HitPumpkin()
+    {
+        currentPumpkinIndex++;
+
+        if(currentPumpkinIndex < pumpkinHeads.Length)
+        {
+            Debug.Log("activating scarecrow");
+            ActivateScareCrowTarget(currentPumpkinIndex);
+        }
+    }
+
+    private void ActivateScareCrowTarget(int index)
+    {
+        pumpkinHeads[index].SetActive(true);
     }
 
     private void ActivateTarget(int index)

@@ -8,6 +8,7 @@ public class MissionBoard : MonoBehaviour
     public int missionsComplete;
     public GameObject targetControllerGO;
     public bool missionOneComplete = false;
+    public bool missionTwoComplete = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,12 @@ public class MissionBoard : MonoBehaviour
             MissionComplete();
 
             missionOneComplete = true;
+        }
+        if (targetControllerGO.GetComponent<TargetLevelController>().levelTwoComplete == true && missionTwoComplete == false)
+        {
+            MissionComplete();
+
+            missionTwoComplete = true;
         }
     }
 

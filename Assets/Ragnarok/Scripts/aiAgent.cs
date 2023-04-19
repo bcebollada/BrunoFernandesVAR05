@@ -77,7 +77,7 @@ public class aiAgent : MonoBehaviour
 
     void Update()
     {
-        farmerText.transform.rotation = Camera.current.transform.rotation;
+        //farmerText.transform.rotation = Camera.current.transform.rotation;
 
          AiLogic();
     }
