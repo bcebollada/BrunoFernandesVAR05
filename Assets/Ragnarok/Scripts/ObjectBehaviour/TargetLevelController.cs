@@ -117,6 +117,10 @@ public class TargetLevelController : MonoBehaviour
             Debug.Log("You hit all the targets!");
             messageTextGO.SetActive(true);
             messageText.text = "Round 2 Complete! \nhit the pumpkin of restarting \n to reset";
+
+            restartCanvas.SetActive(true);
+            restartPumpkin.SetActive(true);
+
             levelTwoComplete = true;
             timerStart = false;
             ambienceSound.playEpicSound = false;

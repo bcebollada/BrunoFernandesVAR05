@@ -22,7 +22,7 @@ public class BeerMug : MonoBehaviour
             targetLevelController.gameStart = true;
         }
 
-        if(Vector3.Distance(transform.position, head.position) > distanceToHead && targetLevelController.levelOneComplete == true )
+        if(Vector3.Distance(transform.position, head.position) < distanceToHead && targetLevelController.levelOneComplete == true )
         {
             Debug.Log("Mug Hit Head, Start Level Two");
             targetLevelController.levelTwoStart = true;

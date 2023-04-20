@@ -6,6 +6,6 @@ public class ResetPumpkin : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        resetPumpkinHasBeenHit = true;
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Grabbable")) resetPumpkinHasBeenHit = true;
     }
 }
