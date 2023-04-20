@@ -1,23 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.XR.Oculus.Input;
-using UnityEngine.InputSystem.XR;
 
 public class GrabVR : MonoBehaviour
 {
     VRInputActions vrInputActions;
-    public GameObject grabbedObject;
-
+    
     private Vector3 previousPosition;
     private Vector3 handVelocity;
     private Quaternion previousRotation;
     private Vector3 angularVelocity;
 
-
+    public GameObject grabbedObject;
     public bool hasObjectGrabbed;
     public bool isLeftHand;
-
     public bool hasGripped;
     public bool hasRealesed;
     public bool debuggingMode;
@@ -134,7 +128,5 @@ public class GrabVR : MonoBehaviour
             Debug.Log("Grab offset is" + offset);
            
         }
-
-
     }
 }

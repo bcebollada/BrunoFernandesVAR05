@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VRRotation : MonoBehaviour
@@ -52,6 +50,5 @@ public class VRRotation : MonoBehaviour
 
             transform.position += headTranslationOffset;
         }
-        
     }
 }

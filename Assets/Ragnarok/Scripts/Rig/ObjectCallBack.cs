@@ -1,35 +1,26 @@
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
-    using UnityEditor;
 
 public class ObjectCallBack : MonoBehaviour
 {
-    private GrabVR grabVR;
-
+    // Create a layer mask that includes only layer X
+    public int layerMask;
     public float capsuleCastRadius, recallDistance, recallSpeed; //values to define capsule cast
     public float sphereRadius;
-    private bool objectHit;
     public bool shouldRecall;
 
     public Transform callBackPoint;
     public Transform vrCamera;
-
     public GrabIndicator grabIndicator; // added reference to grabIndicator game object
 
     private RagnarokVRInputActions actions;
-
     private GameObject recallObject;
     private bool isLeft; //to know which hand is
-
-    // Create a layer mask that includes only layer X
-    public int layerMask;
-
+    private GrabVR grabVR;
+    private bool objectHit;
 
     //for playing callback sound
     private AudioSource audioSource;
     public AudioClip callBackSound;
-
 
     private void Awake()
     {
@@ -38,7 +29,6 @@ public class ObjectCallBack : MonoBehaviour
         actions.Enable();
 
         layerMask   = 1 << LayerMask.NameToLayer("Grabbable");
-
     }
 
     private void Start()
@@ -98,17 +88,13 @@ public class ObjectCallBack : MonoBehaviour
             }
             else Debug.Log("Recalled Obj does not have audio source, if you want to play sound, add it");
         }
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit hitLeft;
         if (Physics.SphereCast(vrCamera.transform.position, capsuleCastRadius, vrCamera.forward, out hitLeft, recallDistance, layerMask) && recallObject == null)
         {
-            //Debug.Log(hitLeft.collider.gameObject.name);
-
             if (hitLeft.collider.gameObject.GetComponentInParent<VRGrabbable>() != null)
             {
                 objectHit = true; //raycast detected object with vrgrabbable
@@ -132,8 +118,6 @@ public class ObjectCallBack : MonoBehaviour
                         recallObject = hitLeft.collider.gameObject.transform.parent.gameObject;
                     }
                     else recallObject = hitLeft.collider.gameObject;
-
-
 
                     Debug.Log("Parent object 'The object to be recalled' name: " + recallObject.name);
 
@@ -205,10 +189,7 @@ public class ObjectCallBack : MonoBehaviour
 
             }
         }
-
-
     }
-
 
     //function to visualize capsuleDraw
     public static void DrawWireCapsule(Vector3 p1, Vector3 p2, float radius)
@@ -254,7 +235,5 @@ public class ObjectCallBack : MonoBehaviour
         DrawWireCapsule(vrCamera.transform.position, vrCamera.transform.position + (vrCamera.forward * recallDistance), capsuleCastRadius);
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
-
-
 }
 

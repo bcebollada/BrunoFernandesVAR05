@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class TargetController : MonoBehaviour
 {
@@ -20,8 +18,8 @@ public class TargetController : MonoBehaviour
     {
         hasBeenHit = true;
         if(other.gameObject.CompareTag("AxeBlade")) audioSource.Play();
-        
     }
+
     private void OnTriggerExit(Collider collision)
     {
         axeHasBeenRecalled = true;
@@ -40,10 +38,6 @@ public class TargetController : MonoBehaviour
             stateInfo = targetSinks.GetCurrentAnimatorStateInfo(0);
             yield return null;
         }
-
-        // Deactivate the current target
-        //gameObject.SetActive(false);
-
     }
 
     public IEnumerator PlayUpAnimationAfterDelay(float delay)
@@ -51,6 +45,5 @@ public class TargetController : MonoBehaviour
         yield return new WaitForSeconds(delay); // Wait for the specified delay
 
         targetSinks.SetTrigger("PlayUpAnimation"); // Play the
-
     }
 }

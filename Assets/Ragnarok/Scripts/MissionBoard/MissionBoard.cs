@@ -1,21 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MissionBoard : MonoBehaviour
 {
     public GameObject[] missions = new GameObject[4];
-    public int missionsComplete;
     public GameObject targetControllerGO;
+    public int missionsComplete;
     public bool missionOneComplete = false;
     public bool missionTwoComplete = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
         if (targetControllerGO.GetComponent<TargetLevelController>().levelOneComplete == true && missionOneComplete == false)

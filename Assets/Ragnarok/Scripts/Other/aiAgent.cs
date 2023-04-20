@@ -28,15 +28,11 @@ public class aiAgent : MonoBehaviour
     private Transform farmerTextTransform;
 
 
-
     public enum State { MoveToPointOne, TravellingToPointTwo, HangAround };
     public State currentState = State.MoveToPointOne;
-
     public Transform pointOne;
     public BoxCollider fieldCollider;
     
-    //navemesh component goes on the A.I bot
-    //navmesh must also be created
     private NavMeshAgent agent;
     Animator anim;
     bool isWalking = false;
@@ -60,8 +56,6 @@ public class aiAgent : MonoBehaviour
         }
     }
 
-
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -77,8 +71,6 @@ public class aiAgent : MonoBehaviour
 
     void Update()
     {
-        //farmerText.transform.rotation = Camera.current.transform.rotation;
-
          AiLogic();
     }
 
@@ -129,7 +121,6 @@ public class aiAgent : MonoBehaviour
             isWalking = false;
 
             StartCoroutine(RelaxingInPlace());
-
         }
     }
 
@@ -141,9 +132,6 @@ public class aiAgent : MonoBehaviour
         anim.SetBool("Idle", false);
 
         StartCoroutine(EnsureAnimatorEngages());
-
-        //currentState = State.MoveToPointOne;
-        //agent.SetDestination(pointOne.position);
     }
 
     IEnumerator EnsureAnimatorEngages()
@@ -153,15 +141,12 @@ public class aiAgent : MonoBehaviour
 
         currentState = State.MoveToPointOne;
         agent.SetDestination(pointOne.position);
-
     }
 
     IEnumerator TextWaitTime()
     {
         yield return new WaitForSeconds(3f);
         farmerText.gameObject.SetActive(false);
-
-
     }
 
 

@@ -1,22 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-
 
 public class RigVR : MonoBehaviour
 {
     public Transform head, left, right;
 
-
-    private void Awake()
-    {
-
-    }
-
     private void Update()
     {
-
         if (XRController.leftHand != null)
         {
             // Update the transforms of the components of our VR rig,

@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VRTeleportation : MonoBehaviour
 {
-    public Transform head;
-    public Transform hand;
+    public Transform head, hand;
     public GameObject teleportTargetMarkPrefab;
-    private GameObject teleportTargetMark;
-
     public bool Teleport;
-    private bool isTryingToTeleport;
     public Vector3 TeleportTarget;
 
     private RagnarokVRInputController input;
+    private GameObject teleportTargetMark;
+    private bool isTryingToTeleport;
 
     private void Awake()
     {
@@ -39,7 +35,6 @@ public class VRTeleportation : MonoBehaviour
         {
             isTryingToTeleport = true;
             // Teleport the...rig? To the target position.
-      
         }
 
         if(isTryingToTeleport) //if is holding thumbsticks shows target on ground

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BeerMug : MonoBehaviour
@@ -7,18 +5,6 @@ public class BeerMug : MonoBehaviour
     public Collider mugCollider;
     public Collider headCollider;
     public TargetLevelController targetLevelController;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -35,6 +21,5 @@ public class BeerMug : MonoBehaviour
             Debug.Log("Mug Hit Head, Start Level Two");
             targetLevelController.levelTwoStart = true;
         }
-
     }
 }

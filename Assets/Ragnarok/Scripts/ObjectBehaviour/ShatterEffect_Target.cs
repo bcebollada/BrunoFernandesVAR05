@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShatterEffect_Target : MonoBehaviour
@@ -7,7 +5,7 @@ public class ShatterEffect_Target : MonoBehaviour
     /// <summary>
     /// This script is attached to the original whole object that is to be fractured.
     /// </summary>
-    /// 
+    
     [SerializeField]
     GameObject _shatteredObject;
     
@@ -29,7 +27,6 @@ public class ShatterEffect_Target : MonoBehaviour
         {
             BreakTheThing();
             health--;
-
         }
     }
 
@@ -44,14 +41,6 @@ public class ShatterEffect_Target : MonoBehaviour
     {
         isQuitting = true;
     }
-
-    //private void OnDestroy()
-    //{
-    //    if (!isQuitting)
-    //    {
-    //        BreakTheThing();
-    //    }
-    //}
 
     private void BreakTheThing()
     {

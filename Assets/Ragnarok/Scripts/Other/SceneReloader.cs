@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneReloader : MonoBehaviour
 {
+    public GameObject resetPumpkin;
     public float countdownTime = 5f; // time in seconds for the countdown
     public TMP_Text restartimeText;
+    
     private float timer; // current time on the countdown
-
-    public GameObject resetPumpkin;
 
     void Start()
     {

@@ -186,7 +186,6 @@ public class TargetLevelController : MonoBehaviour
 
     private void HitTarget()
     {
-
         targets[currentTargetIndex].GetComponentInChildren<TargetController>().StartCoroutine
             (targets[currentTargetIndex].GetComponentInChildren<TargetController>().PlayDownAnimationAfterDelay(3f));
 
@@ -196,7 +195,5 @@ public class TargetLevelController : MonoBehaviour
         {
             ActivateTarget(currentTargetIndex);
         }
-
     }
-
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.InputSystem;
@@ -7,13 +5,11 @@ using UnityEngine.InputSystem;
 public class RagnarokVRInputController : MonoBehaviour
 {
     private RagnarokVRInputActions actions;
-    public bool debugging;
-
-
+    
     public Vector2 JoystickLeft;
     public Vector2 JoystickRight;
     public bool ThumbPressedLeft;
-
+    public bool debugging;
 
     private void OnValidate()
     {

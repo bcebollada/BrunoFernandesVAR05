@@ -27,11 +27,4 @@ public class TargetBehaviour : MonoBehaviour
 
         transform.position = new Vector3(x, y, transform.position.z);
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Potentially where it tells the GameManager to update the score
-
-
-    }
 }

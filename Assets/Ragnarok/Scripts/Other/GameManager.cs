@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,11 +8,6 @@ public class GameManager : MonoBehaviour
     //Optional course timer depending on level requirement
     [SerializeField]
     private float countdownTimer = 30f;
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
