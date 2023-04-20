@@ -25,7 +25,7 @@ public class ShatterEffect_Target : MonoBehaviour
     // Triggers collider when object hits anything tagged "Ground".
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Weapon"))
+        if (collision.gameObject.CompareTag("recallObject"))
         {
             BreakTheThing();
             health--;
