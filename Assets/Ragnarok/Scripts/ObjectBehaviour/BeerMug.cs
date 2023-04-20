@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BeerMug : MonoBehaviour
@@ -6,20 +8,25 @@ public class BeerMug : MonoBehaviour
     public Collider headCollider;
     public TargetLevelController targetLevelController;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        ContactPoint contact = collision.contacts[0];
+    [SerializeField]
+    private Transform head;
 
-        if(contact.thisCollider == mugCollider && contact.otherCollider == headCollider)
+    [SerializeField]
+    private float distanceToHead;
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, head.position) < distanceToHead)
         {
             Debug.Log("Mug Hit Head, Start Game");
             targetLevelController.gameStart = true;
         }
 
-        if (contact.thisCollider == mugCollider && contact.otherCollider == headCollider && targetLevelController.levelOneComplete == true)
+        if(Vector3.Distance(transform.position, head.position) > distanceToHead && targetLevelController.levelOneComplete == true )
         {
             Debug.Log("Mug Hit Head, Start Level Two");
             targetLevelController.levelTwoStart = true;
         }
     }
+
 }

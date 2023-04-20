@@ -1933,6 +1933,8 @@ MonoBehaviour:
   mugCollider: {fileID: 1286615892}
   headCollider: {fileID: 1455399662}
   targetLevelController: {fileID: 1492422331}
+  head: {fileID: 1455399661}
+  distanceToHead: 0.5
 --- !u!65 &1286615892 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 394887924875016494, guid: 0ea705b322507c24980cea1d9bc3f2ae, type: 3}
@@ -11417,9 +11419,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3455acb5b378b5488371859e036ef6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetPumpkin: {fileID: 2244533664786430955}
   countdownTime: 5
   restartimeText: {fileID: 1598096221}
-  resetPumpkin: {fileID: 2244533664786430955}
 --- !u!114 &1913202541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11844,10 +11846,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ead9f6b6ae936478cf73515b6c4d03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugging: 0
   JoystickLeft: {x: 0, y: 0}
   JoystickRight: {x: 0, y: 0}
   ThumbPressedLeft: 0
+  debugging: 0
 --- !u!1 &2656384493091003079
 GameObject:
   m_ObjectHideFlags: 0
@@ -12349,6 +12351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask: 0
   capsuleCastRadius: 0.15
   recallDistance: 10
   recallSpeed: 10
@@ -12357,7 +12360,6 @@ MonoBehaviour:
   callBackPoint: {fileID: 6501701721512359996}
   vrCamera: {fileID: 1446740910932992646}
   grabIndicator: {fileID: 0}
-  layerMask: 0
   callBackSound: {fileID: 0}
 --- !u!23 &8731721396473556311
 MeshRenderer:
@@ -12413,6 +12415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5dde3dff004b8d4f851bceb493f22a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask: 0
   capsuleCastRadius: 0.15
   recallDistance: 10
   recallSpeed: 10
@@ -12421,7 +12424,6 @@ MonoBehaviour:
   callBackPoint: {fileID: 7656093045326755360}
   vrCamera: {fileID: 1446740910932992646}
   grabIndicator: {fileID: 0}
-  layerMask: 0
   callBackSound: {fileID: 0}
 --- !u!114 &9103309763334290576
 MonoBehaviour:
