@@ -10,6 +10,8 @@ public class SceneReloader : MonoBehaviour
     
     private float timer; // current time on the countdown
 
+    public bool resetToggle = false;
+
     void Start()
     {
         timer = countdownTime;
@@ -17,8 +19,16 @@ public class SceneReloader : MonoBehaviour
 
     void Update()
     {
+        if (resetPumpkin != null)
+        {
+            if (resetPumpkin.GetComponent<ResetPumpkin>().resetPumpkinHasBeenHit == true)
+            {
+                resetToggle = true;
+            }
+        }
 
-        if (resetPumpkin.GetComponent<ResetPumpkin>().resetPumpkinHasBeenHit == true)
+        
+        if(resetToggle  == true)
         {
             timer -= Time.deltaTime;
             restartimeText.text = "Restarting in: " + Mathf.RoundToInt(timer).ToString();
@@ -28,6 +38,7 @@ public class SceneReloader : MonoBehaviour
                 ReloadScene();
             }
         }
+
     }
 
     void ReloadScene()
