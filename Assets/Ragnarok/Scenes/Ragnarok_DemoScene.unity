@@ -11426,6 +11426,7 @@ MonoBehaviour:
   resetPumpkin: {fileID: 2244533664786430955}
   countdownTime: 5
   restartimeText: {fileID: 1598096221}
+  resetToggle: 0
 --- !u!114 &1913202541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11927,6 +11928,10 @@ PrefabInstance:
     - target: {fileID: 1519511798005761579, guid: dd2f8930990e2eb4e8886ddf1e48ee28, type: 3}
       propertyPath: m_Name
       value: AxePhysicObject_WithGrabPoint_Modified
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519511798005761579, guid: dd2f8930990e2eb4e8886ddf1e48ee28, type: 3}
+      propertyPath: m_TagString
+      value: recallObject
       objectReference: {fileID: 0}
     - target: {fileID: 8791919900845114606, guid: dd2f8930990e2eb4e8886ddf1e48ee28, type: 3}
       propertyPath: m_PlayOnAwake
