@@ -30,6 +30,8 @@ EditorBuildSettings:
     path: Assets/Ragnarok/Scenes/MainRagnarok_Scene.unity
     guid: 58fc37afabe690441a86343d21a71cc5
   m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f876dd5559361ce479f1124bd88d14ce, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 173386d98aa422848b98b65277486161, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 2ca3cc23a8b2b6748979107d9ac9e93c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 100ea1290a20aa84b8a424a4f6013414, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a24db4bccc27e3840ae918094f855b6b, type: 2}
