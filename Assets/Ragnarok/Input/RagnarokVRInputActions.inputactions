@@ -58,6 +58,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Trigger Right",
+                    "type": "Button",
+                    "id": "7f89a9ed-c24b-44d5-83fd-b990306578c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TriggerLeft",
+                    "type": "Button",
+                    "id": "f6e4fb60-d1e8-4e2a-bd61-d09968903508",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -124,6 +142,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom Out Y Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8587bba1-d2f8-4be9-abcc-6f6c328b89d4",
+                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24a725d1-647a-4b23-9de1-411bb05774dd",
+                    "path": "<OculusTouchController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TriggerLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

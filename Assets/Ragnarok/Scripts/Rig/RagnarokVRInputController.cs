@@ -9,6 +9,10 @@ public class RagnarokVRInputController : MonoBehaviour
     public Vector2 JoystickLeft;
     public Vector2 JoystickRight;
     public bool ThumbPressedLeft;
+
+    public bool TriggerPressedLeft;
+    public bool TriggerPressedRight;
+
     public bool debugging;
 
     private void OnValidate()
@@ -34,6 +38,14 @@ public class RagnarokVRInputController : MonoBehaviour
 
             if (actions.Default.ThumbPressLeft.WasPerformedThisFrame()) ThumbPressedLeft = true;
             else if(actions.Default.ThumbPressLeft.WasReleasedThisFrame()) ThumbPressedLeft = false;
+
+            if (actions.Default.TriggerLeft.WasPerformedThisFrame()) TriggerPressedLeft = true;
+            else if (actions.Default.TriggerLeft.WasReleasedThisFrame()) TriggerPressedLeft = false;
+
+            if (actions.Default.TriggerRight.WasPerformedThisFrame()) TriggerPressedRight = true;
+            else if (actions.Default.TriggerRight.WasReleasedThisFrame()) TriggerPressedRight = false;
+
+
         }
     }
 }

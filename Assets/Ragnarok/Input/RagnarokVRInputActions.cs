@@ -80,6 +80,24 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Trigger Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f89a9ed-c24b-44d5-83fd-b990306578c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TriggerLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6e4fb60-d1e8-4e2a-bd61-d09968903508"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,6 +166,28 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                     ""action"": ""Zoom Out Y Button"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8587bba1-d2f8-4be9-abcc-6f6c328b89d4"",
+                    ""path"": ""<OculusTouchController>{RightHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24a725d1-647a-4b23-9de1-411bb05774dd"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TriggerLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -162,6 +202,8 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         m_Default_JoystickRight = m_Default.FindAction("JoystickRight", throwIfNotFound: true);
         m_Default_ThumbPressLeft = m_Default.FindAction("ThumbPressLeft", throwIfNotFound: true);
         m_Default_ZoomOutYButton = m_Default.FindAction("Zoom Out Y Button", throwIfNotFound: true);
+        m_Default_TriggerRight = m_Default.FindAction("Trigger Right", throwIfNotFound: true);
+        m_Default_TriggerLeft = m_Default.FindAction("TriggerLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +269,8 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
     private readonly InputAction m_Default_JoystickRight;
     private readonly InputAction m_Default_ThumbPressLeft;
     private readonly InputAction m_Default_ZoomOutYButton;
+    private readonly InputAction m_Default_TriggerRight;
+    private readonly InputAction m_Default_TriggerLeft;
     public struct DefaultActions
     {
         private @RagnarokVRInputActions m_Wrapper;
@@ -237,6 +281,8 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         public InputAction @JoystickRight => m_Wrapper.m_Default_JoystickRight;
         public InputAction @ThumbPressLeft => m_Wrapper.m_Default_ThumbPressLeft;
         public InputAction @ZoomOutYButton => m_Wrapper.m_Default_ZoomOutYButton;
+        public InputAction @TriggerRight => m_Wrapper.m_Default_TriggerRight;
+        public InputAction @TriggerLeft => m_Wrapper.m_Default_TriggerLeft;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +310,12 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                 @ZoomOutYButton.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnZoomOutYButton;
                 @ZoomOutYButton.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnZoomOutYButton;
                 @ZoomOutYButton.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnZoomOutYButton;
+                @TriggerRight.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerRight;
+                @TriggerRight.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerRight;
+                @TriggerRight.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerRight;
+                @TriggerLeft.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
+                @TriggerLeft.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
+                @TriggerLeft.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -286,6 +338,12 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                 @ZoomOutYButton.started += instance.OnZoomOutYButton;
                 @ZoomOutYButton.performed += instance.OnZoomOutYButton;
                 @ZoomOutYButton.canceled += instance.OnZoomOutYButton;
+                @TriggerRight.started += instance.OnTriggerRight;
+                @TriggerRight.performed += instance.OnTriggerRight;
+                @TriggerRight.canceled += instance.OnTriggerRight;
+                @TriggerLeft.started += instance.OnTriggerLeft;
+                @TriggerLeft.performed += instance.OnTriggerLeft;
+                @TriggerLeft.canceled += instance.OnTriggerLeft;
             }
         }
     }
@@ -298,5 +356,7 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         void OnJoystickRight(InputAction.CallbackContext context);
         void OnThumbPressLeft(InputAction.CallbackContext context);
         void OnZoomOutYButton(InputAction.CallbackContext context);
+        void OnTriggerRight(InputAction.CallbackContext context);
+        void OnTriggerLeft(InputAction.CallbackContext context);
     }
 }
