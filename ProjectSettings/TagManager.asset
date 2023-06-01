@@ -16,6 +16,7 @@ TagManager:
   - recallObject
   - Chicken
   - RespawnTrigger
+  - Baton
   layers:
   - Default
   - TransparentFX

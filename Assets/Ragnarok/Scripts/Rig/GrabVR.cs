@@ -8,7 +8,7 @@ public class GrabVR : MonoBehaviour
     private Vector3 handVelocity;
     private Quaternion previousRotation;
     private Vector3 angularVelocity;
-
+    public GameObject Baton_Prefab;
     public GameObject grabbedObject;
     public bool hasObjectGrabbed;
     public bool isLeftHand;
@@ -102,7 +102,25 @@ public class GrabVR : MonoBehaviour
             }
         }
     }
-    
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Baton"))
+    //    {
+    //        ReplaceObjectWithBaton(other.gameObject);
+    //    }
+    //}
+
+    //private void ReplaceObjectWithBaton(GameObject objectToReplace)
+    //{
+    //    // Create a new baton
+    //    GameObject newBaton = Instantiate(Baton_Prefab, objectToReplace.transform.position, objectToReplace.transform.rotation);
+    //    // Destroy the object that was replaced
+    //    Destroy(objectToReplace);
+    //    // Set the grabbed object to the new baton
+    //    grabbedObject = newBaton;
+    //}
+
     public void GrabObject(GameObject grabbable)
     {
         var vrGrabbable = grabbable.GetComponent<VRGrabbable>();
