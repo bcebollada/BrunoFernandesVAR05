@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RythmGameController : MonoBehaviour
 {
-    public GameObject target;
     public AudioSource songSource;
 
     public NoteSpawner noteSpawner;
@@ -44,6 +43,6 @@ public class RythmGameController : MonoBehaviour
             previousBeat = beat;
         }
 
-        Debug.Log($"Time: {time} Beat: {beat}");
+        //Debug.Log($"Time: {time} Beat: {beat}");
     }
 }

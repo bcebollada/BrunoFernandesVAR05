@@ -30,17 +30,20 @@ public class GestureRecognizer : MonoBehaviour
 
     private Vector3 previousPosition;
 
+    private NoteSpawner noteSpawner;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
-        print(gestureFiles);
+        string[] gestureFiles = Directory.GetFiles(Application.dataPath + "\\Maestro\\Gestures", "*.xml");
+        print(Application.dataPath + "\\Maestro\\Gestures");
         foreach (var item in gestureFiles)
         {
             print(item);
@@ -56,7 +59,7 @@ public class GestureRecognizer : MonoBehaviour
         //else isMoving = false;
 
         //Start The Movement
-        Vector3 velocity = (transform.position - previousPosition) * Time.deltaTime;
+        Vector3 velocity = (movementSource.position - previousPosition) * Time.deltaTime;
         float velMagnitude = velocity.magnitude;
 
 
@@ -91,7 +94,7 @@ public class GestureRecognizer : MonoBehaviour
             UpdateMovement();
         }
 
-        previousPosition = transform.position;
+        previousPosition = movementSource.position;
 
     }
 
@@ -134,7 +137,7 @@ public class GestureRecognizer : MonoBehaviour
             newGesture.Name = newGestureName;
             trainingSets.Add(newGesture);
 
-            string fileName = Application.persistentDataPath + "/" + newGestureName + ".xml";
+            string fileName = Application.dataPath + "\\Maestro\\Gestures" + "/" + newGestureName + ".xml";
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
         }
         //recognize
@@ -142,6 +145,7 @@ public class GestureRecognizer : MonoBehaviour
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
             Debug.Log(result.GestureClass + result.Score);
+            if(result.Score > 0.7) GestureFinalized(result.GestureClass);
         }
 
         StartCoroutine(DissolveLine());
@@ -186,6 +190,11 @@ public class GestureRecognizer : MonoBehaviour
         }
     }
 
+    private void GestureFinalized(string noteType)
+    {
+        if(isLeft) noteSpawner.NoteHitLeft(noteType);
+        else noteSpawner.NoteHitRight(noteType);
+    }
 
     public void PressingButton()
     {

@@ -17,6 +17,7 @@ TagManager:
   - Chicken
   - RespawnTrigger
   - Baton
+  - Note
   layers:
   - Default
   - TransparentFX
