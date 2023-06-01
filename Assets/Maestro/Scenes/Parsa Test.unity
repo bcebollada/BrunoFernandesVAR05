@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &121287569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &122570107
 RectTransform:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &142576880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.396}
+  m_AnchoredPosition: {x: 0, y: 0.846}
   m_SizeDelta: {x: 1220.647, y: 551.7886}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &244469840
@@ -742,6 +742,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244469840}
   m_CullTransparentMesh: 1
+--- !u!1 &302359144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9198549569215688020, guid: 64da4d0640a2f154f91fb96e36fbdc2b, type: 3}
+  m_PrefabInstance: {fileID: 1721751222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &302359152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302359144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdcd24d7865511242b597f1d03c8c652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  welcomeCanvas: {fileID: 196374674}
+  musicSelectionCanvas: {fileID: 142576879}
+  canvasMoveOffset: 1
+  textsToDeactivate:
+  - {fileID: 122570108}
+  - {fileID: 1339844935}
+  textsToActivate:
+  - {fileID: 121287570}
 --- !u!1 &356908101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1622,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1339844934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2051,8 +2076,41 @@ PrefabInstance:
       propertyPath: Baton_Prefab
       value: 
       objectReference: {fileID: 8450417500704611873, guid: 9544f7198bbf8444ea3f115460a825fd, type: 3}
+    - target: {fileID: 7158555592309839637, guid: 64da4d0640a2f154f91fb96e36fbdc2b, type: 3}
+      propertyPath: debuggingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158555592309839637, guid: 64da4d0640a2f154f91fb96e36fbdc2b, type: 3}
+      propertyPath: hasObjectGrabbed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64da4d0640a2f154f91fb96e36fbdc2b, type: 3}
+--- !u!1 &1732280359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9102707308345953471, guid: 64da4d0640a2f154f91fb96e36fbdc2b, type: 3}
+  m_PrefabInstance: {fileID: 1721751222}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1732280367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1732280359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdcd24d7865511242b597f1d03c8c652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  welcomeCanvas: {fileID: 196374674}
+  musicSelectionCanvas: {fileID: 142576879}
+  canvasMoveOffset: 0.55
+  textsToDeactivate:
+  - {fileID: 122570108}
+  - {fileID: 1339844935}
+  textsToActivate:
+  - {fileID: 121287570}
 --- !u!1 &1817608070
 GameObject:
   m_ObjectHideFlags: 0
