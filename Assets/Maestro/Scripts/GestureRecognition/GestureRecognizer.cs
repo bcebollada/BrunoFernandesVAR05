@@ -148,7 +148,7 @@ public class GestureRecognizer : MonoBehaviour
             if(result.Score > 0.7) GestureFinalized(result.GestureClass);
         }
 
-        StartCoroutine(DissolveLine());
+        //StartCoroutine(DissolveLine());
     }
 
     void UpdateMovement()

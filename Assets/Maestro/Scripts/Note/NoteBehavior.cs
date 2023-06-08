@@ -14,14 +14,22 @@ public class NoteBehavior : MonoBehaviour
 
     public Material materialLeft, materialRight;
 
-    public GameObject hLineUI, vLineUI, circleUI;
+    public GameObject hLineUI, vLineUI, circleUI, rythmCue;
 
     public GameObject explosion;
+
+    private float lerpDuration; 
+    private float lerpTimer = 0;
+
+    private bool rythmCueShouldGo;
+
+    private Vector3 initialScale;
 
     private void Awake()
     {
         int randomNum = Random.Range(0, noteTypesAvaliable.Length);
         noteType = noteTypesAvaliable[randomNum];
+        initialScale = rythmCue.transform.localScale;
     }
 
     private void Start()
@@ -56,5 +64,28 @@ public class NoteBehavior : MonoBehaviour
     void Update()
     {
         transform.position += speed * transform.forward * Time.deltaTime;
+
+        if (rythmCueShouldGo)
+        {
+            lerpTimer += Time.deltaTime;
+            float t = lerpTimer / lerpDuration;
+
+            rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
+
+        }
+    }
+
+    public void ActivateCue(float timeOfCue, float timeToStartCue)
+    {
+        StartCoroutine(ActivateCueIEnumerator(timeOfCue, timeToStartCue));
+    }
+
+    private IEnumerator ActivateCueIEnumerator(float timeOfCue, float timeToStartCue)
+    {
+        yield return new WaitForSeconds(timeToStartCue);
+        rythmCue.SetActive(true);
+        lerpDuration = timeOfCue;
+        rythmCueShouldGo = true;
+
     }
 }

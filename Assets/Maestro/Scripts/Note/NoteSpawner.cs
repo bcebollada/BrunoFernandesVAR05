@@ -15,6 +15,8 @@ public class NoteSpawner : MonoBehaviour
     public int actualNoteToBeHitLeft;
     public int actualNoteToBeHitRight;
 
+    public float noteSpawnTimeOffset; //seconds that the note will be spawned before its beat
+
     private void Awake()
     {
         noteOrderRight = new List<GameObject>(); //activate the list
@@ -43,6 +45,7 @@ public class NoteSpawner : MonoBehaviour
 
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
                 instantiatedNote.GetComponent<NoteBehavior>().isLeft = true;
+                instantiatedNote.GetComponent<NoteBehavior>().ActivateCue(2, noteSpawnTimeOffset - 2);
 
                 noteOrderLeft.Add(instantiatedNote); //add instatiated note to the list
             }
@@ -59,6 +62,8 @@ public class NoteSpawner : MonoBehaviour
 
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
                 instantiatedNote.GetComponent<NoteBehavior>().isLeft = false;
+                instantiatedNote.GetComponent<NoteBehavior>().ActivateCue(2, noteSpawnTimeOffset - 2);
+
 
                 noteOrderRight.Add(instantiatedNote); //add instatiated note to the list
             }

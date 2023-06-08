@@ -14,12 +14,15 @@ public class RythmGameController : MonoBehaviour
 
     private double audioStartTime;
 
+    public float spawnTimeOffset;
+
     private void Start()
     {
         double currentAudioTime = AudioSettings.dspTime;
         audioStartTime = (float)currentAudioTime + 3;
 
-        songSource.PlayScheduled(audioStartTime);
+        songSource.PlayScheduled(audioStartTime + spawnTimeOffset);
+        noteSpawner.noteSpawnTimeOffset = spawnTimeOffset + 3;
     }
 
     private void Update()
@@ -38,8 +41,12 @@ public class RythmGameController : MonoBehaviour
 
         if (previousBeat != beat)
         {
-            noteSpawner.SpawnObjects();
+            int random = Random.Range(0, 2);
 
+            if(random == 0)
+            {
+                noteSpawner.SpawnObjects();
+            }
             previousBeat = beat;
         }
 
