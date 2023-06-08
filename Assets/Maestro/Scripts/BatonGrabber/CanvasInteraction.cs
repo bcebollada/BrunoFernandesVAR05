@@ -11,6 +11,12 @@ public class CanvasInteraction : MonoBehaviour
 
     private bool canvasMoved; // Flag to track if the canvas has already moved
 
+    public GameObject batonPrefab;
+    public List<GameObject> platformBatons;
+    public GameObject leftHandBaton;
+    public GameObject rightHandBaton;
+
+
     public TextMeshProUGUI[] textsToDeactivate; // Array of TextMeshPro objects to deactivate on touch
     public TextMeshProUGUI[] textsToActivate; // Array of TextMeshPro objects to activate on touch
 
@@ -25,6 +31,8 @@ public class CanvasInteraction : MonoBehaviour
     {
         if (!canvasMoved && other.gameObject.CompareTag("Baton"))
         {
+            DestroyPlatformBatons();
+            ActivateHandBatons();
             MoveCanvasUp();
             canvasMoved = true;
         }
@@ -50,4 +58,19 @@ public class CanvasInteraction : MonoBehaviour
             textToActivate.gameObject.SetActive(true);
         }
     }
+
+    private void ActivateHandBatons()
+    {
+        leftHandBaton.SetActive(true);
+        rightHandBaton.SetActive(true);
+    }
+
+private void DestroyPlatformBatons()
+    {
+        foreach (GameObject platformBaton in platformBatons)
+        {
+            Destroy(platformBaton);
+        }
+    }
 }
+  
