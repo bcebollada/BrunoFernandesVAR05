@@ -16,6 +16,9 @@ public class RythmGameController : MonoBehaviour
 
     public float spawnTimeOffset;
 
+    public int score, scoreMultiplier;
+    public float hitTimeTreshHold;
+
     private void Start()
     {
         double currentAudioTime = AudioSettings.dspTime;

@@ -25,6 +25,8 @@ public class NoteBehavior : MonoBehaviour
 
     private Vector3 initialScale;
 
+    public float spawnedTime = 0;
+
     private void Awake()
     {
         int randomNum = Random.Range(0, noteTypesAvaliable.Length);
@@ -73,6 +75,8 @@ public class NoteBehavior : MonoBehaviour
             rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
 
         }
+
+        spawnedTime += Time.deltaTime;
     }
 
     public void ActivateCue(float timeOfCue, float timeToStartCue)

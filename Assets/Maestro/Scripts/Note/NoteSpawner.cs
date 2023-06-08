@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
+    private RythmGameController gameController;
+
     public Vector3 spawnAreaSize;
     public GameObject objectToSpawn;
     public int numObjectsToSpawn;
@@ -21,6 +23,8 @@ public class NoteSpawner : MonoBehaviour
     {
         noteOrderRight = new List<GameObject>(); //activate the list
         noteOrderLeft = new List<GameObject>(); //activate the list
+
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
     }
 
     private void OnDrawGizmosSelected()
@@ -75,6 +79,13 @@ public class NoteSpawner : MonoBehaviour
     {
         if(noteType == noteOrderLeft[actualNoteToBeHitLeft].GetComponent<NoteBehavior>().noteType)
         {
+            var note = noteOrderLeft[actualNoteToBeHitLeft].GetComponent<NoteBehavior>();
+            float hitDelay = note.spawnedTime - noteSpawnTimeOffset;
+            float timeTreshHold = gameController.hitTimeTreshHold;
+
+
+
+
             //do something
             Destroy(noteOrderLeft[actualNoteToBeHitLeft]);
             actualNoteToBeHitLeft += 1;
@@ -85,9 +96,10 @@ public class NoteSpawner : MonoBehaviour
     {
         if (noteType == noteOrderRight[actualNoteToBeHitRight].GetComponent<NoteBehavior>().noteType)
         {
+            var note = noteOrderRight[actualNoteToBeHitLeft].GetComponent<NoteBehavior>();
+            
+
             //do something
-            print(actualNoteToBeHitRight);
-            print(noteOrderRight[actualNoteToBeHitRight].name);
             Destroy(noteOrderRight[actualNoteToBeHitRight]);
             actualNoteToBeHitRight += 1;
 
