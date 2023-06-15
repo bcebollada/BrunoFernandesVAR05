@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RythmGameController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class RythmGameController : MonoBehaviour
 
     public int score, scoreMultiplier;
     public float hitTimeTreshHold;
+
+    public TMP_Text scoreText, scoreXText;
 
     private void Start()
     {
@@ -44,7 +47,7 @@ public class RythmGameController : MonoBehaviour
 
         if (previousBeat != beat)
         {
-            int random = Random.Range(0, 2);
+            int random = Random.Range(0, 4);
 
             if(random == 0)
             {
@@ -53,6 +56,31 @@ public class RythmGameController : MonoBehaviour
             previousBeat = beat;
         }
 
+        scoreText.text = $"Score: {score}";
+        scoreXText.text = $"x{scoreMultiplier}";
+
         //Debug.Log($"Time: {time} Beat: {beat}");
+    }
+
+    public void AddScore(float hitDelay)
+    {
+        if(hitDelay <= hitTimeTreshHold)
+        {
+            scoreMultiplier = scoreMultiplier * 3;
+        }
+        else if(hitDelay <= hitTimeTreshHold * 1.5)
+        {
+            scoreMultiplier = scoreMultiplier * 2;
+        }
+        else if (hitDelay <= hitTimeTreshHold * 2)
+        {
+            //does nothing
+        }
+        else //player missed badly
+        {
+            scoreMultiplier = 1;
+        }
+
+        score += scoreMultiplier;
     }
 }

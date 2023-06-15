@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PDollarGestureRecognizer;
 using System.IO;
+using static TreeEditor.TreeEditorHelper;
 
 public class GestureRecognizer : MonoBehaviour
 {
@@ -204,5 +205,10 @@ public class GestureRecognizer : MonoBehaviour
     public void ReleasedButton()
     {
         isPressingButton = false;
+    }
+
+    public void DebugAction()
+    {
+        GestureFinalized("circle");
     }
 }

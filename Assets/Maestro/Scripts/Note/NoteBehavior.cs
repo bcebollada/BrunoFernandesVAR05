@@ -73,6 +73,7 @@ public class NoteBehavior : MonoBehaviour
             float t = lerpTimer / lerpDuration;
 
             rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
+            //if (t >= 1) Destroy(this.gameObject);
 
         }
 

@@ -81,10 +81,8 @@ public class NoteSpawner : MonoBehaviour
         {
             var note = noteOrderLeft[actualNoteToBeHitLeft].GetComponent<NoteBehavior>();
             float hitDelay = note.spawnedTime - noteSpawnTimeOffset;
-            float timeTreshHold = gameController.hitTimeTreshHold;
 
-
-
+            gameController.AddScore(Mathf.Abs(hitDelay));
 
             //do something
             Destroy(noteOrderLeft[actualNoteToBeHitLeft]);
@@ -96,8 +94,10 @@ public class NoteSpawner : MonoBehaviour
     {
         if (noteType == noteOrderRight[actualNoteToBeHitRight].GetComponent<NoteBehavior>().noteType)
         {
-            var note = noteOrderRight[actualNoteToBeHitLeft].GetComponent<NoteBehavior>();
-            
+            var note = noteOrderLeft[actualNoteToBeHitLeft].GetComponent<NoteBehavior>();
+            float hitDelay = note.spawnedTime - noteSpawnTimeOffset;
+                
+            gameController.AddScore(Mathf.Abs(hitDelay));
 
             //do something
             Destroy(noteOrderRight[actualNoteToBeHitRight]);

@@ -5,11 +5,14 @@ using UnityEngine;
 public class NoteKiller : MonoBehaviour
 {
     private NoteSpawner noteSpawner;
+    private RythmGameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
         noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
+
     }
 
     // Update is called once per frame
@@ -32,6 +35,8 @@ public class NoteKiller : MonoBehaviour
                 Destroy(noteSpawner.noteOrderRight[noteSpawner.actualNoteToBeHitRight]);
                 noteSpawner.actualNoteToBeHitRight += 1;
             }
+
+            gameController.scoreMultiplier = 1;
         }
     }
 }
