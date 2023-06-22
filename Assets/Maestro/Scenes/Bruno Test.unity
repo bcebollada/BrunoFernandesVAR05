@@ -933,44 +933,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1049525194 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3913159215674523650, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
-  m_PrefabInstance: {fileID: 3913159214896113452}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049525183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fb450f5afad93b49acfe993f20bc83e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1049525201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049525183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20758f68a3be3fe41b85b2c818bf4a88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonPressed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1049525194}
-        m_TargetAssemblyTypeName: GestureRecognizer, Assembly-CSharp
-        m_MethodName: DebugAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1172680426 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3399249643104857957, guid: 763ba62f05b6c0642be02b93229b80b5, type: 3}
@@ -2214,8 +2176,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3913159214418001005, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
+      propertyPath: creationMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913159214418001005, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
       propertyPath: velMagMinimum
       value: 0.0004
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913159214418001005, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
+      propertyPath: newGestureName
+      value: circle2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913159215674523650, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3913159215674523650, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
       propertyPath: velMagMinimum

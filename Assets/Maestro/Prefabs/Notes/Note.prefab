@@ -118,8 +118,8 @@ MonoBehaviour:
   isLeft: 0
   materialLeft: {fileID: 2100000, guid: 635d0a6ecb812cb4c99c744ff4e2620a, type: 2}
   materialRight: {fileID: 2100000, guid: 09796fbd12186dc479f952a560f94adc, type: 2}
-  hLineUI: {fileID: 8092807367745893394}
-  vLineUI: {fileID: 5514453606242845963}
+  hLineUI: {fileID: 5514453606242845963}
+  vLineUI: {fileID: 8092807367745893394}
   circleUI: {fileID: 7782122942708013094}
   rythmCue: {fileID: 5460057262567375433}
   explosion: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}

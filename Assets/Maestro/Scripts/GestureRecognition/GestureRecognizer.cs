@@ -145,7 +145,7 @@ public class GestureRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
-            Debug.Log(result.GestureClass + result.Score);
+            //Debug.Log(result.GestureClass + result.Score);
             if(result.Score > 0.7) GestureFinalized(result.GestureClass);
         }
 
@@ -193,6 +193,8 @@ public class GestureRecognizer : MonoBehaviour
 
     private void GestureFinalized(string noteType)
     {
+        if (noteType == "circle2") noteType = "circle";
+        Debug.Log("note" + noteType);
         if(isLeft) noteSpawner.NoteHitLeft(noteType);
         else noteSpawner.NoteHitRight(noteType);
     }
