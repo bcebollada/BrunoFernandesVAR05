@@ -20,7 +20,8 @@ public class RythmGameController : MonoBehaviour
     public int score, scoreMultiplier;
     public float hitTimeTreshHold;
 
-    public TMP_Text scoreText, scoreXText;
+    private int totalScore, totalHighScore;
+    public TMP_Text scoreText, scoreXText, highScoreText;
 
     private void Start()
     {
@@ -29,6 +30,9 @@ public class RythmGameController : MonoBehaviour
 
         songSource.PlayScheduled(audioStartTime + spawnTimeOffset);
         noteSpawner.noteSpawnTimeOffset = spawnTimeOffset + 3;
+
+        LoadScore();
+        UpdateScoreUI();
     }
 
     private void Update()
@@ -82,5 +86,31 @@ public class RythmGameController : MonoBehaviour
         }
 
         score += scoreMultiplier;
+
+        totalScore += score;
+        totalHighScore = Mathf.Max(totalHighScore, score);
+
+        SaveScore();
+        UpdateScoreUI();
+    }
+
+    private void LoadScore()
+    {
+        // Load the total score and total high score from PlayerPrefs or other storage method
+        totalScore = PlayerPrefs.GetInt("TotalScore", 0);
+        totalHighScore = PlayerPrefs.GetInt("TotalHighScore", 0);
+    }
+
+    private void SaveScore()
+    {
+        // Save the total score and total high score to PlayerPrefs or other storage method
+        PlayerPrefs.SetInt("TotalScore", totalScore);
+        PlayerPrefs.SetInt("TotalHighScore", totalHighScore);
+        PlayerPrefs.Save();
+    }
+
+    private void UpdateScoreUI()
+    {
+        highScoreText.text = $"High Score: {totalHighScore}"; // Update the high score text
     }
 }
