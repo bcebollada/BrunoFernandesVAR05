@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using TMPro;
 
 public class RythmGameController : MonoBehaviour
@@ -98,7 +99,19 @@ public class RythmGameController : MonoBehaviour
     {
         // Load the total score and total high score from PlayerPrefs or other storage method
         totalScore = PlayerPrefs.GetInt("TotalScore", 0);
-        totalHighScore = PlayerPrefs.GetInt("TotalHighScore", 0);
+        string filePath = Path.Combine(Application.dataPath, "MyHighscores", "highscore.txt");
+
+        if (File.Exists(filePath))
+        {
+            string scoreString = File.ReadAllText(filePath);
+            if (int.TryParse(scoreString, out int loadedScore))
+            {
+                totalHighScore = loadedScore;
+                PlayerPrefs.SetInt("TotalHighScore", totalHighScore);
+                PlayerPrefs.Save();
+
+            }
+        }
     }
 
     private void SaveScore()

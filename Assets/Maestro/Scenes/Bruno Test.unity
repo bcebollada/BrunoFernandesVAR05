@@ -1210,6 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252272652}
   - component: {fileID: 1252272651}
+  - component: {fileID: 1252272653}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1254,6 +1255,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1252272653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252272650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 653cd7b564b052d4eaf3e084c48bf16b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: highscore.txt
 --- !u!1 &1587878396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3881405460609651497, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
