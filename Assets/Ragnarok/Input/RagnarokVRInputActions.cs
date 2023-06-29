@@ -98,6 +98,15 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""B_Button"",
+                    ""type"": ""Button"",
+                    ""id"": ""a45d8a51-9483-4cbc-838a-ddefe4f324f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -188,6 +197,17 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                     ""action"": ""TriggerLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b42aca35-ccec-412a-a5dc-1a4a2c34d56e"",
+                    ""path"": ""<OculusTouchController>{RightHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""B_Button"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -204,6 +224,7 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         m_Default_ZoomOutYButton = m_Default.FindAction("Zoom Out Y Button", throwIfNotFound: true);
         m_Default_TriggerRight = m_Default.FindAction("Trigger Right", throwIfNotFound: true);
         m_Default_TriggerLeft = m_Default.FindAction("TriggerLeft", throwIfNotFound: true);
+        m_Default_B_Button = m_Default.FindAction("B_Button", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +292,7 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
     private readonly InputAction m_Default_ZoomOutYButton;
     private readonly InputAction m_Default_TriggerRight;
     private readonly InputAction m_Default_TriggerLeft;
+    private readonly InputAction m_Default_B_Button;
     public struct DefaultActions
     {
         private @RagnarokVRInputActions m_Wrapper;
@@ -283,6 +305,7 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         public InputAction @ZoomOutYButton => m_Wrapper.m_Default_ZoomOutYButton;
         public InputAction @TriggerRight => m_Wrapper.m_Default_TriggerRight;
         public InputAction @TriggerLeft => m_Wrapper.m_Default_TriggerLeft;
+        public InputAction @B_Button => m_Wrapper.m_Default_B_Button;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -316,6 +339,9 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                 @TriggerLeft.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
                 @TriggerLeft.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
                 @TriggerLeft.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnTriggerLeft;
+                @B_Button.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnB_Button;
+                @B_Button.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnB_Button;
+                @B_Button.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnB_Button;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -344,6 +370,9 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
                 @TriggerLeft.started += instance.OnTriggerLeft;
                 @TriggerLeft.performed += instance.OnTriggerLeft;
                 @TriggerLeft.canceled += instance.OnTriggerLeft;
+                @B_Button.started += instance.OnB_Button;
+                @B_Button.performed += instance.OnB_Button;
+                @B_Button.canceled += instance.OnB_Button;
             }
         }
     }
@@ -358,5 +387,6 @@ public partial class @RagnarokVRInputActions : IInputActionCollection2, IDisposa
         void OnZoomOutYButton(InputAction.CallbackContext context);
         void OnTriggerRight(InputAction.CallbackContext context);
         void OnTriggerLeft(InputAction.CallbackContext context);
+        void OnB_Button(InputAction.CallbackContext context);
     }
 }
