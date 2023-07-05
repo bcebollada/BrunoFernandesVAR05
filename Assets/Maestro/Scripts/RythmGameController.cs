@@ -24,6 +24,8 @@ public class RythmGameController : MonoBehaviour
     private int totalScore, totalHighScore;
     public TMP_Text scoreText, scoreXText, highScoreText;
 
+    public GameObject feebackTextPrefab;
+
     private void Start()
     {
         double currentAudioTime = AudioSettings.dspTime;
@@ -67,19 +69,28 @@ public class RythmGameController : MonoBehaviour
         //Debug.Log($"Time: {time} Beat: {beat}");
     }
 
-    public void AddScore(float hitDelay)
+    public void AddScore(float hitDelay, Transform note)
     {
         if(hitDelay <= hitTimeTreshHold)
         {
             scoreMultiplier = scoreMultiplier * 3;
+            var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
+            feedback.GetComponentInChildren<TMP_Text>().text = "Great!";
+            Destroy(feedback, 3);
         }
         else if(hitDelay <= hitTimeTreshHold * 1.5)
         {
             scoreMultiplier = scoreMultiplier * 2;
+            var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
+            feedback.GetComponentInChildren<TMP_Text>().text = "Ok!";
+            Destroy(feedback, 3);
+
         }
         else if (hitDelay <= hitTimeTreshHold * 2)
         {
-            //does nothing
+            var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
+            feedback.GetComponentInChildren<TMP_Text>().text = "Kinda bad";
+            Destroy(feedback, 0.8f);
         }
         else //player missed badly
         {
