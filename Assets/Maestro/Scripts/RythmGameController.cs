@@ -18,7 +18,7 @@ public class RythmGameController : MonoBehaviour
 
     public float spawnTimeOffset;
 
-    public int score, scoreMultiplier;
+    public int score, scoreMultiplier, comboCount;
     public float hitTimeTreshHold;
 
     private int totalScore, totalHighScore;
@@ -73,14 +73,16 @@ public class RythmGameController : MonoBehaviour
     {
         if(hitDelay <= hitTimeTreshHold)
         {
-            scoreMultiplier = scoreMultiplier * 3;
+            comboCount += 2;
+            //scoreMultiplier = scoreMultiplier * 3;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Great!";
             Destroy(feedback, 3);
         }
         else if(hitDelay <= hitTimeTreshHold * 1.5)
         {
-            scoreMultiplier = scoreMultiplier * 2;
+            comboCount += 1;
+            //scoreMultiplier = scoreMultiplier * 2;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Ok!";
             Destroy(feedback, 3);
@@ -88,15 +90,17 @@ public class RythmGameController : MonoBehaviour
         }
         else if (hitDelay <= hitTimeTreshHold * 2)
         {
+            comboCount += 1;
+
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Kinda bad";
             Destroy(feedback, 0.8f);
         }
         else //player missed badly
         {
-            scoreMultiplier = 1;
+            //scoreMultiplier = 1;
         }
-
+        scoreMultiplier = Mathf.RoundToInt(Mathf.Sqrt(comboCount));
         score += scoreMultiplier;
 
         totalScore += score;
@@ -135,6 +139,6 @@ public class RythmGameController : MonoBehaviour
 
     private void UpdateScoreUI()
     {
-        highScoreText.text = $"High Score: {totalHighScore}"; // Update the high score text
+        highScoreText.text = $"Highest Score: {totalHighScore}"; // Update the high score text
     }
 }

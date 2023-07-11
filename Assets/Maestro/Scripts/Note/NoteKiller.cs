@@ -35,8 +35,8 @@ public class NoteKiller : MonoBehaviour
                 Destroy(noteSpawner.noteOrderRight[noteSpawner.actualNoteToBeHitRight]);
                 noteSpawner.actualNoteToBeHitRight += 1;
             }
-
-            gameController.scoreMultiplier = 1;
+            gameController.AddScore(100, other.gameObject.transform);
+            //gameController.scoreMultiplier = 1;
         }
     }
 }
