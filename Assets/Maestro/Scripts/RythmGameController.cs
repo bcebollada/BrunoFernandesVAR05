@@ -77,7 +77,7 @@ public class RythmGameController : MonoBehaviour
             //scoreMultiplier = scoreMultiplier * 3;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Great!";
-            Destroy(feedback, 3);
+            Destroy(feedback, 0.8f);
         }
         else if(hitDelay <= hitTimeTreshHold * 1.5)
         {
@@ -85,7 +85,7 @@ public class RythmGameController : MonoBehaviour
             //scoreMultiplier = scoreMultiplier * 2;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Ok!";
-            Destroy(feedback, 3);
+            Destroy(feedback, 0.8f);
 
         }
         else if (hitDelay <= hitTimeTreshHold * 2)
@@ -98,7 +98,10 @@ public class RythmGameController : MonoBehaviour
         }
         else //player missed badly
         {
-            //scoreMultiplier = 1;
+            comboCount = 0;
+            var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
+            feedback.GetComponentInChildren<TMP_Text>().text = "U suck!";
+            Destroy(feedback, 0.8f);
         }
         scoreMultiplier = Mathf.RoundToInt(Mathf.Sqrt(comboCount));
         score += scoreMultiplier;
