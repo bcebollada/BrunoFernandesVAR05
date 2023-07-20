@@ -33,6 +33,9 @@ public class GestureRecognizer : MonoBehaviour
 
     private NoteSpawner noteSpawner;
 
+    public float coolDownTime = 0.5f;
+    private float coolDownCurrentTime;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -47,9 +50,7 @@ public class GestureRecognizer : MonoBehaviour
         print(Application.dataPath + "\\Maestro\\Gestures");
         foreach (var item in gestureFiles)
         {
-            print(item);
-            trainingSets.Add(GestureIO.ReadGestureFromFile(item));
-            print("count" + trainingSets.Count);
+            trainingSets.Add(GestureIO.ReadGestureFromFile(item));;
         }
     }
 
@@ -96,6 +97,8 @@ public class GestureRecognizer : MonoBehaviour
         }
 
         previousPosition = movementSource.position;
+
+        coolDownCurrentTime += Time.deltaTime;
 
     }
 
@@ -145,8 +148,7 @@ public class GestureRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
-            //Debug.Log(result.GestureClass + result.Score);
-            if(result.Score > 0.7) GestureFinalized(result.GestureClass);
+            if(result.Score > 0.7 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
         }
 
         //StartCoroutine(DissolveLine());
@@ -195,8 +197,11 @@ public class GestureRecognizer : MonoBehaviour
     {
         if (noteType == "circle2") noteType = "circle";
         Debug.Log("note" + noteType);
+
         if(isLeft) noteSpawner.NoteHitLeft(noteType);
         else noteSpawner.NoteHitRight(noteType);
+
+        coolDownCurrentTime = 0;
     }
 
     public void PressingButton()

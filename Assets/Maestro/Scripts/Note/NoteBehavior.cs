@@ -27,12 +27,19 @@ public class NoteBehavior : MonoBehaviour
     private Vector3 initialScale;
 
     public float spawnedTime = 0;
+    public float maxSpawnedTime = 6;
+
+    public NoteSpawner noteSpawner;
+    public RythmGameController gameController;
+
+    public Camera cam;
 
     private void Awake()
     {
         int randomNum = Random.Range(0, noteTypesAvaliable.Length);
         noteType = noteTypesAvaliable[randomNum];
         initialScale = rythmCue.transform.localScale;
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
     }
 
     private void Start()
@@ -57,6 +64,8 @@ public class NoteBehavior : MonoBehaviour
             circleUI.SetActive(true);
         }
 
+        transform.LookAt(cam.transform.position);
+
     }
     public void OnDestroy()
     {
@@ -74,11 +83,26 @@ public class NoteBehavior : MonoBehaviour
             float t = lerpTimer / lerpDuration;
 
             rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
-            //if (t >= 1) Destroy(this.gameObject);
 
         }
 
         spawnedTime += Time.deltaTime;
+
+        if(spawnedTime > maxSpawnedTime)
+        {
+            if (isLeft)
+            {
+                Destroy(noteSpawner.noteOrderLeft[noteSpawner.actualNoteToBeHitLeft]);
+                noteSpawner.actualNoteToBeHitLeft += 1;
+                gameController.AddScore(9, transform);
+            }
+            else
+            {
+                Destroy(noteSpawner.noteOrderRight[noteSpawner.actualNoteToBeHitRight]);
+                noteSpawner.actualNoteToBeHitRight += 1;
+                gameController.AddScore(9, transform);
+            }
+        }
     }
 
     public void ActivateCue(float timeOfCue, float timeToStartCue)

@@ -29,10 +29,10 @@ public class RythmGameController : MonoBehaviour
     private void Start()
     {
         double currentAudioTime = AudioSettings.dspTime;
-        audioStartTime = (float)currentAudioTime + 3;
+        audioStartTime = (float)currentAudioTime + 4;
 
         songSource.PlayScheduled(audioStartTime + spawnTimeOffset);
-        noteSpawner.noteSpawnTimeOffset = spawnTimeOffset + 3;
+        noteSpawner.noteSpawnTimeOffset = spawnTimeOffset + 2;
 
         LoadScore();
         UpdateScoreUI();
@@ -51,12 +51,14 @@ public class RythmGameController : MonoBehaviour
 
         // Convert from seconds to beat, rounding down (e.g., 45.67 seconds = beat 45 at 60 bpm).
         int beat = Mathf.FloorToInt(toMinutes * BPM);
+        print(beat);
 
-        if (previousBeat != beat)
+        if (previousBeat != beat && beat >= -4)
         {
             int random = Random.Range(0, 4);
 
-            if(random == 0)
+            if(beat == 0) noteSpawner.SpawnObjects(); //just to make sure the first beat has a note
+            else if (random == 0)
             {
                 noteSpawner.SpawnObjects();
             }
@@ -77,7 +79,7 @@ public class RythmGameController : MonoBehaviour
             //scoreMultiplier = scoreMultiplier * 3;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Great!";
-            Destroy(feedback, 3);
+            Destroy(feedback, 0.8f);
         }
         else if(hitDelay <= hitTimeTreshHold * 1.5)
         {
@@ -85,7 +87,7 @@ public class RythmGameController : MonoBehaviour
             //scoreMultiplier = scoreMultiplier * 2;
             var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
             feedback.GetComponentInChildren<TMP_Text>().text = "Ok!";
-            Destroy(feedback, 3);
+            Destroy(feedback, 0.8f);
 
         }
         else if (hitDelay <= hitTimeTreshHold * 2)
@@ -98,7 +100,10 @@ public class RythmGameController : MonoBehaviour
         }
         else //player missed badly
         {
-            //scoreMultiplier = 1;
+            comboCount = 0;
+            var feedback = Instantiate(feebackTextPrefab, note.position, note.rotation);
+            feedback.GetComponentInChildren<TMP_Text>().text = "U suck!";
+            Destroy(feedback, 0.8f);
         }
         scoreMultiplier = Mathf.RoundToInt(Mathf.Sqrt(comboCount));
         score += scoreMultiplier;

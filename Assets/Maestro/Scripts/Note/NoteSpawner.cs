@@ -19,6 +19,8 @@ public class NoteSpawner : MonoBehaviour
 
     public float noteSpawnTimeOffset; //seconds that the note will be spawned before its beat
 
+    public Camera cam;
+
     private void Awake()
     {
         noteOrderRight = new List<GameObject>(); //activate the list
@@ -44,12 +46,15 @@ public class NoteSpawner : MonoBehaviour
                 Vector3 randomPoint = new Vector3(
                     Random.Range(transform.position.x - spawnAreaSize.x / 2, transform.position.x),
                     Random.Range(transform.position.y - spawnAreaSize.y / 2, transform.position.y + spawnAreaSize.y / 2),
-                    Random.Range(transform.position.z - spawnAreaSize.z / 2, transform.position.z + spawnAreaSize.z / 2)
+                    transform.position.z
                 );
 
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
-                instantiatedNote.GetComponent<NoteBehavior>().isLeft = true;
-                instantiatedNote.GetComponent<NoteBehavior>().ActivateCue(2, noteSpawnTimeOffset - 2);
+                var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
+                noteBehavior.isLeft = true;
+                noteBehavior.ActivateCue(1, noteSpawnTimeOffset);
+                noteBehavior.noteSpawner = this;
+                noteBehavior.cam = cam;
 
                 noteOrderLeft.Add(instantiatedNote); //add instatiated note to the list
             }
@@ -65,9 +70,11 @@ public class NoteSpawner : MonoBehaviour
                 );
 
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
-                instantiatedNote.GetComponent<NoteBehavior>().isLeft = false;
-                instantiatedNote.GetComponent<NoteBehavior>().ActivateCue(2, noteSpawnTimeOffset - 2);
-
+                var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
+                noteBehavior.isLeft = false;
+                noteBehavior.ActivateCue(1, noteSpawnTimeOffset);
+                noteBehavior.noteSpawner = this;
+                noteBehavior.cam = cam;
 
                 noteOrderRight.Add(instantiatedNote); //add instatiated note to the list
             }
