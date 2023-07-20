@@ -48,6 +48,15 @@ public class MenuRaycaster : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
+    public bool CheckRayCast()
+    {
+        // Cast a ray forward from the controller and check if it hits a button
+        Vector3 localForwardVector = transform.TransformDirection(forwardVector);
+        Ray ray = new Ray (transform.position, localForwardVector);
+        RaycastHit hit;
+        bool HitButton = Physics.Raycast(ray, out hit, raycastDistance, raycastLayer);
+        return HitButton;
+    }
 
     public void ClearLineRenderer()
     {
