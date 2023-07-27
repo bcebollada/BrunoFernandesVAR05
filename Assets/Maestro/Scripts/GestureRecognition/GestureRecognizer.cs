@@ -148,7 +148,8 @@ public class GestureRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
-            if(result.Score > 0.7 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
+            if(result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
+            print(result.Score + result.GestureClass);
         }
 
         //StartCoroutine(DissolveLine());

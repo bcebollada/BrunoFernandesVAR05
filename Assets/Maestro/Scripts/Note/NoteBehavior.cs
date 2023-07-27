@@ -13,9 +13,9 @@ public class NoteBehavior : MonoBehaviour
 
     public bool isLeft; //to know if the not is to be used in left or right
 
-    public Material materialLeft, materialRight;
+    public Material materialLeft, materialRight, materialLeftScan, materialRightScan;
 
-    public GameObject hLineUI, vLineUI, circleUI, rythmCue;
+    public GameObject hLineUI, vLineUI, circleUI, childCube;
 
     public GameObject explosion;
 
@@ -34,11 +34,12 @@ public class NoteBehavior : MonoBehaviour
 
     public Camera cam;
 
+    public ScanShaderCommunicator scanShader;
+
     private void Awake()
     {
         int randomNum = Random.Range(0, noteTypesAvaliable.Length);
         noteType = noteTypesAvaliable[randomNum];
-        initialScale = rythmCue.transform.localScale;
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
     }
 
@@ -46,12 +47,17 @@ public class NoteBehavior : MonoBehaviour
     {
         if (isLeft)
         {
-            GetComponent<MeshRenderer>().material = materialLeft;
+            childCube.GetComponent<MeshRenderer>().material = materialLeft;
+            GetComponent<MeshRenderer>().material = materialLeftScan;
         }
-        else GetComponent<MeshRenderer>().material = materialRight;
+        else
+        {
+            childCube.GetComponent<MeshRenderer>().material = materialRight;
+            GetComponent<MeshRenderer>().material = materialRightScan;
+        }
 
 
-        if(noteType == "vLine")
+        if (noteType == "vLine")
         {
             vLineUI.SetActive(true);
         }
@@ -77,14 +83,15 @@ public class NoteBehavior : MonoBehaviour
     {
         transform.position += speed * transform.forward * Time.deltaTime;
 
-        if (rythmCueShouldGo)
+        /*if (rythmCueShouldGo)
         {
             lerpTimer += Time.deltaTime;
             float t = lerpTimer / lerpDuration;
 
-            rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
+            scanShader.partialView = t;
+            //rythmCue.transform.localScale = Vector3.Lerp(initialScale, new Vector3(1, 1, 1), t);
 
-        }
+        }*/
 
         spawnedTime += Time.deltaTime;
 
@@ -113,9 +120,17 @@ public class NoteBehavior : MonoBehaviour
     private IEnumerator ActivateCueIEnumerator(float timeOfCue, float timeToStartCue)
     {
         yield return new WaitForSeconds(timeToStartCue);
-        rythmCue.SetActive(true);
         lerpDuration = timeOfCue;
-        rythmCueShouldGo = true;
+        while (lerpDuration <= 1)
+        {
+            rythmCueShouldGo = true;
+            lerpTimer += Time.deltaTime;
+            float t = lerpTimer / lerpDuration;
 
+            scanShader.partialView = t;
+
+            // Yielding here allows Unity to update the scene and then resume the coroutine in the next frame.
+            yield return null;
+        }
     }
 }

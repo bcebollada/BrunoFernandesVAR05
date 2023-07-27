@@ -52,7 +52,7 @@ public class NoteSpawner : MonoBehaviour
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
                 var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
                 noteBehavior.isLeft = true;
-                noteBehavior.ActivateCue(1, noteSpawnTimeOffset);
+                noteBehavior.ActivateCue(1, noteSpawnTimeOffset-1);
                 noteBehavior.noteSpawner = this;
                 noteBehavior.cam = cam;
 
@@ -72,7 +72,7 @@ public class NoteSpawner : MonoBehaviour
                 var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
                 var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
                 noteBehavior.isLeft = false;
-                noteBehavior.ActivateCue(1, noteSpawnTimeOffset);
+                noteBehavior.ActivateCue(1, noteSpawnTimeOffset - 1);
                 noteBehavior.noteSpawner = this;
                 noteBehavior.cam = cam;
 

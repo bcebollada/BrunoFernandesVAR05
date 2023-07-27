@@ -31,7 +31,7 @@ public class RythmGameController : MonoBehaviour
         double currentAudioTime = AudioSettings.dspTime;
         audioStartTime = (float)currentAudioTime + 4;
 
-        songSource.PlayScheduled(audioStartTime + spawnTimeOffset);
+        songSource.PlayScheduled(audioStartTime);
         noteSpawner.noteSpawnTimeOffset = spawnTimeOffset + 2;
 
         LoadScore();
@@ -45,19 +45,18 @@ public class RythmGameController : MonoBehaviour
 
         // How much audio time has elapsed since we requested the audio source to play?
         double time = AudioSettings.dspTime - audioStartTime;
-
-        // Convert it from seconds to minutes, e.g., 30 seconds = 0.5 minutes.
         float toMinutes = (float)(time / 60);
-
-        // Convert from seconds to beat, rounding down (e.g., 45.67 seconds = beat 45 at 60 bpm).
         int beat = Mathf.FloorToInt(toMinutes * BPM);
-        print(beat);
 
-        if (previousBeat != beat && beat >= -4)
+        // Calculate the time to spawn the note before the beat
+        float secondsBeforeBeat = 2.0f; // Replace this value with the desired number of seconds
+        float spawnTime = beat + secondsBeforeBeat;
+        //print(spawnTime);
+        if (previousBeat != beat && spawnTime >= 0)
         {
             int random = Random.Range(0, 4);
 
-            if(beat == 0) noteSpawner.SpawnObjects(); //just to make sure the first beat has a note
+            if (beat == 0) noteSpawner.SpawnObjects();
             else if (random == 0)
             {
                 noteSpawner.SpawnObjects();
@@ -67,8 +66,6 @@ public class RythmGameController : MonoBehaviour
 
         scoreText.text = $"Score: {score}";
         scoreXText.text = $"x{scoreMultiplier}";
-
-        //Debug.Log($"Time: {time} Beat: {beat}");
     }
 
     public void AddScore(float hitDelay, Transform note)
