@@ -3031,6 +3031,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3308798769131136258, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56465bd8457f2444da8f2b704698651c, type: 2}
+    - target: {fileID: 3308798769533644327, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 99f940a07482a4c47903db2ebea00fb5, type: 2}
     - target: {fileID: 3913159214418001005, guid: c30a281eaa8e31d448790c11bc88aa44, type: 3}
       propertyPath: isLeft
       value: 0
