@@ -24,6 +24,10 @@ public class GestureRecognizer : MonoBehaviour
     private List<Gesture> trainingSets = new List<Gesture>();
 
     private LineRenderer lineRenderer;
+    public LineRenderer visibleLineRenderer; // this is the one that will be visible
+    private Gradient originalGradient;
+    private float originalStartWidht;
+    private float originalEndtWidht;
 
     public bool isLeft;
 
@@ -52,6 +56,11 @@ public class GestureRecognizer : MonoBehaviour
         {
             trainingSets.Add(GestureIO.ReadGestureFromFile(item));;
         }
+
+        originalGradient = lineRenderer.colorGradient;
+        originalStartWidht = lineRenderer.startWidth;
+        originalEndtWidht = lineRenderer.endWidth;
+
     }
 
     // Update is called once per frame
@@ -111,6 +120,10 @@ public class GestureRecognizer : MonoBehaviour
         Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 3f);
 
         lineRenderer.enabled = true;
+
+        lineRenderer.startWidth = originalStartWidht;
+        lineRenderer.endWidth = originalEndtWidht;
+        lineRenderer.colorGradient = originalGradient;
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, movementSource.position);
 
@@ -152,7 +165,9 @@ public class GestureRecognizer : MonoBehaviour
             print(result.Score + result.GestureClass);
         }
 
-        //StartCoroutine(DissolveLine());
+        //StartCoroutine(DissolveSingleLine());
+
+
     }
 
     void UpdateMovement()
@@ -173,27 +188,100 @@ public class GestureRecognizer : MonoBehaviour
 
     IEnumerator DissolveLine()
     {
-        print("dissolving");
-        float timeToDissolve = 2f;
-        float delayBetweenDissolves = timeToDissolve / lineRenderer.positionCount;
-        int points = lineRenderer.positionCount;
+        lineRenderer.startWidth = 0;
+        lineRenderer.endWidth = 0;
+        // Get the current gradient from the visibleLineRenderer
+        Gradient gradient = visibleLineRenderer.colorGradient;
+        Gradient gradient2 = lineRenderer.colorGradient;
 
-        for (int i = 1; i < points; i++)
+        // Get the current alpha keys
+        GradientAlphaKey[] alphaKeys = gradient.alphaKeys;
+        GradientAlphaKey[] alphaKeys2 = gradient2.alphaKeys;
+
+        // Set the starting alpha to 1 (fully opaque)
+        float startingAlpha = 1f;
+        float startingAlpha2 = (50/255);
+
+        // Time it takes for the line to dissolve
+        float dissolveDuration = 1f;
+
+        // Time elapsed during the dissolve process
+        float elapsedTime = 0f;
+
+        while (elapsedTime <= dissolveDuration)
         {
-            int points2 = lineRenderer.positionCount;
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = elapsedTime / dissolveDuration;
 
-            
-            for (int j = 0; j < points2; j++)
-            {
-                Vector3 newPos = lineRenderer.GetPosition(j+1);
-                lineRenderer.SetPosition(j, newPos);
-            }
-            lineRenderer.positionCount--;
+            // Calculate the new alpha value using Lerp
+            float newAlpha = Mathf.Lerp(startingAlpha, 0f, normalizedTime);
+            float newAlpha2 = Mathf.Lerp(startingAlpha2, 0f, normalizedTime);
 
-            yield return new WaitForSeconds(delayBetweenDissolves);
+            // Update the alpha values of the alpha keys
+            alphaKeys[0].alpha = newAlpha;
+            alphaKeys[1].alpha = newAlpha;
+            alphaKeys2[0].alpha = newAlpha2;
+            alphaKeys2[1].alpha = newAlpha2;
+
+            // Assign the modified alpha keys back to the gradient
+            gradient.alphaKeys = alphaKeys;
+            gradient2.alphaKeys = alphaKeys2;
+
+            // Assign the updated gradient back to the visibleLineRenderer
+            visibleLineRenderer.colorGradient = gradient;
+            lineRenderer.colorGradient = gradient2;
+
+            yield return null;
         }
+
+        // Ensure the alpha is fully set to 0
+        alphaKeys[0].alpha = 0f;
+        alphaKeys[1].alpha = 0f;
+        gradient.alphaKeys = alphaKeys;
+        visibleLineRenderer.colorGradient = gradient;
+
+        // Reset the lineRenderer and disable it
+        visibleLineRenderer.positionCount = 0;
+        visibleLineRenderer.enabled = false;
+
     }
 
+    IEnumerator DissolveSingleLine()
+    {
+        // Get the current gradient from the visibleLineRenderer
+        Gradient gradient2 = lineRenderer.colorGradient;
+
+        GradientAlphaKey[] alphaKeys2 = gradient2.alphaKeys;
+
+        float startingAlpha2 = (50 / 255);
+
+        // Time it takes for the line to dissolve
+        float dissolveDuration = 1f;
+
+        // Time elapsed during the dissolve process
+        float elapsedTime = 0f;
+
+        while (elapsedTime <= dissolveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedTime = elapsedTime / dissolveDuration;
+
+            // Calculate the new alpha value using Lerp
+            float newAlpha2 = Mathf.Lerp(startingAlpha2, 0f, normalizedTime);
+
+            // Update the alpha values of the alpha keys
+            alphaKeys2[0].alpha = newAlpha2;
+            alphaKeys2[1].alpha = newAlpha2;
+
+            // Assign the modified alpha keys back to the gradient
+            gradient2.alphaKeys = alphaKeys2;
+
+            // Assign the updated gradient back to the visibleLineRenderer
+            lineRenderer.colorGradient = gradient2;
+
+            yield return null;
+        }
+    }
     private void GestureFinalized(string noteType)
     {
         if (noteType == "circle2") noteType = "circle";
@@ -203,6 +291,16 @@ public class GestureRecognizer : MonoBehaviour
         else noteSpawner.NoteHitRight(noteType);
 
         coolDownCurrentTime = 0;
+
+        // Update visibleLineRenderer with the positions from lineRenderer
+        Vector3[] positions = new Vector3[lineRenderer.positionCount];
+        lineRenderer.GetPositions(positions);
+
+        visibleLineRenderer.enabled = true;
+        visibleLineRenderer.positionCount = lineRenderer.positionCount;
+        visibleLineRenderer.SetPositions(positions);
+
+        StartCoroutine(DissolveLine());
     }
 
     public void PressingButton()
