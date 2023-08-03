@@ -128,9 +128,10 @@ public class NoteBehavior : MonoBehaviour
             float t = lerpTimer / lerpDuration;
 
             scanShader.partialView = t;
-
+            if(t ==1) Destroy(this.gameObject);
             // Yielding here allows Unity to update the scene and then resume the coroutine in the next frame.
             yield return null;
         }
+
     }
 }

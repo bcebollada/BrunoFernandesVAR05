@@ -54,7 +54,7 @@ public class RythmGameController : MonoBehaviour
         //print(spawnTime);
         if (previousBeat != beat && spawnTime >= 0)
         {
-            int random = Random.Range(0, 4);
+            int random = Random.Range(0, 2);
 
             if (beat == 0) noteSpawner.SpawnObjects();
             else if (random == 0)

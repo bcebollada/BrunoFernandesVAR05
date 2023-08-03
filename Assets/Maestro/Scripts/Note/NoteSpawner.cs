@@ -31,7 +31,9 @@ public class NoteSpawner : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.blue;
+        Color newColor = Color.blue;
+        newColor.a = 0.5f;
+        Gizmos.color = newColor;
         Gizmos.DrawCube(transform.position, spawnAreaSize);
     }
 
@@ -49,14 +51,20 @@ public class NoteSpawner : MonoBehaviour
                     transform.position.z
                 );
 
-                var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
-                var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
-                noteBehavior.isLeft = true;
-                noteBehavior.ActivateCue(1, noteSpawnTimeOffset-1);
-                noteBehavior.noteSpawner = this;
-                noteBehavior.cam = cam;
+                // Check for collisions at the random point
+                Collider[] colliders = Physics.OverlapBox(randomPoint, objectToSpawn.transform.localScale / 2f, Quaternion.identity);
 
-                noteOrderLeft.Add(instantiatedNote); //add instatiated note to the list
+                if(colliders.Length == 0)
+                {
+                    var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
+                    var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
+                    noteBehavior.isLeft = true;
+                    noteBehavior.ActivateCue(1, noteSpawnTimeOffset - 1);
+                    noteBehavior.noteSpawner = this;
+                    noteBehavior.cam = cam;
+
+                    noteOrderLeft.Add(instantiatedNote); //add instatiated note to the list
+                }
             }
         }
         else //will spawn note for right hand
@@ -69,14 +77,20 @@ public class NoteSpawner : MonoBehaviour
                     Random.Range(transform.position.z - spawnAreaSize.z / 2, transform.position.z + spawnAreaSize.z / 2)
                 );
 
-                var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
-                var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
-                noteBehavior.isLeft = false;
-                noteBehavior.ActivateCue(1, noteSpawnTimeOffset - 1);
-                noteBehavior.noteSpawner = this;
-                noteBehavior.cam = cam;
+                // Check for collisions at the random point
+                Collider[] colliders = Physics.OverlapBox(randomPoint, objectToSpawn.transform.localScale / 2f, Quaternion.identity);
 
-                noteOrderRight.Add(instantiatedNote); //add instatiated note to the list
+                if (colliders.Length == 0)
+                {
+                    var instantiatedNote = Instantiate(objectToSpawn, randomPoint, transform.rotation);
+                    var noteBehavior = instantiatedNote.GetComponent<NoteBehavior>();
+                    noteBehavior.isLeft = false;
+                    noteBehavior.ActivateCue(1, noteSpawnTimeOffset - 1);
+                    noteBehavior.noteSpawner = this;
+                    noteBehavior.cam = cam;
+
+                    noteOrderRight.Add(instantiatedNote); //add instatiated note to the list
+                }
             }
         }
 

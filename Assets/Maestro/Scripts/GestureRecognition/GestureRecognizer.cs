@@ -9,6 +9,7 @@ public class GestureRecognizer : MonoBehaviour
 {
     public RagnarokVRInputController actions;
 
+
     public bool isPressingButton;
     public Transform movementSource;
 
@@ -27,6 +28,8 @@ public class GestureRecognizer : MonoBehaviour
     private Gradient originalGradient;
     private float originalStartWidht;
     private float originalEndtWidht;
+
+    public int pointsPerInterval = 5; // Number of points to add between each actual position
 
     public bool isLeft;
 
@@ -53,7 +56,7 @@ public class GestureRecognizer : MonoBehaviour
         print(Application.dataPath + "\\Maestro\\Gestures");
         foreach (var item in gestureFiles)
         {
-            trainingSets.Add(GestureIO.ReadGestureFromFile(item));;
+            trainingSets.Add(GestureIO.ReadGestureFromFile(item)); ;
         }
 
         originalGradient = lineRenderer.colorGradient;
@@ -160,7 +163,7 @@ public class GestureRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
-            if(result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
+            if (result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
             print(result.Score + result.GestureClass);
         }
 
@@ -169,20 +172,42 @@ public class GestureRecognizer : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        //Updating The Movement
+        if (isMoving && isPressingButton)
+        {
+            lineRenderer.positionCount++;
+            lineRenderer.SetPosition(lineRenderer.positionCount - 1, movementSource.position);
+        }
+
+    }
+
     void UpdateMovement()
     {
         Debug.Log("Update Movement");
         Vector3 lastPosition = positionsList[positionsList.Count - 1];
+        Vector3 currentPosition = movementSource.position;
 
-        if(Vector3.Distance(movementSource.position,lastPosition) > newPositionThresholdDistance)
+        float distance = Vector3.Distance(currentPosition, lastPosition);
+
+        if (distance > 0f)
         {
-            positionsList.Add(movementSource.position);
-            Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 3f);
+            int numPointsToAdd = Mathf.CeilToInt(distance / newPositionThresholdDistance) * pointsPerInterval;
+            float stepSize = 1f / numPointsToAdd;
+
+            for (int i = 0; i < numPointsToAdd; i++)
+            {
+                float t = i * stepSize;
+                Vector3 point = Vector3.Lerp(lastPosition, currentPosition, t);
+                positionsList.Add(point);
+                Destroy(Instantiate(debugCubePrefab, point, Quaternion.identity), 3f);
+            }
         }
 
-        //update lineRenderer
-        lineRenderer.positionCount++;
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, movementSource.position);
+        // Update lineRenderer
+        lineRenderer.positionCount = positionsList.Count;
+        lineRenderer.SetPositions(positionsList.ToArray());
     }
 
     IEnumerator DissolveLine()
@@ -199,7 +224,7 @@ public class GestureRecognizer : MonoBehaviour
 
         // Set the starting alpha to 1 (fully opaque)
         float startingAlpha = 1f;
-        float startingAlpha2 = (50/255);
+        float startingAlpha2 = (50 / 255);
 
         // Time it takes for the line to dissolve
         float dissolveDuration = 1f;
@@ -286,7 +311,7 @@ public class GestureRecognizer : MonoBehaviour
         if (noteType == "circle2") noteType = "circle";
         Debug.Log("note" + noteType);
 
-        if(isLeft) noteSpawner.NoteHitLeft(noteType);
+        if (isLeft) noteSpawner.NoteHitLeft(noteType);
         else noteSpawner.NoteHitRight(noteType);
 
         coolDownCurrentTime = 0;
@@ -300,7 +325,6 @@ public class GestureRecognizer : MonoBehaviour
         visibleLineRenderer.SetPositions(positions);
 
         StartCoroutine(DissolveLine());
-        
     }
 
     public void PressingButton()
