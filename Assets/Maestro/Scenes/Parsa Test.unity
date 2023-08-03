@@ -1084,8 +1084,8 @@ MonoBehaviour:
   menu2: {fileID: 142576879}
   batonLeft: {fileID: 1828122009}
   batonRight: {fileID: 713426571}
-  staticBatonRight: {fileID: 0}
-  staticBatonLeft: {fileID: 0}
+  staticBatonRight: {fileID: 923021534}
+  staticBatonLeft: {fileID: 2120038174}
 --- !u!65 &718822994
 BoxCollider:
   m_ObjectHideFlags: 0
