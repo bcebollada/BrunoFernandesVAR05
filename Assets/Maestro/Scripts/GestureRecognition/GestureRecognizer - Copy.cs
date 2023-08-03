@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using PDollarGestureRecognizer;
 using System.IO;
-using static TreeEditor.TreeEditorHelper;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
-public class GestureRecognizer2 : MonoBehaviour
+public class GestureRecognizerMainMenu : MonoBehaviour
 {
     public RagnarokVRInputController actions;
 
@@ -45,7 +46,6 @@ public class GestureRecognizer2 : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
     }
 
 
@@ -56,7 +56,7 @@ public class GestureRecognizer2 : MonoBehaviour
         print(Application.dataPath + "\\Maestro\\Gestures");
         foreach (var item in gestureFiles)
         {
-            trainingSets.Add(GestureIO.ReadGestureFromFile(item));;
+            trainingSets.Add(GestureIO.ReadGestureFromFile(item)); ;
         }
 
         originalGradient = lineRenderer.colorGradient;
@@ -70,7 +70,6 @@ public class GestureRecognizer2 : MonoBehaviour
     {
         //if (movementSource.gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1) isMoving = true;
         //else isMoving = false;
-
         //Start The Movement
         Vector3 velocity = (movementSource.position - previousPosition) * Time.deltaTime;
         float velMagnitude = velocity.magnitude;
@@ -163,7 +162,7 @@ public class GestureRecognizer2 : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
-            if(result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
+            if (result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
             print(result.Score + result.GestureClass);
         }
 
@@ -174,7 +173,7 @@ public class GestureRecognizer2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-                //Updating The Movement
+        //Updating The Movement
         if (isMoving && isPressingButton)
         {
             lineRenderer.positionCount++;
@@ -224,7 +223,7 @@ public class GestureRecognizer2 : MonoBehaviour
 
         // Set the starting alpha to 1 (fully opaque)
         float startingAlpha = 1f;
-        float startingAlpha2 = (50/255);
+        float startingAlpha2 = (50 / 255);
 
         // Time it takes for the line to dissolve
         float dissolveDuration = 1f;
@@ -311,8 +310,6 @@ public class GestureRecognizer2 : MonoBehaviour
         if (noteType == "circle2") noteType = "circle";
         Debug.Log("note" + noteType);
 
-        if(isLeft) noteSpawner.NoteHitLeft(noteType);
-        else noteSpawner.NoteHitRight(noteType);
 
         coolDownCurrentTime = 0;
 
@@ -325,6 +322,17 @@ public class GestureRecognizer2 : MonoBehaviour
         visibleLineRenderer.SetPositions(positions);
 
         StartCoroutine(DissolveLine());
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        Debug.Log("will change");
+
+        if (scene.name == "Parsa Test")
+        {
+            Debug.Log("should change");
+
+            if (noteType == "vLine") SceneManager.LoadScene("Bruno Test");
+        }
     }
 
     public void PressingButton()

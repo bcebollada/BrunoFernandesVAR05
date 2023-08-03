@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using PDollarGestureRecognizer;
 using System.IO;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using static TreeEditor.TreeEditorHelper;
 
 public class GestureRecognizer : MonoBehaviour
@@ -45,7 +47,13 @@ public class GestureRecognizer : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name != "Parsa Test")
+        {
+            noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
+        }
     }
 
 
@@ -70,7 +78,6 @@ public class GestureRecognizer : MonoBehaviour
     {
         //if (movementSource.gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1) isMoving = true;
         //else isMoving = false;
-
         //Start The Movement
         Vector3 velocity = (movementSource.position - previousPosition) * Time.deltaTime;
         float velMagnitude = velocity.magnitude;
@@ -311,11 +318,6 @@ public class GestureRecognizer : MonoBehaviour
         if (noteType == "circle2") noteType = "circle";
         Debug.Log("note" + noteType);
 
-        if (isLeft) noteSpawner.NoteHitLeft(noteType);
-        else noteSpawner.NoteHitRight(noteType);
-
-        coolDownCurrentTime = 0;
-
         // Update visibleLineRenderer with the positions from lineRenderer
         Vector3[] positions = new Vector3[lineRenderer.positionCount];
         lineRenderer.GetPositions(positions);
@@ -325,6 +327,25 @@ public class GestureRecognizer : MonoBehaviour
         visibleLineRenderer.SetPositions(positions);
 
         StartCoroutine(DissolveLine());
+
+        Scene scene = SceneManager.GetActiveScene();
+
+        Debug.Log("will change");
+
+        if (scene.name == "Parsa Test" && GameObject.FindGameObjectWithTag("checker") != null)
+        {
+            Debug.Log("should change");
+
+            if (noteType == "vLine") SceneManager.LoadScene("Bruno Test");
+            else if (noteType == "hLine") SceneManager.LoadScene("Bruno Test2");
+        }
+        else
+        {
+            if (isLeft) noteSpawner.NoteHitLeft(noteType);
+            else noteSpawner.NoteHitRight(noteType);
+
+            coolDownCurrentTime = 0;
+        }
     }
 
     public void PressingButton()

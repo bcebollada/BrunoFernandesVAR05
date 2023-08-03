@@ -838,9 +838,49 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8568094415340130228}
     m_Modifications:
+    - target: {fileID: 1066335807886360288, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066335807886360288, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066335807886360288, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066335807886360288, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100619489563511867, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100619489563511867, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100619489563511867, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100619489563511867, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463826933571357020, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4200988623258086895, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
       propertyPath: m_Name
       value: Canvas_Music Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200988623258086895, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4200988623258086899, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
       propertyPath: m_Pivot.x
@@ -924,6 +964,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4200988623258086899, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6145808875086466404, guid: 6eb46843b480f9c4b9f154b1f7312c05, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
