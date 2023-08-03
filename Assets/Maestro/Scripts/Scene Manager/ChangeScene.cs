@@ -9,4 +9,12 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Level_Exit")
+        {
+            SceneManager.LoadScene("Bruno Test");
+        }
+    }
 }

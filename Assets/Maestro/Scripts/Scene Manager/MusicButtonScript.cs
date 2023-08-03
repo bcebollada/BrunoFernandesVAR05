@@ -15,6 +15,7 @@ public class MusicButtonScript : MonoBehaviour
     public TMP_Text countdownText; // Text component to display the countdown
     public Button Level_One_Button;
     public Button Level_Two_Button;
+    public GameObject Debug_cube;
 
     private bool isHoveringButton; // Flag to track if the raycast is hovering over a button
     private bool countdownStarted; // Flag to track if the countdown has started
@@ -23,7 +24,7 @@ public class MusicButtonScript : MonoBehaviour
     private void Update()
     {
         // Check if the raycast is hovering over a button
-        bool isHovering = menuRaycaster.CheckRayCast() && EventSystem.current.currentSelectedGameObject == Level_One_Button.gameObject;
+        bool isHovering = menuRaycaster.CheckRayCast() && EventSystem.current.currentSelectedGameObject == Debug_cube.gameObject;
 
         // Start or reset the countdown if the hover state changes
         if (isHovering != isHoveringButton)

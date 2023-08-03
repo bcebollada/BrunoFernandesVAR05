@@ -18,6 +18,7 @@ TagManager:
   - RespawnTrigger
   - Baton
   - Note
+  - Level_Exit
   layers:
   - Default
   - TransparentFX

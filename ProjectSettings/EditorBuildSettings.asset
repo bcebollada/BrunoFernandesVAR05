@@ -26,9 +26,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ragnarok/Scenes/Bruno_Scene.unity
     guid: d010864feb3d98d4a9c12aca2d8f1aed
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Ragnarok/Scenes/MainRagnarok_Scene.unity
-    guid: 58fc37afabe690441a86343d21a71cc5
+    path: Assets/Maestro/Scenes/Bruno Test.unity
+    guid: 7862660054205f14e8083a44428d8792
+  - enabled: 1
+    path: Assets/Maestro/Scenes/Parsa Test.unity
+    guid: 23da9fe8ab8f4dc47b9c4808a4fcdb2f
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f876dd5559361ce479f1124bd88d14ce, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 173386d98aa422848b98b65277486161, type: 2}

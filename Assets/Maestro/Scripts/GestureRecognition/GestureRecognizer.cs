@@ -9,7 +9,6 @@ public class GestureRecognizer : MonoBehaviour
 {
     public RagnarokVRInputController actions;
 
-
     public bool isPressingButton;
     public Transform movementSource;
 
@@ -301,6 +300,7 @@ public class GestureRecognizer : MonoBehaviour
         visibleLineRenderer.SetPositions(positions);
 
         StartCoroutine(DissolveLine());
+        
     }
 
     public void PressingButton()

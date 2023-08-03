@@ -1010,6 +1010,7 @@ MonoBehaviour:
   newGestureName: 
   isLeft: 0
   velMagMinimum: 0.5
+  coolDownTime: 0.5
 --- !u!1 &4543823929836812428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1183,7 @@ MonoBehaviour:
   newGestureName: 
   isLeft: 1
   velMagMinimum: 0.5
+  coolDownTime: 0.5
 --- !u!1 &4831162160416583913
 GameObject:
   m_ObjectHideFlags: 0
