@@ -50,7 +50,7 @@ public class GestureRecognizer : MonoBehaviour
 
         Scene scene = SceneManager.GetActiveScene();
 
-        if (scene.name != "Parsa Test")
+        if (scene.name != "MainMenu")
         {
             noteSpawner = GameObject.Find("NoteSpawner").GetComponent<NoteSpawner>();
         }
@@ -332,12 +332,12 @@ public class GestureRecognizer : MonoBehaviour
 
         Debug.Log("will change");
 
-        if (scene.name == "Parsa Test" && GameObject.FindGameObjectWithTag("checker") != null)
+        if (scene.name == "MainMenu" && GameObject.FindGameObjectWithTag("checker") != null)
         {
             Debug.Log("should change");
 
-            if (noteType == "vLine") SceneManager.LoadScene("Bruno Test");
-            else if (noteType == "hLine") SceneManager.LoadScene("Bruno Test2");
+            if (noteType == "vLine") SceneManager.LoadScene("Music1");
+            else if (noteType == "hLine") SceneManager.LoadScene("Music2");
         }
         else
         {

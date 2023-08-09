@@ -19,6 +19,9 @@ public class NoteSpawner : MonoBehaviour
 
     public float noteSpawnTimeOffset; //seconds that the note will be spawned before its beat
 
+    private AudioSource audioSource;
+
+
     public Camera cam;
 
     private void Awake()
@@ -27,6 +30,9 @@ public class NoteSpawner : MonoBehaviour
         noteOrderLeft = new List<GameObject>(); //activate the list
 
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
+
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void OnDrawGizmosSelected()
@@ -41,7 +47,7 @@ public class NoteSpawner : MonoBehaviour
     {
         int randomNum2 = Random.Range(0, 2);
 
-        if (randomNum2 == 0) //will spawn note for left hand
+        if (randomNum2 == 0 && audioSource.isPlaying) //will spawn note for left hand
         {
             for (int i = 0; i < numObjectsToSpawn; i++) //spawn notes in random position inside area
             {
