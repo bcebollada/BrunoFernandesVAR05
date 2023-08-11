@@ -2019,6 +2019,7 @@ MonoBehaviour:
   comboCount: 0
   hitTimeTreshHold: 0.25
   scoreText: {fileID: 2108698674}
+  scoreCanvasText: {fileID: 1995637689}
   scoreXText: {fileID: 2008456265}
   highScoreText: {fileID: 104421928}
   feebackTextPrefab: {fileID: 7384424541865042895, guid: c24703b473b3a524e8359e9f2dc897b8, type: 3}
@@ -2597,7 +2598,7 @@ GameObject:
   - component: {fileID: 1995637690}
   - component: {fileID: 1995637689}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Score_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

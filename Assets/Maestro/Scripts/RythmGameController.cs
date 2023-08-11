@@ -22,7 +22,7 @@ public class RythmGameController : MonoBehaviour
     public float hitTimeTreshHold;
 
     private int totalScore, totalHighScore;
-    public TMP_Text scoreText, scoreXText, highScoreText;
+    public TMP_Text scoreText,scoreCanvasText, scoreXText, highScoreText;
 
     public GameObject feebackTextPrefab;
 
@@ -65,6 +65,7 @@ public class RythmGameController : MonoBehaviour
         }
 
         scoreText.text = $"Score: {score}";
+        scoreCanvasText.text = $"Score: {score}";
         scoreXText.text = $"x{scoreMultiplier}";
     }
 
