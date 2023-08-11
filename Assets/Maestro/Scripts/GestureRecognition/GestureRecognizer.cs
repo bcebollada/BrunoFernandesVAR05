@@ -76,8 +76,6 @@ public class GestureRecognizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (movementSource.gameObject.GetComponent<Rigidbody>().velocity.magnitude > 0.1) isMoving = true;
-        //else isMoving = false;
         //Start The Movement
         Vector3 velocity = (movementSource.position - previousPosition) * Time.deltaTime;
         float velMagnitude = velocity.magnitude;
@@ -86,16 +84,6 @@ public class GestureRecognizer : MonoBehaviour
         if (velMagnitude > velMagMinimum) isPressingButton = true;
         else isPressingButton = false;
 
-        /*if (isLeft)
-        {
-            if (actions.TriggerPressedLeft) isPressingButton = true;
-            else if (!actions.TriggerPressedLeft) isPressingButton = false;
-        }
-        else
-        {
-            if (actions.TriggerPressedRight) isPressingButton = true;
-            else if (!actions.TriggerPressedRight) isPressingButton = false;
-        }*/
 
         if (!isMoving && isPressingButton)
         {
@@ -153,7 +141,6 @@ public class GestureRecognizer : MonoBehaviour
             pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
         }
 
-        //problema ta aqui
         Gesture newGesture = new Gesture(pointArray);
 
 
@@ -171,11 +158,7 @@ public class GestureRecognizer : MonoBehaviour
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSets.ToArray());
             if (result.Score > 0.6 && coolDownCurrentTime >= coolDownTime) GestureFinalized(result.GestureClass);
-            print(result.Score + result.GestureClass);
         }
-
-        //StartCoroutine(DissolveSingleLine());
-
 
     }
 
