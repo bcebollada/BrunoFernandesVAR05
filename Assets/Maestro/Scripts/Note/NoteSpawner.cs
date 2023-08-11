@@ -30,8 +30,7 @@ public class NoteSpawner : MonoBehaviour
         noteOrderLeft = new List<GameObject>(); //activate the list
 
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<RythmGameController>();
-
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("GameController").GetComponent<AudioSource>();
 
     }
 
